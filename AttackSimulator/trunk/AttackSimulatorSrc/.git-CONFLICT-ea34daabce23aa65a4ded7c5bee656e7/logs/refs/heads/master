@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 7dc74ca1a226598e5825788d6c23b2baabf9672e Anuj Varma <anujva@gmail.com> 1411350905 -0500	commit (initial): Templating Engine first commit
+7dc74ca1a226598e5825788d6c23b2baabf9672e 754883f34dff5e7b16c48f5942b33cc16854c336 Anuj Varma <anujva@gmail.com> 1411393480 -0500	merge origin/master: Fast-forward
+754883f34dff5e7b16c48f5942b33cc16854c336 ab501b58a061c42047abd40af6018f0dd3178db9 Anuj Varma <anujva@gmail.com> 1411407142 -0500	commit: Done with some coding for the Templating engine as a whole.. still about half of the work left.. 
+ab501b58a061c42047abd40af6018f0dd3178db9 963f023bcc2ce0e0d2300b54a25f8afa2bc8724b Anuj Varma <anujva@gmail.com> 1411426731 -0500	commit: Templating done and tested for TableValueGenerator and DateValueGenerator
