@@ -6,7 +6,9 @@
 
 package templatingsystem;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author securonix
  */
 
@@ -52,7 +53,7 @@ public class MySQLDBClass {
         setProperties(path);
         
         dbUrl = "jdbc:mysql://localhost:"+dbPort+"/" + databaseName + "?user=" + dbUsername + "&password=" + dbPassword;
-        //System.out.println(dbUrl);
+        System.out.println(dbUrl);
     }
     
     private void createConnection(){
@@ -78,7 +79,7 @@ public class MySQLDBClass {
     
     private void setProperties(String path){
         try {
-            /*
+            
             InputStream input = new FileInputStream(path);
             props = new Properties();
             props.load(input);
@@ -87,11 +88,11 @@ public class MySQLDBClass {
             dbPassword = props.getProperty("password");
             databaseName = props.getProperty("database");
             dbPort = props.getProperty("port");
-            */
-            dbUsername = "root";//props.getProperty("username");
-            dbPassword = "open24X7";//props.getProperty("password");
-            databaseName = "attacksimdev";//props.getProperty("database");
-            dbPort = "3306";//props.getProperty("port");
+            
+//            dbUsername = "root";//props.getProperty("username");
+//            dbPassword = "open24X7";//props.getProperty("password");
+//            databaseName = "attacksimdev";//props.getProperty("database");
+//            dbPort = "3306";//props.getProperty("port");
         } catch (Exception ex) {
                 //
         }//catch (FileNotFoundException ex) {

@@ -23,6 +23,6 @@ public abstract class ValueGeneratorType {
         this.params = params;
     }
     
-    public abstract HashMap<String, String> getValue() throws OperationNotSupportedException;
+    public abstract HashMap<String, String> getValue() throws OperationNotSupportedException, NumberFormatException;
 
 }

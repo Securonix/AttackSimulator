@@ -25,7 +25,8 @@ public class SequentialGenerator extends ValueGeneratorType{
     }
 
     @Override
-    public HashMap<String, String> getValue() throws OperationNotSupportedException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<String, String> getValue() throws OperationNotSupportedException, NumberFormatException {
+        
+        return null;
     }
 }
