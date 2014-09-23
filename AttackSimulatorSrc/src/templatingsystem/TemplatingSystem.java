@@ -169,7 +169,7 @@ public final class TemplatingSystem {
             }
             System.out.println(currentTransaction);
             try {
-                Thread.sleep(500);
+                Thread.sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
             }
