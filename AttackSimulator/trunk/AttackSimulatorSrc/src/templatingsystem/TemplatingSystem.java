@@ -30,9 +30,6 @@ public final class TemplatingSystem {
     private ArrayList<String> transactions;
     private HashMap<String, ValueGeneratorType> vgtMap;
     private volatile boolean running;
-    /**
-     * @param args the command line arguments
-     */
     
     public TemplatingSystem(){
         transactionFile = "";
@@ -60,9 +57,10 @@ public final class TemplatingSystem {
     }
     
     public void bufferAllTransactionLines(){
+        BufferedReader br = null;
         try{
             transactionFile = "transactionFile.txt";
-            BufferedReader br = new BufferedReader(new FileReader(transactionFile));
+            br = new BufferedReader(new FileReader(transactionFile));
             String lineRead;
             
             while((lineRead = br.readLine()) != null){
@@ -118,6 +116,14 @@ public final class TemplatingSystem {
             Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(br != null){
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     
@@ -154,17 +160,13 @@ public final class TemplatingSystem {
                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
                     }  
                 }else{
-                    try {
-                        
+                    try {          
                         currentTransaction = currentTransaction.replace(matcher.group(), vgtMap.get(matcher.group(1)).getValue().get(matcher.group(1)));
                     } catch (OperationNotSupportedException ex) {
                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-            
-            
-            
             System.out.println(currentTransaction);
             try {
                 Thread.sleep(500);
@@ -178,11 +180,13 @@ public final class TemplatingSystem {
         running = false;
     }
     
+     /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         // TODO code application logic here
         TemplatingSystem ts = new TemplatingSystem();
         ts.bufferAllTransactionLines();
         ts.generateFeed(null, null, null, null);
     }
-    
 }
