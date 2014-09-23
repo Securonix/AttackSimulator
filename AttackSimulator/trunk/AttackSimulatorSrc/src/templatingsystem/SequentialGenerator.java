@@ -19,14 +19,18 @@ public class SequentialGenerator extends ValueGeneratorType{
     
     public SequentialGenerator(String variableName, ArrayList<String> params) {
         super(variableName, params);
-        if(params == null || params.size() == 0){
-            throw new UnsupportedOperationException();
+        if(params == null || params.isEmpty()){
+            currentSeqVal = 0L;
+        }else{
+            currentSeqVal = Long.parseLong(params.get(0));
         }
     }
 
     @Override
     public HashMap<String, String> getValue() throws OperationNotSupportedException, NumberFormatException {
-        
-        return null;
+        HashMap<String, String> temp = new HashMap<>();
+        temp.put(variableName, currentSeqVal.toString());
+        currentSeqVal++;
+        return temp;
     }
 }
