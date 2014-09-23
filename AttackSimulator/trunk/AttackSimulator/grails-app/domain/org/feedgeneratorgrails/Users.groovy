@@ -1,0 +1,95 @@
+package org.feedgeneratorgrails
+
+class Users {
+    Integer id;
+    String employeeid;
+    String firstname;
+    String middlename;
+    String lastname;
+    String department;
+    String division;
+    String location;
+    String manageremployeeid;
+    String workemail
+    String workphone;
+    String title;
+    String employeetype;
+    Integer status;
+    String uniquecode;
+    Double riskscore;
+    String promoted;
+    Date createdate;
+/* "`usergroup`,\n" +
+"`street`,\n" +
+"`city`,\n" +
+"`province`,\n" +
+"`zipcode`,\n" +
+"`userstate`,\n" +
+"`region`,\n" +
+"`country`,\n" +
+"`approveremployeeid`,\n" +
+"`delegateemployeeid`,\n" +
+"`technicalapproverid`,\n" +
+"`extension`,\n" +
+"`fax`,\n" +
+"`mobile`,\n" +
+"`pager`,\n" +
+"`jobcode`,\n" +
+"`comments`,\n" +
+"`createdby`,\n" +
+"`costcentername`,\n" +
+"`costcentercode`,\n" +
+"`enabledate`,\n" +
+"`disabledate`,\n" +
+"`deletedate`,\n" +
+"`updatedate`,\n" +
+"`sunrisedate`,\n" +
+"`sunsetdate`,\n" +
+"`criticality`,\n" +
+"`domintlin`,\n" +
+"`nameprefix`,\n" +
+"`namesuffix`,\n" +
+"`preferredname`,\n" +
+"`secondaryphone`,\n" +
+"`statusdescription`,\n" +
+"`vacationstart`,\n" +
+"`vacationend`,\n" +
+"`networkid`,\n" +
+"`workpager`,\n" +
+"`workextensionnumber`,\n" +
+"`workfax`,\n" +
+"`employeestatuscode`,\n" +
+"`locationcode`,\n" +
+"`locationname`,\n" +
+"`mailcode`,\n" +
+"`hiredate`,\n" +
+"`rehiredate`,\n" +
+"`recenthiredate`,\n" +
+"`terminationdate`,\n" +
+"`lastdayworked`,\n" +
+"`contractstartdate`,\n" +
+"`contractenddate`,\n" +
+"`employeetypedescription`,\n" +
+"`regtempin`,\n" +
+"`fulltimeparttimein`,\n" +
+"`managerfirstname`,\n" +
+"`managerlastname`,\n" +
+"`managermiddlename`,\n" +
+"`orgunitnumber`,\n" +
+"`companycode`,\n" +
+"`companynumber`,\n" +
+"`hierarchy`,\n" +
+"`lastperformancereviewdate`,\n" +
+"`lastperformancereviewresult`,\n" +
+"`standardhours`,\n" +
+"`shiftcode`,\n" +
+"`shiftname`,\n" +
+"`lanid`,\n" +
+"`userid`,\n" +
+"`transferreddate`,\n" +
+"`datasourceid`,\n" +
+"`timezoneoffset`,\n" +
+    static constraints = {
+    }
+*/
+ }
