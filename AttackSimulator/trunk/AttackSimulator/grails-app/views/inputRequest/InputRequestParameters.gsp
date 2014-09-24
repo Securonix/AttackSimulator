@@ -10,7 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="layout" content="main" />
-       <g:javascript src="application.js" />
         <g:javascript src="parameters.js"/>
     </head>
     <body>
@@ -30,7 +29,7 @@
                     <hr />
 
                     <br />
-                    <form id="form_804346" class="appnitro"  method="post" action="">	
+                    <div id="form_804346" class="appnitro"  method="post" action="">	
                         <ul id="" style="list-style: none; width: 700px; float: left;">
                             <li style="float: left; clear:both; width: 100%"><h2>What is the type of feed you are seeking?</h2></li>
                             <li style="float:left; width: 100%; padding-top: 20px">
@@ -118,12 +117,7 @@
                                 </div>
                             </li>
                             <li style="float:left; width:100%; padding-top:20px">
-                                <div id="chooseIp" style="float: left">
-                                    <ul style="list-style: none; float: left">
-                                        <li style="float: left; padding-right: 20px">Destination Ip: <input id="destinationIp" type="text" title="This will be the IP to which syslog will send the logs"/></li>
-                                        <li style="float: left">Destination Port: <input id="destinationPort" type="text" title="This will be port where syslog sends the log"/></li>
-                                    </ul>
-                                </div>
+                                
                             </li>
                         </ul>
                         <!--ul id="part2" style="list-style: none; width: 700px; float: left;">
@@ -139,9 +133,14 @@
                                 <p style="float: left"><input type="radio" name="uploadusers" value="2" style="width:20px"/>No, I will use the provided HR List of Users</p>
                             </li>
                         </ul-->
-                        <button id="parameterssubmit">Submit</button>
-                    </form>
-
+                    </div>
+                    <div id="chooseIp" style="float: left; width:100%">
+                        <ul style="list-style: none; float: left">
+                            <li style="float: left; padding-right: 20px">Destination Ip: <input id="destinationIp" type="text" title="This will be the IP to which syslog will send the logs"/></li>
+                            <li style="float: left">Destination Port: <input id="destinationPort" type="text" title="This will be port where syslog sends the log"/></li>
+                        </ul>
+                    </div>
+                    <div style="float:left; width: 100%"><button id="parameterssubmit">Submit</button></div>
                     <div class="clear"></div>
                 </div>
 

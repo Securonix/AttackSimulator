@@ -9,6 +9,7 @@ class UielementsController {
     }
     
     def getFeedtypes(){
-        
+        def feedtypes = Feedmaster.getAll();
+        render(template:'orderlist', model:[feeds:feedtypes]);
     }
 }
