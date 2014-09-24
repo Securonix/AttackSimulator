@@ -1,0 +1,1 @@
+{{datetime}} {{datetime}} {{datetime}} || {{randomvalue}} generated this random value for sharepoint feed

@@ -45,7 +45,7 @@ public class MySQLDBClass {
     private String dbPort = null;
     
     MySQLDBClass(){
-        String path = "conf/jdbc.properties";
+        String path = "jdbc.properties";
         databaseName = new String();
         dbUsername = new String();
         dbPassword = new String();
@@ -348,7 +348,7 @@ public class MySQLDBClass {
     
     private void setProperties(String path){
         try {
-            InputStream input = new FileInputStream(path);
+            InputStream input = MySQLDBClass.class.getResourceAsStream(path);
             props = new Properties();
             props.load(input);
             
@@ -356,11 +356,12 @@ public class MySQLDBClass {
             dbPassword = props.getProperty("password");
             databaseName = props.getProperty("database");
             dbPort = props.getProperty("port");
-            
-//            dbUsername = "root";//props.getProperty("username");
-//            dbPassword = "open24X7";//props.getProperty("password");
-//            databaseName = "attacksimdev";//props.getProperty("database");
-//            dbPort = "3306";//props.getProperty("port");
+           /*
+            dbUsername = "root";//props.getProperty("username");
+            dbPassword = "open24X7";//props.getProperty("password");
+            databaseName = "attacksimdev";//props.getProperty("database");
+            dbPort = "3306";//props.getProperty("port");
+            */
         } catch (Exception ex) {
                 //
         }//catch (FileNotFoundException ex) {
