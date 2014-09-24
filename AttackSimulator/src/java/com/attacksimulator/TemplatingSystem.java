@@ -171,7 +171,13 @@ public final class TemplatingSystem {
                     }
                 }
             }
-            System.out.println(currentTransaction);
+            
+            //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
+            String [] splitTransactions = currentTransaction.split("\\|\\|");
+            for(String transaction : splitTransactions){
+                System.out.println(transaction);
+            }
+            
             try {
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
