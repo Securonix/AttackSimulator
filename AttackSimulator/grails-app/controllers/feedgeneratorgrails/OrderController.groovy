@@ -38,8 +38,18 @@ class OrderController {
         }
        
         for(int i=0; i<feedtype.length; i++){
-            Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 0, threadid: -1);
-            order.save(flush: true);
+            def prevOrder = Orders.findByFeedtypeAndDestinationip(feedtype[i], destinationip);
+            
+            if(prevOrder == null){
+                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 0, threadid: -1);
+                order.save(flush: true);
+            }else{
+                prevOrder.frequency = frequencies[i];
+                prevOrder.destinationport = destinationport;
+                prevOrder.startdate = Date.parse("MM/dd/yyyy", startdates[i]);
+                prevOrder.enddate = Date.parse("MM/dd/yyyy", enddates[i]);
+                prevOrder.save(flush: true);
+            }
         }
         
         render "success";

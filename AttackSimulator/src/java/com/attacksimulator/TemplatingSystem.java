@@ -10,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -142,7 +144,7 @@ public final class TemplatingSystem {
             */
             int index = random.nextInt(transactions.size());
             String currentTransaction = transactions.get(index);
-            
+            Long currentFrequency = getCurrentFrequencyTest(frequency);
             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
             Pattern pat = Pattern.compile(pattern);
             Matcher matcher = pat.matcher(currentTransaction);
@@ -179,7 +181,7 @@ public final class TemplatingSystem {
             }
             
             try {
-                Thread.sleep(50);
+                Thread.sleep(currentFrequency);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -198,5 +200,55 @@ public final class TemplatingSystem {
         TemplatingSystem ts = new TemplatingSystem();
         ts.bufferAllTransactionLines();
         ts.generateFeed(null, null, null, null);
+    }
+
+    private Long getCurrentFrequency(String frequency) {
+        String [] frequencies = frequency.split(",");
+        ArrayList<Long> frequencyLong = new ArrayList<>();
+        for(String freq : frequencies){
+            frequencyLong.add(Long.parseLong(freq));
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        int currenttime = Integer.parseInt(sdf.format(cal.getTime()));
+        if(currenttime >= 0 && currenttime<9){
+            return frequencyLong.get(0);
+        }else if(currenttime >= 9 && currenttime < 15){
+            return frequencyLong.get(1);
+        }else if(currenttime >= 15 && currenttime < 18){
+            return frequencyLong.get(2);
+        }else if(currenttime >= 18 && currenttime < 21){
+            return frequencyLong.get(3);
+        }else if(currenttime >= 21 && currenttime < 23){
+            return frequencyLong.get(4);
+        }
+        
+        return 0L;
+    }
+    
+    private Long getCurrentFrequencyTest(String frequency) {
+        String [] frequencies = frequency.split(",");
+        ArrayList<Long> frequencyLong = new ArrayList<>();
+        for(String freq : frequencies){
+            frequencyLong.add(Long.parseLong(freq));
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("ss");
+        int currenttime = Integer.parseInt(sdf.format(cal.getTime()));
+        if(currenttime >= 0 && currenttime<15){
+            return frequencyLong.get(0);
+        }else if(currenttime >= 15 && currenttime < 25){
+            return frequencyLong.get(1);
+        }else if(currenttime >= 25 && currenttime < 35){
+            return frequencyLong.get(2);
+        }else if(currenttime >= 35 && currenttime < 45){
+            return frequencyLong.get(3);
+        }else if(currenttime >= 45 && currenttime < 60){
+            return frequencyLong.get(4);
+        }
+        
+        return 0L;
     }
 }
