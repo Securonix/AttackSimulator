@@ -28,16 +28,22 @@ import javax.naming.OperationNotSupportedException;
  */
 
 public final class TemplatingSystem {
-    private String transactionFile;
+    private final String transactionFile;
     private ArrayList<String> transactions;
-    private HashMap<String, ValueGeneratorType> vgtMap;
+    private final HashMap<String, ValueGeneratorType> vgtMap;
     private volatile boolean running;
+    private final ArrayList<Integer> transactionWeights;
+    private final ArrayList<Integer> weightedTransactionIds;
+    private final Random rand;
     
     public TemplatingSystem(){
         transactionFile = "";
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
         running = true;
+        rand = new Random();
+        transactionWeights = new ArrayList<>();
+        weightedTransactionIds = new ArrayList<>();
     }
     
     public TemplatingSystem(String feedtype){
@@ -45,7 +51,10 @@ public final class TemplatingSystem {
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
         running = true;
+        transactionWeights = new ArrayList<>();
+        weightedTransactionIds = new ArrayList<>();
         bufferAllTransactionLines();
+        rand = new Random();
     }
     
     public String getTransactionFile(String feedtype){
@@ -59,6 +68,7 @@ public final class TemplatingSystem {
     }
     
     public void bufferAllTransactionLines(){
+        //This function buffers the transaction lines and builds the array that will be used to generate the feed with weights.
         BufferedReader br = null;
         try{
             if(transactionFile.isEmpty()){
@@ -73,7 +83,12 @@ public final class TemplatingSystem {
                 if(transactions == null){
                     transactions = new ArrayList<>();
                 }
-                transactions.add(lineRead);
+                
+                String[] splitLine = lineRead.split("<<");
+                
+                transactions.add(splitLine[0].trim());
+                transactionWeights.add(Integer.parseInt(splitLine[1].trim()));
+                
                 //find all the values in the {{ .* }} 
                 String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
                 Pattern pat = Pattern.compile(pattern);
@@ -118,6 +133,36 @@ public final class TemplatingSystem {
                     }
                 }
             }
+            
+            //first sum up all the weights that we got from the transaction file.
+            int sumOfWeights = 0;
+            for(Integer weight : transactionWeights){
+                sumOfWeights += weight;
+            }
+
+            //Find the factor that is needed to get to 1000.
+            double factor = 1000.0/sumOfWeights;
+
+            //multiply this factor to all the weights.
+            ArrayList<Integer> weights1000 = new ArrayList<>();
+            int sumWhilePuttingItIn = 0;
+            for(Integer weight : transactionWeights){
+                sumWhilePuttingItIn += (int)(Math.floor(weight * factor));
+                weights1000.add((int)(Math.ceil(weight * factor)));
+            }
+
+            if(sumWhilePuttingItIn != 1000){
+                int diff = 1000-sumWhilePuttingItIn;
+                int value = weights1000.get(weights1000.size()-1);
+                weights1000.set(weights1000.size()-1, value+diff);
+            }       
+
+            for(int i=0; i<weights1000.size(); i++){
+                int index = weights1000.get(i);
+                for(int j=0; j<index; j++){
+                    weightedTransactionIds.add(i);
+                }
+            }
         }catch(FileNotFoundException ex){
             Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -142,7 +187,8 @@ public final class TemplatingSystem {
             * in the sequence that was specified. For testing purpose this has not been implemented yet.
             * @TODO
             */
-            int index = random.nextInt(transactions.size());
+            //int index = random.nextInt(transactions.size());
+            int index = getRandomizedIndex();
             String currentTransaction = transactions.get(index);
             Long currentFrequency = getCurrentFrequencyTest(frequency);
             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
@@ -177,7 +223,7 @@ public final class TemplatingSystem {
             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
             String [] splitTransactions = currentTransaction.split("\\|\\|");
             for(String transaction : splitTransactions){
-                System.out.println(transaction);
+                System.out.println(transaction.trim());
             }
             
             try {
@@ -250,5 +296,10 @@ public final class TemplatingSystem {
         }
         
         return 0L;
+    }
+
+    private int getRandomizedIndex() {
+        int index = rand.nextInt(1000);
+        return weightedTransactionIds.get(index);
     }
 }
