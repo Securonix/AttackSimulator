@@ -16,6 +16,7 @@
                                                     <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
                                                     <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.ui.datepicker.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+                                                    <link rel="stylesheet" href="${resource(dir: 'css', file: 'login.css')}" type="text/css">
 		<g:javascript library="application"/>
                                                     <g:javascript library="jquery" />
                                                     <g:javascript library="jquery-ui" />
