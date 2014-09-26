@@ -163,7 +163,7 @@ $(document).ready(function() {
         return 0;
     }
     
-    $("#parameterssubmit").click(function(){
+    $("#parameterssubmit").click(function(event){
         event.preventDefault();
         //we have to make sure that each feed has the start date the end date and the frequency values set
         var destinationip = $("#destinationIp").val();

@@ -106,7 +106,7 @@ class LoginController {
             return;
         }
 
-        String view = '/loginRegister/LoginRegister.gsp';
+        String view = '/loginRegister/LoginRegisterSecuronix.gsp';
         String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
         render view: view, model: [postUrl: postUrl,
             rememberMeParameter: config.rememberMe.parameter]
