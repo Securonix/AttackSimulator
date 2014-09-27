@@ -1,1 +1,5 @@
-{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed
+{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed -- weight 23 << 23
+{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed -- weight 25 << 25
+{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed -- weight 73 << 73
+{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed -- weight 123 << 123
+{{sequence}} {{sequence}} {{sequence}} || {{randomvalue}} generated this random value for windows feed -- weight 923 << 923
