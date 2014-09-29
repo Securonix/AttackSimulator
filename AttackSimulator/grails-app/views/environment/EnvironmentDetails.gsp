@@ -18,7 +18,7 @@
     <body>
         <div id="container">
             <div id="header">
-                <a id="logo" href="/AttackSimulator/" title="AttackSimulator"><img src=" ${request.contextPath}/images/SecuronixLogo.jpeg" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px;"></a>
+                <a id="logo" href="/AttackSimulator/" title="AttackSimulator"><img src=" ${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px;"></a>
                 <p><span>TRIAL FEED </span> REQUEST</p>
                 <p id="userinfo">Hi "${user}" | <a href="/AttackSimulator/logout">Logout</a></p>
             </div>
