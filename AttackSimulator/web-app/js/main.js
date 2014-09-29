@@ -236,12 +236,12 @@ function registerUser(){
 
   var passhash = md5(password);
 
-  $.post("http://localhost:8080/FeedGeneratorUI/ajaxCheckUser", {username: username}, function(data){
+  $.post("/AttackSimulator/ajaxCheckUser", {username: username}, function(data){
     if(data == "true"){
       var message = document.getElementById('message');
       message.innerHTML = "Username already in use, please choose another.";
     }else{
-      $.post("FeedGeneratorUI/register", {
+      $.post("/AttackSimulator/Register/register", {
           username: username,
           password: passhash,
           fullname: name,

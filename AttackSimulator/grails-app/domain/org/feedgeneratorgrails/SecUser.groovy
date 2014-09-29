@@ -14,6 +14,7 @@ class SecUser {
                           String company;
                           String workemail;
                           String phone;
+                          boolean businessuser;
 
 	static constraints = {
 		username blank: false, unique: true

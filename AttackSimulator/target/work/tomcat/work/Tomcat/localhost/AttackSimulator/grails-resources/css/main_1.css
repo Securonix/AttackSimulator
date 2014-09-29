@@ -368,6 +368,10 @@ table.message th, table.response th {
     height: 152px; /*hight of the spinner gif +2px to fix IE8 issue */
 }
 
+#logo .notlogin{
+    height: 55px;
+}
+
 #logo:hover{
     text-decoration: none;
 }
