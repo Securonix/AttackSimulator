@@ -39,7 +39,7 @@ li {list-style: none;}
     border-radius: 4px 4px 4px 4px;
     padding: 5px;
 }
-#login-box {margin-top:20px;}
+#login-box {float:left; margin-top:20px;}
 
 #login-box input[type='text'], #login-box input[type='password'] {border: 1px solid #BBBBBB;box-shadow: 1px 1px 5px #9C9C9C inset;color: #000000;height: 30px;padding-left: 36px;width: 254px;}
 #login-box input[type='text']:focus, #login-box input[type='password']:focus {outline: none;}
@@ -73,7 +73,7 @@ li {list-style: none;}
 .login-password {display:block;height: 23px;width:23px;background:url(../images/ui/access_account_white.png) no-repeat; cursor:pointer;color:#CCCCCC;padding-left: 25px;width: 60px;margin-bottom: 2px;font-size: 12px;}
 .noti-ico {float: left; margin-right: 0.3em;}
 .login-table {padding-bottom: 30px;border-collapse: collapse;}
-.footer-wrapper{margin: 80px auto 25px;width: 460px;}
+.footer-wrapper{float:left; margin: 80px auto 25px;width: 460px;}
 .login-ico-alert {position: relative; top: 1px; float: left; margin-right: 10px;}
 .login-alert-msg {float: left; display: block;font-size: 12px;}
 .login-button:hover {background: #292929;cursor: pointer;}
@@ -89,4 +89,4 @@ li {list-style: none;}
 #details-close {color: #CD3333;float: right;font-size: 1.4em;padding-right: 10px;padding-top: 4px;cursor: pointer;}
 
 .login-table tr:nth-child(3) td a {font-size: 1.1em; font-weight: bold; text-decoration: underline; padding-left: 4px;}
-#logo{margin-left: 15px;height: 75px;}
+#logo{float: left; margin-left: 15px;height: 75px;}
