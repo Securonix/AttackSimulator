@@ -13,50 +13,9 @@
         <!--[if lte IE 9]>  
             <link href="<g:resource dir='css' file='framework_lte_ie9.css' />" rel="stylesheet" type="text/css">
         <![endif]-->
-        <script type="text/javascript" src="<g:resource dir='js' file='validation.js' />"></script>
-        <script type="text/javascript" src="<g:resource dir='js' file='jquery.validate.js' />"></script>
-        <script type="text/javascript" src="<g:resource dir='js' file='validation_customRules.js' />"></script>
-        <script>
-            //Window resize handler
-            jQuery(window).resize(adjustLayout);
-
-            jQuery(document).ready(function() {
-            validatePasswordForm("loginchangePassword");
-            jQuery( "input:submit, input:button", "#loginchangePassword" ).button();
-            //display login details
-            jQuery('#display-login-details').click(function() {
-            jQuery( "#login-details-wrapper" ).slideDown( "slow");
-            });
-            //hide login details
-            jQuery('#details-close').click(function() {
-            jQuery( "#login-details-wrapper" ).slideUp( "slow");
-            });
-
-            adjustLayout();
-            });
-
-            //Function to adjust layout according to screen size
-            function adjustLayout() {
-            var containerLt  = (jQuery(window).width() - jQuery('#container').width()) / 2;
-            var containerTp  = (jQuery(window).height() - jQuery('#container').height()) / 2;
-            var containerCss = {
-            'position': 'absolute',
-            'left': containerLt,
-            'top': containerTp - 40
-            };
-
-            //Set container left
-            if (containerLt < 0)
-            containerCss.left = 0;
-
-            //Set container top
-            if (containerTp < 0)
-            containerCss.top  = 0;
-
-            //Apply css to container
-            jQuery('#container').css(containerCss);
-            }
-        </script>
+        <script type="text/javascript" src="<g:resource dir='js' file='maingrails.js'/>"></script>
+        <script type="text/javascript" src="<g:resource dir='js' file='registration.js' />"></script>
+        
         <title>Login </title>
         <meta name="generator" content="editplus" />
         <meta name="author" content="Securonix Solutions" />
@@ -128,13 +87,25 @@
                         </tr>
                         <tr>
                             <td id="lost-password" colspan="3" style="text-align: left;">
-                                <a href="#" id="display-login-details"></a> &nbsp;&nbsp; | &nbsp;&nbsp;
-                                <a href="">
-                                    <a href=""></a>
+                                <a href="#register" id="registerfunction">First time user? Register</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+                                <a href="">Lost Password? Request reset</a>
                             </td>
                         </tr>
                     </table>
                 </form>
+            </div>
+            <div id="register" class="modalDialog">
+                <img id="close-modal" src="${request.contextPath}/images/close.png" style="float:right; width: 50px; height: 50px"/>
+                <ul style="list-style: none; width: 500px; float: left;">
+                    <li style="width: 150px; float: left;">Name: </li><li style="width: 350px; float: left;"><input type="text" id="register-name" required/></li>
+                    <li style="width: 150px; float: left;">Username: </li><li style="width: 350px; float: left;"><input type="text" id="register-username" required/></li>
+                    <li style="width: 150px; float: left;">Desired Password: </li><li style="width: 350px; float: left;"><input type="password" id="register-password" required/></li>
+                    <li style="width: 150px; float: left;">Confirm Password: </li><li style="width: 350px; float: left;"><input type="password" id="register-confirm-password" required/></li>
+                    <li style="width: 150px; float: left;">Work Email: </li><li style="width: 350px; float: left;"><input type="text" id="register-email" required/></li>
+                    <li style="width: 150px; float: left;">Confirm Email: </li><li style="width: 350px; float: left;"><input type="text" id="register-confirm-email" required/></li>
+                    <li style="width: 150px; float: left;">Is this for Business use: </li><li style="width: 350px; float: left;"><input type="checkbox" id="businessuse" required/></li>
+                </ul>
+                <div style="padding-left: 120px; clear: both;"><button id="register-button" style="width: 140px">Register</button></div>
             </div>
             <div class="footer-wrapper">
                 <span style="color:#434343">Footer text</span>

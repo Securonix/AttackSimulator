@@ -90,3 +90,21 @@ li {list-style: none;}
 
 .login-table tr:nth-child(3) td a {font-size: 1.1em; font-weight: bold; text-decoration: underline; padding-left: 4px;}
 #logo{float: left; margin-left: 15px;height: 75px;}
+
+.modalDialog{
+    width: 400px;
+    position: fixed;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10% auto;
+    opacity: 1;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.8);
+    background: -moz-linear-gradient(#fff, #999);
+    background: -webkit-linear-gradient(#fff, #999);
+    background: -o-linear-gradient(#fff, #999);
+    top: 100px;
+    z-index: 9999;
+}
+

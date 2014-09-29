@@ -19,7 +19,7 @@
     <body>
         <div id="container">
             <div id="header">
-                <img id="logo" src="${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px; cursor: pointer;">
+                <img id="logo" class="notlogin" src="${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px; cursor: pointer;">
                 <p><span>TRIAL FEED </span> REQUEST</p>
                 <p id="userinfo">Hi "${user}" | <a href="/AttackSimulator/inputRequest/inputRequest">Place Orders</a> | <a href="/AttackSimulator/logout">Logout</a></p>
             <div id="content">
