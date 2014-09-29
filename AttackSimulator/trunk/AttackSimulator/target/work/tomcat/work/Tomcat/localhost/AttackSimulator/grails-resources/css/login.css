@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 body {background-image:url(../images/lg_images/body-bg.jpg); /* background-color:white */ color: black; /* #717275 */ line-height: 20px; font-family: helvetica,arial,san serif; font-size: 11px; font-weight: normal;}
-#container{width :730px;margin: 0px auto;}
+#container{width :730px;margin: 0px auto; border: none}
 a:link {color:#43790b; text-decoration:none;}
 a:visited {color:#43790b; text-decoration:none;}
 a:hover {color:#43790b;text-decoration:underline; background-color:#ffffcc;}
