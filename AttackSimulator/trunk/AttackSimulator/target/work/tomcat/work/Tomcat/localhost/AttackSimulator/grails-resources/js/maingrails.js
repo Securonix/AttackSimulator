@@ -5,6 +5,8 @@
  */
 
 $(document).ready(function(){
+  
+    $('#simple-menu').sidr();
     
     $("#register-button").click(function(){
         var name = document.getElementById('register-name').value;

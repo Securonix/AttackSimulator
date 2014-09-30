@@ -6,14 +6,16 @@ import com.attacksimulator.RunSysLogFeeds;
 
 class ThreadManageController {
     
-    @Secured(['ROLE_ADMIN'])
+  def springSecurityService;
+    
     def index() { 
-        def orders = Orders.findAllByApproved("1");
+      def userid = springSecurityService.currentUser.id;
+        def orders = Orders.findAllByApprovedAndUserid("1", userid);
+        def user = springSecurityService.currentUser.username;
         
-        render(view: '/threadManage/threadManage.gsp', model:[orders: orders])
+        render(view: '/threadManage/threadManage.gsp', model:[orders: orders, user: user])
     }
     
-    @Secured(['ROLE_ADMIN'])
     def startStop(){
         def orderid = params.orderid;
         def operation = params.operation;

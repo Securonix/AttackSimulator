@@ -46,7 +46,7 @@ class EnvironmentController {
         render "success"
     }
     
-    HashMap<Integer, ArrayList<String>> getUserIpMapping(String internalrange, Integer numofusers, Integer secuserid){
+    HashMap< Integer, ArrayList<String> > getUserIpMapping(String internalrange, Integer numofusers, Integer secuserid){
         /*
         *   Class A range: 0.0.0.0   -------    127.255.255.255
         *   Class B range: 128.0.0.0 -----    191.255.  255.255
