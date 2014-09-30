@@ -18,7 +18,7 @@
             <div id="header">
                 <img id="logo" class="notlogin" src="${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px; cursor: pointer;">
                 <p><span>TRIAL FEED </span> REQUEST</p>
-                <p id="userinfo"><a href="/AttackSimulator/AdminView">Admin View</a>&nbsp;|&nbsp;<a href="/AttackSimulator/logout">Logout</a></p>
+                <p id="userinfo">Hi "${user}" &nbsp;|&nbsp;<a href="/AttackSimulator/logout">Logout</a></p>
             </div>
             <div id="content">
                 <div id="index">
