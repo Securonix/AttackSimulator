@@ -85,22 +85,25 @@ class LoginController {
                 //test if the user has already put in his environment details.If he has then redirect him to orders page
                 def userid = springSecurityService.currentUser.id;
                 def testUserInSysMap = Sysipusermapping.findAllBySecuserid(userid);
-                
+                /*
                 if(testUserInSysMap.size() == 0 || testUserInSysMap == null){
                         redirect uri:'/Environment';
                 }else{
                     redirect uri: '/inputRequest/inputRequest';
                 }
+                */
+               redirect uri: '/Environment';
             }else{
                 //test if the user has already put in his environment details.If he has then redirect him to orders page
                 def userid = springSecurityService.currentUser.id;
                 def testUserInSysMap = Sysipusermapping.findAllBySecuserid(userid);
-                
+                /*
                 if(testUserInSysMap.size() == 0 || testUserInSysMap == null){
                         redirect uri:'/Environment';
                 }else{
                     redirect uri: '/inputRequest/inputRequest';
-                }
+                }*/
+                redirect uri: '/Environment';
             }
             
             return;
@@ -129,22 +132,25 @@ class LoginController {
                 //test if the user has already put in his environment details.If he has then redirect him to orders page
                 def userid = springSecurityService.currentUser.id;
                 def testUserInSysMap = Sysipusermapping.findAllBySecuserid(userid);
-                
+                /*
                 if(testUserInSysMap.size() == 0 || testUserInSysMap == null){
                         redirect uri:'/Environment';
                 }else{
                     redirect uri: '/inputRequest/inputRequest';
                 }
+                */
+               redirect uri: '/Environment';
             }else{
                 //test if the user has already put in his environment details.If he has then redirect him to orders page
                 def userid = springSecurityService.currentUser.id;
                 def testUserInSysMap = Sysipusermapping.findAllBySecuserid(userid);
-                
+                /*
                 if(testUserInSysMap.size() == 0 || testUserInSysMap == null){
                         redirect uri:'/Environment';
                 }else{
                     redirect uri: '/inputRequest/inputRequest';
-                }
+                }*/
+                redirect uri: '/Environment';
             }
             return;
         }
