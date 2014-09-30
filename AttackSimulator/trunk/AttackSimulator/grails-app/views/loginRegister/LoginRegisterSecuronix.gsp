@@ -27,12 +27,12 @@
         <br/>
         <br/>
         <div id="container">
-            <div id="logo">
+            <div id="logo-main">
                 <img src="${request.contextPath}/images/lg_images/logo_high_res.png" alt="" style="float:left;" />
                 <span class="product-header">Attack Simulator</span>
                 <div style="clear: both;"></div>
             </div>
-            <div id="login-box" style="height:510px;">
+            <div id="login-box" style="height:150px;">
                 <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
                     <input type="hidden" value="${targetUri}" name="spring-security-redirect"/>
                     <table width="230px" class="login-table">
@@ -94,6 +94,14 @@
                     </table>
                 </form>
             </div>
+            <div id="messages" style="float:left; color: red; font-weight: bold">
+                <g:if test="${flash.message}">
+                    ${flash.message}
+                  </g:if>
+            </div>
+            <div id="information" style="margin-top: 50px; min-height: 200px; float:left"><p style="font-weight: bold">Information:</p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum eleifend, feugiat elit sit amet, posuere ex. Etiam vel vulputate leo. Aenean mauris sapien, pretium ac feugiat vitae, pellentesque eu mi. Integer eu pulvinar justo. Nam nibh sapien, dictum id aliquet ac, blandit a ante. Morbi tristique euismod dictum. Aliquam dignissim vulputate turpis, et cursus nisl bibendum in. Morbi eleifend elit a blandit faucibus. Pellentesque dignissim sagittis turpis. Donec auctor semper scelerisque.
+            </div>
             <div id="register" class="modalDialog">
                 <img id="close-modal" src="${request.contextPath}/images/close.png" style="float:right; width: 50px; height: 50px"/>
                 <ul style="list-style: none; width: 500px; float: left;">
@@ -108,7 +116,7 @@
                 <div style="padding-left: 120px; clear: both;"><button id="register-button" style="width: 140px">Register</button></div>
             </div>
             <div class="footer-wrapper">
-                <span style="color:#434343">Footer text</span>
+                <span style="color:#434343"></span>
             </div>
         </div>
     </body>
