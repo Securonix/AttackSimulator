@@ -26,32 +26,32 @@ $(document).ready(function(){
         confirmPassword = confirmPassword.trim();
         
         if(name === null || name === ""){
-            $("#message").html("Name cannot be left blank");
+            $("#messageModal").html("Name cannot be left blank");
             return;
         }
         
         if(email === null || email === ""){
-            $("#message").html("Email cannot be left blank");
+            $("#messageModal").html("Email cannot be left blank");
             return;
         }
         
         if(email !== confirmEmail){
-            $("#message").html("Email's don't match, please correct them");
+            $("#messageModal").html("Email's don't match, please correct them");
             return;
         }
         
         if(username === null || username === ""){
-            $("#message").html("Username cannot be blank");
+            $("#messageModal").html("Username cannot be blank");
             return;
         }
         
         if(password === null || password === ""){
-            $("message").html("Password cannot be blank");
+            $("messageModal").html("Password cannot be blank");
             return;
         }
         
         if(password !== confirmPassword){
-            $("#message").html("Passwords do not match, please correct them");
+            $("#messageModal").html("Passwords do not match, please correct them");
             return;
         }
         
@@ -67,7 +67,7 @@ $(document).ready(function(){
             businessuser: businessuser
         }, function(data){
            if(data === "success"){
-               $("#message").html("Thank you for registering with Securonix. You can use your account to request for sample feeds from Securonix");
+               $("#message").html("Thank you for registering with Securonix. An email will be sent to you when your account has been approved.");
                //clear up the registration form
               document.getElementById('register-name').value = "";
               document.getElementById('register-email').value = "";
@@ -75,8 +75,9 @@ $(document).ready(function(){
               document.getElementById('register-username').value = "";
               document.getElementById('register-password').value = "";
               document.getElementById('register-confirm-password').value = "";
+              $("#register").hide();
            }else if(data === "failure"){
-               $("#message").html("There was some problem registering, please try again later");
+               $("#messageModal").html("There was some problem registering, please try again later");
            }
         });
     });
