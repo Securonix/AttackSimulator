@@ -13,7 +13,6 @@
         <!--[if lte IE 9]>  
             <link href="<g:resource dir='css' file='framework_lte_ie9.css' />" rel="stylesheet" type="text/css">
         <![endif]-->
-        <script type="text/javascript" src="<g:resource dir='js' file='maingrails.js'/>"></script>
         <script type="text/javascript" src="<g:resource dir='js' file='registration.js' />"></script>
         
         <title>Login </title>
@@ -99,6 +98,7 @@
                     ${flash.message}
                   </g:if>
             </div>
+            <div id="message" style="float:left; width:600px; color: red;"></div>
             <div id="information" style="margin-top: 50px; min-height: 200px; float:left"><p style="font-weight: bold">Information:</p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum eleifend, feugiat elit sit amet, posuere ex. Etiam vel vulputate leo. Aenean mauris sapien, pretium ac feugiat vitae, pellentesque eu mi. Integer eu pulvinar justo. Nam nibh sapien, dictum id aliquet ac, blandit a ante. Morbi tristique euismod dictum. Aliquam dignissim vulputate turpis, et cursus nisl bibendum in. Morbi eleifend elit a blandit faucibus. Pellentesque dignissim sagittis turpis. Donec auctor semper scelerisque.
             </div>
@@ -114,6 +114,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum ele
                     <li style="width: 150px; float: left;">Is this for Business use: </li><li style="width: 350px; float: left;"><input type="checkbox" id="businessuse" required/></li>
                 </ul>
                 <div style="padding-left: 120px; clear: both;"><button id="register-button" style="width: 140px">Register</button></div>
+                <div id="messageModal" style="float:left; width:600px; color: red"></div>
             </div>
             <div class="footer-wrapper">
                 <span style="color:#434343"></span>

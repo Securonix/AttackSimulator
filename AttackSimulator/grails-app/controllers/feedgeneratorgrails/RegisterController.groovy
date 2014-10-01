@@ -6,6 +6,7 @@ import org.feedgeneratorgrails.SecUser
 class RegisterController {
     def springSecurityService;
     
+    private ArrayList<String> errorMessage = new ArrayList<>();
     /*
       String username
       String password
@@ -38,6 +39,10 @@ class RegisterController {
             
            //make entry into the sec_user_sec_role table
             System.out.println("Seeing  if I can find the user id of the saved user by just doing a id retreival from the object: "+secuser.id);
+            
+            //send out an email to the user telling him that his account has been registered and is waiting approval
+            
+            //send an approval to an administrator to approve the account.
             render "success" as String
         }else{
             render "failure" as String
@@ -52,18 +57,29 @@ class RegisterController {
         if(username?.trim()){
             //username is fine
         }else{
+            errorMessage.push("Problem with the username");
             return false;
         }
         
         if(password?.trim()){
             //password is fine
         }else{
+            errorMessage.push("Problem with the password");
             return false;
         }
         
         if(workemail?.trim()){
             //workemail is fine
         }else{
+            errorMessage.push("Problem with the workemail");
+            return false;
+        }
+        
+        //check if the user already exists in the db.
+        def userExists = SecUser.findAllByUsername(username);
+        
+        if(!userExists.isEmpty()){
+            errorMessage.push("User already exists in the database");
             return false;
         }
         
