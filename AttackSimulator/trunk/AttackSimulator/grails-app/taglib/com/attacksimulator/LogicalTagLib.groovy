@@ -14,31 +14,31 @@ import org.feedgeneratorgrails.Orders;
  */
 class LogicalTagLib {
   
-  def springSecurityService;
+    def springSecurityService;
       
     def userloggedin = { attrs, body ->
-      if(springSecurityService.isLoggedIn()){
-      out << body();
+        if(springSecurityService.isLoggedIn()){
+            out << body();
+        }
     }
-  }
       
-  def userenvironmentknown = { attrs, body ->
-    def userid = springSecurityService.currentUser.id;
-    def sysipmappingentries = Sysipusermapping.findAllBySecuserid(userid);
-     System.out.println("Object of type: " + sysipmappingentries.getClass());   
-    if(!sysipmappingentries.isEmpty()){
-      out << body();
+    def userenvironmentknown = { attrs, body ->
+        def userid = springSecurityService.currentUser.id;
+        def sysipmappingentries = Sysipusermapping.findAllBySecuserid(userid);
+        System.out.println("Object of type: " + sysipmappingentries.getClass());   
+        if(!sysipmappingentries.isEmpty()){
+            out << body();
+        }
     }
-  }
       
-  def userhasorders = { attrs, body ->
-    def userid = springSecurityService.currentUser.id;
-    def order = Orders.findAllByUserid(userid);
-    System.out.println("Object of type: " + order.getClass());
-    System.out.println("Order size: " + order.size());
-    if(!order.isEmpty()){
-      out << body();
+    def userhasorders = { attrs, body ->
+        def userid = springSecurityService.currentUser.id;
+        def order = Orders.findAllByUserid(userid);
+        System.out.println("Object of type: " + order.getClass());
+        System.out.println("Order size: " + order.size());
+        if(!order.isEmpty()){
+            out << body();
+        }
     }
-  }
 }
 

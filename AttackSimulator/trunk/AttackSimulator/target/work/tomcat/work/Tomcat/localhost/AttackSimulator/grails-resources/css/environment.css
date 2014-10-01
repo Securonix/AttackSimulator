@@ -16,7 +16,7 @@ html, body, h1, form, fieldset, legend, ol, li {
 body {
     color: #111111;
     font-family: Georgia, "Times New Roman", Times, serif;
-    padding: 20px;
+    padding: 0px;
 }
 
 form#payment {

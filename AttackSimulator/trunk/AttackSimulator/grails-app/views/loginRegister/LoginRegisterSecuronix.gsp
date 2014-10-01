@@ -103,7 +103,7 @@
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum eleifend, feugiat elit sit amet, posuere ex. Etiam vel vulputate leo. Aenean mauris sapien, pretium ac feugiat vitae, pellentesque eu mi. Integer eu pulvinar justo. Nam nibh sapien, dictum id aliquet ac, blandit a ante. Morbi tristique euismod dictum. Aliquam dignissim vulputate turpis, et cursus nisl bibendum in. Morbi eleifend elit a blandit faucibus. Pellentesque dignissim sagittis turpis. Donec auctor semper scelerisque.
             </div>
             <div id="register" class="modalDialog">
-                <img id="close-modal" src="${request.contextPath}/images/close.png" style="float:right; width: 50px; height: 50px"/>
+                <span style="float: left; margin-top: 15px; font-weight: bold"><h1>Attack Simulator Registration</h1> </span><img id="close-modal" src="${request.contextPath}/images/close.png" style="float:right; width: 50px; height: 50px"/>
                 <ul style="list-style: none; width: 500px; float: left;">
                     <li style="width: 150px; float: left;">Name: </li><li style="width: 350px; float: left;"><input type="text" id="register-name" required/></li>
                     <li style="width: 150px; float: left;">Username: </li><li style="width: 350px; float: left;"><input type="text" id="register-username" required/></li>

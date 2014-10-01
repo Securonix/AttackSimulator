@@ -106,5 +106,8 @@ li {list-style: none;}
     background: -o-linear-gradient(#bbb, #999);
     top: 10px;
     z-index: 9999;
+    margin: 0 auto;
+    top: 50px;
+    left: 650px;
 }
 
