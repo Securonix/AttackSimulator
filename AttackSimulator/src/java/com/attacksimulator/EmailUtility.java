@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -24,6 +25,7 @@ import javax.mail.internet.MimeMessage;
  * @author securonix
  */
 public class EmailUtility {
+
     private Properties properties;
     private String senderEmail;
     private ArrayList<String> recipientEmails;
@@ -34,8 +36,8 @@ public class EmailUtility {
     private String ssl;
     private String username;
     private String password;
-    
-    public EmailUtility(){
+
+    public EmailUtility() {
         InputStream input = null;
         try {
             //use this constructor when you want to use the properties file.
@@ -46,7 +48,7 @@ public class EmailUtility {
             senderEmail = properties.getProperty("senderEmail");
             String recipientemail = properties.getProperty("recipientEmail");
             //recipientemail will have comma separated values.
-            String [] recpEmails = recipientemail.split("\\,");
+            String[] recpEmails = recipientemail.split("\\,");
             recipientEmails = new ArrayList<>();
             recipientEmails.addAll(Arrays.asList(recpEmails));
             host = properties.getProperty("host");
@@ -55,8 +57,8 @@ public class EmailUtility {
             password = properties.getProperty("password");
         } catch (IOException ex) {
             Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(input != null){
+        } finally {
+            if (input != null) {
                 try {
                     input.close();
                 } catch (IOException ex) {
@@ -65,8 +67,8 @@ public class EmailUtility {
             }
         }
     }
-    
-    public EmailUtility(String from, ArrayList<String> to){
+
+    public EmailUtility(String from, ArrayList<String> to) {
         InputStream input = null;
         try {
             //use this constructor when you want to use the properties file.
@@ -74,14 +76,14 @@ public class EmailUtility {
             properties = new Properties();
             input = EmailUtility.class.getResourceAsStream("email.properties");
             properties.load(input);
-            senderEmail = from;            
+            senderEmail = from;
             recipientEmails = to;
             host = properties.getProperty("host");
             port = properties.getProperty("port");
         } catch (IOException ex) {
             Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            if(input != null){
+        } finally {
+            if (input != null) {
                 try {
                     input.close();
                 } catch (IOException ex) {
@@ -90,28 +92,56 @@ public class EmailUtility {
             }
         }
     }
-    
-    public boolean sendMail(String body, String subject, boolean usesAuthentication){
+
+    public boolean sendMail(String body, String subject, boolean usesAuthentication, boolean authTLS, boolean authSSL) {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", host);
         props.setProperty("mail.smtp.port", port);
-        if(usesAuthentication){
-            properties.setProperty("mail.smtp.user", username);
-            properties.setProperty("mail.smtp.user", password);
+
+        if (authTLS) {
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
         }
-        Session session = Session.getDefaultInstance(properties, null);
-        try{
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            for(String recipients : recipientEmails){
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+
+        if (authSSL) {
+            props.put("mail.smtp.socketFactory.port", port);
+            props.put("mail.smtp.socketFactory.class",
+                    "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
+        }
+
+        Session session = null;
+        if (usesAuthentication) {
+            props.setProperty("mail.smtp.user", username);
+            props.setProperty("mail.smtp.password", password);
+            session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
+        } else {
+            session = Session.getDefaultInstance(props);
+        }
+
+        if (session != null) {
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(senderEmail));
+                for (String recipients : recipientEmails) {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+                }
+                message.setSubject(subject);
+                message.setText(body);
+
+                Transport.send(message);
+                return true;
+            } catch (MessagingException ex) {
+                ex.printStackTrace();
+                return false;
             }
-            message.setSubject(subject);
-            
-            Transport.send(message);
-        }catch(MessagingException ex){
-            
         }
+
         return false;
     }
 
