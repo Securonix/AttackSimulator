@@ -80,6 +80,36 @@ public class EmailUtility {
             recipientEmails = to;
             host = properties.getProperty("host");
             port = properties.getProperty("port");
+            username = properties.getProperty("username");
+            password = properties.getProperty("password");
+        } catch (IOException ex) {
+            Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public EmailUtility(String from, String to) {
+        InputStream input = null;
+        try {
+            //use this constructor when you want to use the properties file.
+            //Initialize all values needed for the email to be sent using the properties file.
+            properties = new Properties();
+            input = EmailUtility.class.getResourceAsStream("email.properties");
+            properties.load(input);
+            senderEmail = from;
+            recipientEmails = new ArrayList<>();
+            recipientEmails.add(to);
+            host = properties.getProperty("host");
+            port = properties.getProperty("port");
+            username = properties.getProperty("username");
+            password = properties.getProperty("password");
         } catch (IOException ex) {
             Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
