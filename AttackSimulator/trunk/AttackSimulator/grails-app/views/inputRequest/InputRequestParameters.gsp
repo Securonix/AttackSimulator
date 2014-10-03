@@ -30,7 +30,7 @@
 
                     <br />
                     <div id="form_804346" class="appnitro"  method="post" action="">	
-                        <ul id="" style="list-style: none; width: 700px; float: left;">
+                        <!--ul id="" style="list-style: none; width: 700px; float: left;">
                             <li style="float: left; clear:both; width: 100%"><h2>What is the type of feed you are seeking?</h2></li>
                             <li style="float:left; width: 100%; padding-top: 20px">
                                 <div style="float:left; padding-right: 10px; width: 20%">
