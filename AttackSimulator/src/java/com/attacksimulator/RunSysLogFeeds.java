@@ -64,7 +64,7 @@ public class RunSysLogFeeds extends Thread{
         }
         */
         templateSys = new TemplatingSystem(feedtype);
-        templateSys.generateFeed(userid, destinationIp, destinationPort, frequency);
+        templateSys.generateFeed(userid, destinationIp, destinationPort, frequency, feedtype, orderId);
     }
     
     public void shutdown(){

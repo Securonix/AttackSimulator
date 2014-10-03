@@ -8,7 +8,7 @@ class RegisterController {
     def springSecurityService;
     
     private ArrayList<String> errorMessage = new ArrayList<>();
-    private hostname="http://localhost:8081/AttackSimulator/";
+    private hostname="http://localhost:8080/AttackSimulator/";
     /*
       String username
       String password
@@ -59,10 +59,9 @@ class RegisterController {
                     "Regards,\n"+
                     "Securonix Team.";
             emailUtility.sendMail(body1, subject1, true, false, true);
-            
             //send an approval to an administrator to approve the account.
+            emailUtility = new EmailUtility("anujva@gmail.com", "avarma@securonix.com");
             emailUtility.sendMail(body2, subject2, true, false, true);
-            
             render "success" as String
         }else{
             render "failure" as String
@@ -121,7 +120,6 @@ class RegisterController {
             EmailUtility emailutility = new EmailUtility("anujva@gmail.com", secuser.workemail);
             emailutility.sendMail(body, subject, true, false, true);
         }
-        
         
         render "success";
     }

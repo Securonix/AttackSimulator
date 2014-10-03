@@ -34,6 +34,7 @@ public final class TemplatingSystem {
     private final ArrayList<Integer> transactionWeights;
     private final ArrayList<Integer> weightedTransactionIds;
     private final Random rand;
+    private SyslogUtility syslogUtility;
 
     public TemplatingSystem() {
         transactionFile = "";
@@ -177,8 +178,8 @@ public final class TemplatingSystem {
         }
     }
 
-    public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency) {
-        Random random = new Random();
+    public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid) {
+        syslogUtility = new SyslogUtility(feedtype+orderid, destinationip, destionationport);
 
         while (running) {
             /*
@@ -223,6 +224,7 @@ public final class TemplatingSystem {
             String[] splitTransactions = currentTransaction.split("\\|\\|");
             for (String transaction : splitTransactions) {
                 System.out.println(transaction.trim());
+                syslogUtility.publishString(transaction.trim());
             }
 
             try {
@@ -244,7 +246,7 @@ public final class TemplatingSystem {
         // TODO code application logic here
         TemplatingSystem ts = new TemplatingSystem();
         ts.bufferAllTransactionLines();
-        ts.generateFeed(null, null, null, null);
+        ts.generateFeed(Integer.SIZE, null, null, null, null, Integer.SIZE);
     }
 
     private Long getCurrentFrequency(String frequency) {
