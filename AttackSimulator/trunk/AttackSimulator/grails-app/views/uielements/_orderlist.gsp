@@ -1,11 +1,12 @@
 <table border="1">
     <thead>
         <tr>
+            <th></th>
             <th>
                 Feed type
             </th>
             <th>
-                Frequency (Comma separated 6 values for freq)(milliseconds)
+                Frequency (Comma separated 6 values for freq)(seconds)
             </th>
             <th>
                 Date Start
@@ -19,10 +20,17 @@
         <g:each status="i" in="${feeds}" var="feedtype">
             <tr>
                 <td>
-                    <input type="checkbox" name="feedtype" style="float: left; width: 20px" value="${feedtype.feedtype}" id="${i+1}"/>${feedtype.feedtype} 
+                    <input type="checkbox" name="feedtype" style="float: left; width: 20px" value="${feedtype.feedtype}" id="${i+1}"/> 
                 </td>
                 <td>
-                    <input id="freq${i+1}" style="" type="text"  title="Example : 112,45,223,200,600,300"/>
+                    ${feedtype.feedtype} 
+                </td>
+                <td>
+                    0000-0900hrs&nbsp;<input id="freq${i+1}" style="width:20px" type="text"  />
+                    0900-1300hrs&nbsp;<input id="freq${i+1}" style="width:20px" type="text"  /><br>
+                    1300-1800hrs&nbsp;<input id="freq${i+1}" style="width:20px" type="text"  />
+                    1800-2000hrs&nbsp;<input id="freq${i+1}" style="width:20px" type="text"  /><br>
+                    2000-2400hrs&nbsp;<input id="freq${i+1}" style="width:20px" type="text"  />
                 </td>
                 <td>
                     <input id="from${i+1}" class="fromDate" type="text"  value="" title="Start Date for the feed"/>
