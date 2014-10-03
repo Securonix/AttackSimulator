@@ -34,7 +34,7 @@ class RegisterController {
         }
         
         if(check){
-            SecUser secuser = new SecUser(id: 1, username: params.get("username"), password: params.get("password"), 
+            SecUser secuser = new SecUser(id: 1, name: params.get("name"), username: params.get("username"), password: params.get("password"), 
             enabled: "0", accountExpired: "0", accountLocked: "0", passwordExpired: "0", company: "Dummy Company", workemail: params.get("email"),
             phone: "Dummy Phone", businessuser: businessuser);
             secuser.save(flush: true);

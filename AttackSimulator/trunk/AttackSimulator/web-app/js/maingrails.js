@@ -60,6 +60,7 @@ $(document).ready(function(){
         }
         
         $.post("/AttackSimulator/Register/addSecUser", {
+            name: name,
             username: username,
             password: password,
             fullname: name,
