@@ -267,7 +267,7 @@ public final class TemplatingSystem {
             return frequencyLong.get(2);
         } else if (currenttime >= 18 && currenttime < 21) {
             return frequencyLong.get(3);
-        } else if (currenttime >= 21 && currenttime < 23) {
+        } else if (currenttime >= 21 && currenttime < 24) {
             return frequencyLong.get(4);
         }
 

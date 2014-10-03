@@ -9,6 +9,10 @@ class OrderController {
     
     def saveOrder() {
         
+        if(!springSecurityService.isLoggedIn()){
+            redirect action: 'auth', params: params;
+        }
+        
         //check received params server side and then save it in the database
         def destinationip = params.get("destinationip");
         def destinationport = params.get("destinationport");
@@ -38,10 +42,10 @@ class OrderController {
         }
        
         for(int i=0; i<feedtype.length; i++){
-            def prevOrder = Orders.findByFeedtypeAndDestinationip(feedtype[i], destinationip);
+            def prevOrder = Orders.find("from Orders where feedtype='"+ feedtype[i]+"' and destinationip='" +destinationip+"' and userid="+userid);
             
             if(prevOrder == null){
-                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 0, threadid: -1);
+                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 1, threadid: -1);
                 order.save(flush: true);
             }else{
                 prevOrder.frequency = frequencies[i];
