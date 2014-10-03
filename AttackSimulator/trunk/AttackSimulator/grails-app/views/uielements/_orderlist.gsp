@@ -5,7 +5,7 @@
                 Feed type
             </th>
             <th>
-                Frequency
+                Frequency (Comma separated 6 values for freq)(milliseconds)
             </th>
             <th>
                 Date Start
@@ -22,7 +22,7 @@
                     <input type="checkbox" name="feedtype" style="float: left; width: 20px" value="${feedtype.feedtype}" id="${i+1}"/>${feedtype.feedtype} 
                 </td>
                 <td>
-                    <input id="freq${i+1}" style="" type="text"  title="This will be frequency of the logs sent through syslog (millisec)"/>
+                    <input id="freq${i+1}" style="" type="text"  title="Example : 112,45,223,200,600,300"/>
                 </td>
                 <td>
                     <input id="from${i+1}" class="fromDate" type="text"  value="" title="Start Date for the feed"/>

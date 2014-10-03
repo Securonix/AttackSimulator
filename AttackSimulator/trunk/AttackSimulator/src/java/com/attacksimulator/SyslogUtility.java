@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import org.productivity.java.syslog4j.Syslog;
 import org.productivity.java.syslog4j.SyslogConfigIF;
 import org.productivity.java.syslog4j.SyslogIF;
+import org.productivity.java.syslog4j.SyslogRuntimeException;
 import org.productivity.java.syslog4j.impl.net.udp.UDPNetSyslogConfig;
 
 /**
@@ -30,7 +31,11 @@ public class SyslogUtility {
 	
 	public SyslogUtility(String instancename, String destinationip, String destinationport){
 		config = new UDPNetSyslogConfig(destinationip, Integer.parseInt(destinationport));
-		syslog = Syslog.createInstance(instancename, config);
+                          try{
+                                syslog = Syslog.createInstance(instancename, config);
+                          }catch(SyslogRuntimeException e){
+                              syslog = Syslog.getInstance(instancename);
+                          }
 	}
 	
 	public void publishString(String str){
