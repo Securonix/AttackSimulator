@@ -79,6 +79,11 @@ class OrderController {
         def today  = new Date();
         def stdate = Date.parse("MM/dd/yyyy", date1);
         def eddate = Date.parse("MM/dd/yyyy", date2);
+        today.clearTime();
+        
+        System.out.println("Todays date: "+ today.toString());
+        System.out.println("Start date: "+ stdate.toString());
+        System.out.println("End date: "+ eddate.toString());
         
         if(today.compareTo(stdate) > 0){
             return false;
