@@ -126,8 +126,8 @@ $(document).ready(function() {
         
         for(i=0; i<startdates.length; i++){
             var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-            var date1 = new Date(startdates[i].replace(pattern, '$3-$1-$2'));
-            var date2 = new Date(enddates[i].replace(pattern, '$3-$1-$2'));
+            var date1 = new Date(startdates[i].replace(pattern, '$3/$1/$2'));
+            var date2 = new Date(enddates[i].replace(pattern, '$3/$1/$2'));
             var diff1 = dateDiff(date1, today);
             if(diff1 < 0){
                 alert("We don't allow start dates, earlier than today");
@@ -185,7 +185,14 @@ $(document).ready(function() {
         for(i=0; i<ids.length; i++){
             startdates.push($("#from"+ids[i]).val());
             enddates.push($("#to"+ids[i]).val());
-            frequencies.push($("#freq"+ids[i]).val());
+            freqval = "";
+            for(j=1; j<5; j++){
+                var num = parseFloat($("#freq"+ids[i]+"_"+j).val());
+                num = num*1000;
+                freqval += num+",";
+            }
+            freqval += parseFloat($("#freq"+ids[i]+"_"+5).val())*1000;
+            frequencies.push(freqval);
         }
         
         //sanity check that we have all the values correctly in the arrays; this is what is going to go inside the database.
