@@ -27,9 +27,9 @@
                 </td>
                 <td>
                         0000-0900hrs&nbsp;<input id="freq${i+1}_1" style="width:20px" type="text"  />
-                        0900-1300hrs&nbsp;<input id="freq${i+1}_2" style="width:20px" type="text"  /><br>
+                        0900-1300hrs&nbsp;<input id="freq${i+1}_2" style="width:20px" type="text"  />
                         1300-1800hrs&nbsp;<input id="freq${i+1}_3" style="width:20px" type="text"  />
-                        1800-2000hrs&nbsp;<input id="freq${i+1}_4" style="width:20px" type="text"  /><br>
+                        1800-2000hrs&nbsp;<input id="freq${i+1}_4" style="width:20px" type="text"  />
                         2000-2400hrs&nbsp;<input id="freq${i+1}_5" style="width:20px" type="text"  />
                 </td>
                 <td>

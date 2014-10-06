@@ -751,7 +751,7 @@ a:link, a:visited, a:hover {color:#0D638F;text-decoration: none;}
 .icon-spnr{ display:block;height:15px;width:15px;background: transparent url(../images/spinner.gif) no-repeat;}
 .icon-calView{background: url(../images/ui/calendar_weekend.png) no-repeat scroll -2px -4px transparent;cursor: pointer;display: block;height: 22px;padding-left: 20px;}
 .icon-nextMonth{background: url(../images/ui/gr.png) no-repeat scroll 0 2px transparent;cursor: pointer;display: block;height: 22px;width:8px;}
-.icon-joblistview{background: url("../images/ui/jobDetail.png") no-repeat scroll 0 0 transparent;cursor: pointer;display: block;height: 22px;padding-left: 20px;}
+.icon-joblistview{background: url("resource:/images/ui/jobDetail.png") no-repeat scroll 0 0 transparent;cursor: pointer;display: block;height: 22px;padding-left: 20px;}
 .icon-noIcon{cursor: pointer;display: block;height: 22px;}
 .icon-preMonth{background: url(../images/ui/le.png) no-repeat scroll 0 2px transparent;cursor: pointer;display: block;height: 22px;width:8px;}
 .icon-downarw{background: transparent url(resource:/css/menubaritem_submenuindicator_disabled.png) no-repeat;cursor: pointer;height: 8px;width:8px;margin-top:6px;margin-left:5px;margin-right:4px;}

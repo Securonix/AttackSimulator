@@ -6,7 +6,25 @@
 
 $(document).ready(function(){
   
-    $('#simple-menu').sidr();
+ //   $('#simple-menu').sidr();
+    
+    $("#sidebar-wrapper").hide();
+    $("#adminBarClosed").show();
+    $("#content").css("margin-left","0px");
+    
+    $("#hideSideBarAdmin").click(function(event){
+        event.preventDefault();
+        $("#adminBarClosed").show("slow");
+        $("#sidebar-wrapper").hide("slow");
+        $("#content").css("margin-left","0px");
+    });
+    
+    $("#showSideBarAdmin").click(function(event){
+        event.preventDefault();
+        $("#sidebar-wrapper").show("slow");
+        $("#adminBarClosed").hide("slow");
+        $("#content").css("margin-left","280px");
+    })
     
     $("#register-button").click(function(){
         var name = document.getElementById('register-name').value;

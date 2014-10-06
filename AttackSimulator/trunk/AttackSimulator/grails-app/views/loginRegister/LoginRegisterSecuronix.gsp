@@ -8,18 +8,22 @@
 
 <html>
     <head>
-        <meta name="layout" content="main" />
         <link type="text/css" href="${request.contextPath}/css/login.css" rel="stylesheet" />
         <!--[if lte IE 9]>  
             <link href="<g:resource dir='css' file='framework_lte_ie9.css' />" rel="stylesheet" type="text/css">
         <![endif]-->
-        <script type="text/javascript" src="<g:resource dir='js' file='registration.js' />"></script>
+        
         
         <title>Login </title>
         <meta name="generator" content="editplus" />
         <meta name="author" content="Securonix Solutions" />
         <meta name="keywords" content="Attack Simulator" />
         <meta name="description" content="This is log feed simulator and can be used to model log feeds when a particular attack happens on company network" />
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'new_framework.css')}" type="text/css"/>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.min.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.10.4.custom.min.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'maingrails.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'registration.js')}"></script>
     </head>
     <body onLoad="document.forms.loginForm.username.focus();">
         <br/>
