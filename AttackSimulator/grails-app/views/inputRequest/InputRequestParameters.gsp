@@ -13,12 +13,6 @@
         <g:javascript src="parameters.js"/>
     </head>
     <body>
-        <div id="container">
-            <div id="header">
-                <img id="logo" class="notlogin" src="${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px; cursor: pointer;">
-                <p><span>TRIAL FEED </span> REQUEST</p>
-                <p id="userinfo">Hi "${user}"  | <a href="/AttackSimulator/attack/">Choose Attacks</a> | <a href="/AttackSimulator/logout">Logout</a></p>
-            </div>
             <div id="content">
                 <div id="index">
 
@@ -147,10 +141,5 @@
                 <div style="clear:both; text-align: center; color: #fe7700; text-decoration: bold; font-size: 15px;" id="errormessages"></div> 
             </div>
             <div id="footer">Copyright &copy; Securonix.com. All rights reserved</div>
-            <div align="center">
-                <a id="powered_by" href="http://securonix.com"><img src=" ${request.contextPath}/images/osticket-securonixonly.gif" width="126" height="23" alt="Powered by osTicket"></a></div>
-        </div>
-
-        <div id="loading" style="position: absolute; width: 960px; top: 200px; left: 250px"><img src=" ${request.contextPath}/images/loading.gif" width="100px"/></div>
     </body>
 </html>

@@ -27,64 +27,305 @@
     <g:javascript src="maingrails.js" />
     <g:javascript src="jquery.sidr.min.js" />
 </head>
-<body>
+<body class="yui-skin-sam">
   <!--div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div-->
-    
-    <div id="sidebar-wrapper" class="close-box sidebar-show" style="height: 585px; display: block; width: 39px;">
-        <div id="sb-wrap">
-            <h3 class="ui-accordion-header ui-helper-reset ui-state-active-override-black expmenu">
-          Filters
-              <span id="hideSideBarAdmin" class="togglesidebar tooltipEl hideAdminSidebar"></span>
-              <span class="labels"><a href="#" id="defaultPoliciesPanelHeader"></a></span>
-            </h3>
+    <g:userloggedin>
+        <div id="wrapper" style="width: 100%;float: left;min-width: 1122px;background: #F1F2F7;margin-bottom: 30px;">
+            <div id="main-wrapper">
+                <div id="header-wrapper">
+                    <table id="topInfoBar">
+                        <tbody><tr>
+                          <td class="logo-cntr">
+                            <div id="logo"></div>
+                          </td>
+                          <td>
+                            <div class="menuBar">
+                              <ul id="jQMenu">            
+                                <li style="position:relative;" data-menuname="dashboard" data-menuidx="1" class=""><span class="menuBaritemlabel"><span class="menu-label">WELCOME TO THE ATTACK SIMULATOR SYSTEM</span></span>
+                                </li>            
+                              </ul>
+                            </div>
+                          </td>
+                          <td class="td">
+                            <ul class="headerOptions">
+                                <li>
+                                    <span style="padding:5px;" class="fl rt-menu-icons" alt="Application statistics">
+                                      <a href="/Profiler/stats/applicationStatistics" target="_blank"><span class="icon-app-stats h_ico" style="float:left;"></span></a>
+                                    </span>
+                                  </li>
+                                <li>
+                                  <span style="padding:5px;" class="fl rt-menu-icons" alt="Click to View White List">
+                                    <a id="ad12009d0fb4417ab15b5cb6d8ca4fa6" href="#"><span class="icon-ql-whitelist" style="float:left;padding-right:2px;"></span></a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span style="padding:5px;" class="fl rt-menu-icons" alt="Launch Investigation Workbench">
+                                    <a href="/Profiler/workbench/showInvestigationWorkbench?userid=-1&amp;parentObject=Search&amp;parentObjectId=-1&amp;object=" target="_blank"><span class="icon-ql-investigate h_ico" style="float:left;padding-right:2px;"></span></a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span class="fl rt-menu-icons" alt="Click to go Resources View" style="padding:5px;">
+                                    <form method="POST" action="/Profiler/manageData/showResourceSearch" name="mlnkForm_home" id="mlnkForm_home">
+                                      <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
+                                      <a class="mlnk" href="/Profiler/manageData/showResourceSearch"><span class="icon-ql-resources h_ico"></span></a>
+                                    </form>
+                                  </span>
+                                </li>
+                                <li>
+                                  <span class="fl rt-menu-icons" alt="Click to go Users View" style="padding:5px;">
+                                    <form method="POST" action="/Profiler/manageData/showUserSearch" name="mlnkForm_home" id="mlnkForm_home">
+                                      <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
+                                      <a class="mlnk" href="/Profiler/manageData/showUserSearch"><span class="icon-ql-users h_ico"></span></a>
+                                    </form>
+                                  </span>
+                                </li>
 
-            <div id="sidebar-content" class="sb-content-block left-panel-override left-panel">                
-                <div id="task-filter" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
-                    <div class="ui-accordion-header ui-helper-reset ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons" role="tab" id="ui-accordion-task-filter-header-0" aria-controls="f-job" aria-selected="true" tabindex="0"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>By job status</div>
-                    <div style="padding: 0px; display: block;" class="details-lp-div-override details-lp-div ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="f-job" aria-labelledby="ui-accordion-task-filter-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
-                        <ul>
-                            <li class="left-panel-item" data-value="All"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">All Jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e"></span></li>
-                            <li class="left-panel-item" data-value="Completed"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Completed jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Completed with errors"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Completed with errors jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Failed"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Failed jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Fired"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Fired jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Created"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Tasks</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Deleted"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Deleted jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="Saved"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Saved jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                        </ul>
-                    </div>
-                    <div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-task-filter-header-1" aria-controls="f-job-type" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>By job type</div>
-                    <div style="padding: 0px; display: none;" class="details-lp-div-override details-lp-div ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="f-job-type" aria-labelledby="ui-accordion-task-filter-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true">
-                        <ul>
-                            <li class="left-panel-item" data-value=""><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">All jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e"></span></li>
-                            <li class="left-panel-item" data-value="GR_USER_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">User import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_EVENT_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Activity import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_ACCESS_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Access import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_GLOSSARY_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Glossary import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_DATETIME_ARCHIVE"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Activity archival jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_GEOLOCATION"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Populate geolocation jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_USERIPMAPPING"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Ip mapping jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_ACCESS_EXPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Export access jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_RESOURCE_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Resources jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_TPI"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Third party intelligence jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_PEER_GENERATION"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Peer creation/assignment jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_LOOKUP"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Hostname lookup jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_INDEXER"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Indexing service jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GR_METADATA_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Metadata import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_POLICY"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Policy scanner jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_WATCHLIST"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Watch list import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                            <li class="left-panel-item" data-value="GROUP_POLICY_CASE"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Generate Cases</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
-                        </ul>
+
+                                <li>
+                                  <span class="fl rt-menu-icons" alt="Click to go Peers View" style="padding:5px;">
+                                    <form method="POST" action="/Profiler/manageData/showPeerSearch" name="mlnkForm_home" id="mlnkForm_home">
+                                      <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
+                                      <a class="mlnk" href="/Profiler/manageData/showPeerSearch"><span class="icon-ql-peers h_ico"></span></a>
+                                    </form>
+                                  </span>
+                                </li>
+
+
+                                <li>
+                                  <span style="padding:5px;" class="fl rt-menu-icons" alt="Third Party Intelligence Search ">
+                                    <a id="ca890281fd224012a3f1b6b356e56c2c" href="#"><span class="icon-ql-tpi h_ico" style="float:left;padding-right:2px;"></span></a>       
+                            <script type="text/javascript">
+                            // Dialog Link
+                             jQuery(function(){
+
+                            });
+                            jQuery(document).on('click','#ca890281fd224012a3f1b6b356e56c2c',function(){
+                                    //alert(jQuery('div#tpiSearch').length);
+                                    //This is done to clear the contents of a previously loaded modal dialog box. Example, if you click a link to open a dialog, the dialog is added
+                                    //to the body and the remote content is loaded. Now since this dialog is never destroyed upon closing, if a second link is clicked to load new
+                                    //content, for usability sake, it is cleaner to clean up the old dialogbox and create a new one. Hence, remove instead of close
+                                    if (jQuery('div#tpiSearch').length > 0)
+                                    {
+                                        //alert("removing");
+                                        jQuery('#tpiSearch').dialog("destroy").remove();
+                                    }
+                                    //Append dialog div to body
+                                    jQuery('body').append('<div id="tpiSearch" title="Third Party Intelligence Search "></div>')
+
+
+                                    //create dialog object only when link is clicked
+                                    loadDialogtpiSearch();
+
+                                    //Load dialog
+                                    jQuery('#tpiSearch').html('<center><div style="width: 70px; height: 100px; display: inline-block;margin-top: 120px;"><img src="/Profiler/images/spinner.gif" alt="Wait"/></div>Loading...</center>');
+                                    jQuery('#tpiSearch').load('/Profiler/config/showTpiSearch',{'type': 'post'},function(){  }).dialog('open');
+                                    return false;
+                            });
+
+
+
+                          function loadDialogtpiSearch()
+                          {
+                            var width  = jQuery(window).width()-20;
+                            var height = jQuery(window).height()-40;
+                            //Dialog width fix
+                            if (width >= jQuery(window).width()-50) {
+                                width = jQuery(window).width()-100;
+                            }
+                            //Dialog height fix
+                            if (height >= jQuery(window).height()-50) {
+                                height = jQuery(window).height()-100;
+                            }
+
+                            var options = {
+                                autoOpen: false,
+                                width: width,
+                                height: height,
+                                modal:true,
+                                hide: "fadeOut",
+                                show: "fadeIn",
+                                resizable: true,
+                                resize: function( event, ui ) {
+                                    var contentHt = jQuery('#tpiSearch').closest('.ui-dialog').height() - 55;
+                                    jQuery('#tpiSearch').height(contentHt);
+                                }
+
+                                ,
+                                close: function(event, ui) {
+                                    jQuery(this).dialog('destroy').remove()
+                                }
+                                };
+
+                            // Create Dialog
+
+                                    jQuery('#tpiSearch').dialog(options);
+                                    jQuery('#tpiSearch').dialog('open');
+
+
+                          }
+                            </script>
+
+                                  </span>
+                                </li>
+
+                              <li>
+                                <div id="top-rt-menu">
+                                  <span class="loggedin-user"></span>
+                                  <span class="username">admin</span>
+                                  <span class="ico-dn-arrow dn-arrow"></span>
+
+                                  <div class="drpdwn-menu">
+                                    <span class="arrow-up"></span>
+                                    <ul class="rt-menu-dropdown">
+                                      <li><span class="ico-help drpdwn-menu-ico"></span><a class="mlnk helplnk" style="cursor: pointer;">Help</a></li>
+                                      <li>
+                                        <span class="ico-home drpdwn-menu-ico"></span>
+                                        <form method="POST" action="/Profiler/dashboard/loadDashboard" name="mlnkForm_home" id="mlnkForm_home">
+                                          <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
+                                          <a class="mlnk" href="/Profiler/dashboard/loadDashboard">Home</a>
+                                        </form>
+                                      </li>
+                                      <li>
+                                        <span class="ico-chng-pass drpdwn-menu-ico"></span>
+                                      <a id="ca1c8b384e06486692a49c8702576599" href="#"> Change Password</a>       
+                            <script type="text/javascript">
+                            // Dialog Link
+                             jQuery(function(){
+
+                            });
+                            jQuery(document).on('click','#ca1c8b384e06486692a49c8702576599',function(){
+                                    //alert(jQuery('div#changePasswordDialog').length);
+                                    //This is done to clear the contents of a previously loaded modal dialog box. Example, if you click a link to open a dialog, the dialog is added
+                                    //to the body and the remote content is loaded. Now since this dialog is never destroyed upon closing, if a second link is clicked to load new
+                                    //content, for usability sake, it is cleaner to clean up the old dialogbox and create a new one. Hence, remove instead of close
+                                    if (jQuery('div#changePasswordDialog').length > 0)
+                                    {
+                                        //alert("removing");
+                                        jQuery('#changePasswordDialog').dialog("destroy").remove();
+                                    }
+                                    //Append dialog div to body
+                                    jQuery('body').append('<div id="changePasswordDialog" title=" Change Password"></div>')
+
+
+                                    //create dialog object only when link is clicked
+                                    loadDialogchangePasswordDialog();
+
+                                    //Load dialog
+                                    jQuery('#changePasswordDialog').html('<center><div style="width: 70px; height: 100px; display: inline-block;margin-top: 120px;"><img src="/Profiler/images/spinner.gif" alt="Wait"/></div>Loading...</center>');
+                                    jQuery('#changePasswordDialog').load('/Profiler/login/showChangePassword?userid=41',{'type': 'post'},function(){  }).dialog('open');
+                                    return false;
+                            });
+
+
+
+                          function loadDialogchangePasswordDialog()
+                          {
+                            var width  = 450;
+                            var height = 300;
+                            //Dialog width fix
+                            if (width >= jQuery(window).width()-50) {
+                                width = jQuery(window).width()-100;
+                            }
+                            //Dialog height fix
+                            if (height >= jQuery(window).height()-50) {
+                                height = jQuery(window).height()-100;
+                            }
+
+                            var options = {
+                                autoOpen: false,
+                                width: width,
+                                height: height,
+                                modal:true,
+                                hide: "fadeOut",
+                                show: "fadeIn",
+                                resizable: true,
+                                resize: function( event, ui ) {
+                                    var contentHt = jQuery('#changePasswordDialog').closest('.ui-dialog').height() - 55;
+                                    jQuery('#changePasswordDialog').height(contentHt);
+                                }
+
+                                ,
+                                close: function(event, ui) {
+                                    jQuery(this).dialog('destroy').remove()
+                                }
+                                };
+
+                            // Create Dialog
+
+                                    jQuery('#changePasswordDialog').dialog(options);
+                                    jQuery('#changePasswordDialog').dialog('open');
+
+
+                          }
+                            </script>
+
+                                      </li>
+                                      <li><span class="ico-logout drpdwn-menu-ico"></span><a class="logout-link" href="/AttackSimulator/logout">Logout</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div id="sidebar-wrapper" class="close-box sidebar-show" style="height: 585px; display: block; width: 39px;">
+                    <div id="sb-wrap">
+                        <h3 class="ui-accordion-header ui-helper-reset ui-state-active-override-black expmenu">
+                      Actions
+                          <span id="hideSideBarAdmin" class="togglesidebar tooltipEl hideAdminSidebar"></span>
+                          <span class="labels"><a href="#" id="defaultPoliciesPanelHeader"></a></span>
+                        </h3>
+
+                        <div id="sidebar-content" class="sb-content-block left-panel-override left-panel">                
+                            <div id="task-filter" class="ui-accordion ui-widget ui-helper-reset" role="tablist">
+                                <div style="padding: 0px; display: block;" class="details-lp-div-override details-lp-div ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="f-job" aria-labelledby="ui-accordion-task-filter-header-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
+                                    <ul>
+                                        <li class="left-panel-item" data-value="All"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Your Environment</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e"></span></li>
+                                        <li class="left-panel-item" data-value="Completed"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">My Orders</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="Completed with errors"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Place a new order</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                    </ul>
+                                </div>
+
+                                <!--div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all ui-accordion-icons" role="tab" id="ui-accordion-task-filter-header-1" aria-controls="f-job-type" aria-selected="false" tabindex="-1"><span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>By job type</div>
+                                <div style="padding: 0px; display: none;" class="details-lp-div-override details-lp-div ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" id="f-job-type" aria-labelledby="ui-accordion-task-filter-header-1" role="tabpanel" aria-expanded="false" aria-hidden="true">
+                                    <ul>
+                                        <li class="left-panel-item" data-value=""><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">All jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e"></span></li>
+                                        <li class="left-panel-item" data-value="GR_USER_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">User import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_EVENT_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Activity import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_ACCESS_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Access import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_GLOSSARY_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Glossary import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_DATETIME_ARCHIVE"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Activity archival jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_GEOLOCATION"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Populate geolocation jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_USERIPMAPPING"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Ip mapping jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_ACCESS_EXPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Export access jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_RESOURCE_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Resources jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_TPI"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Third party intelligence jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_PEER_GENERATION"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Peer creation/assignment jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_LOOKUP"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Hostname lookup jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_INDEXER"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Indexing service jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GR_METADATA_IMPORT"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Metadata import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_POLICY"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Policy scanner jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_WATCHLIST"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Watch list import jobs</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                        <li class="left-panel-item" data-value="GROUP_POLICY_CASE"><span class="ui-icon-black ui-icon-gear fl"></span><span class="fl f-jobs-label">Generate Cases</span><span class="lp-icon ui-icon-blue ui-icon-carat-1-e" style="display:none;"></span></li>
+                                    </ul>
+                                </div-->
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div id="adminBarClosed" class="close-box sidebar-hide" style="float: left; height: 585px; width: 39px; display: block;">
+                    <div id="showSideBarAdmin" class="sidebar-hide-ico tooltipEl"></div>
+                </div>
+                <g:layoutBody/>
         </div>
-    </div>
-    
-    <div class="close-box sidebar-hide" style="float: left; height: 585px; width: 39px; display: block;">
-        <div class="sidebar-hide-ico tooltipEl"></div>
-    </div>
-      <g:layoutBody/>
+        <div id="footer">Copyright &copy; Securonix.com. All rights reserved</div>
+     </div>
+    </g:userloggedin>
+      
       
   <div class="footer" role="contentinfo"></div>
   <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

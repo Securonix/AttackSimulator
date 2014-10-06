@@ -14,12 +14,6 @@
         <title>Thread Management</title>
     </head>
     <body>
-        <div id="container">
-            <div id="header">
-                <img id="logo" class="notlogin" src="${request.contextPath}/images/lg_images/logo_high_res.png" width="250" border=0 alt="Support Center" style="padding-top:5px; padding-left: 10px; cursor: pointer;">
-                <p><span>TRIAL FEED </span> REQUEST</p>
-                <p id="userinfo">Hi "${user}" &nbsp;|&nbsp;<a href="/AttackSimulator/logout">Logout</a></p>
-            </div>
             <div id="content">
                 <div id="index">
 
@@ -85,10 +79,6 @@
                     <div id="messages"></div>
 
                     <div style="clear:both; text-align: center; color: red; text-decoration: bold; font-size: 15px;" id="message"></div> 
-                </div>
-                <div id="footer">Copyright &copy; Securonix.com. All rights reserved</div>
-                <div align="center">
-                    <a id="powered_by" href="http://securonix.com"><img src="./images/osticket-securonixonly.gif" width="126" height="23" alt="Powered by osTicket"></a>
                 </div>
             </div>
     </body>
