@@ -25,10 +25,10 @@
                     <p id="editOrder" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px">Edit your orders<p>
                     <table style="border-style: solid;" align="center" border="1">
                         <tr>
-                            <th>Date Start</th>
-                            <th>Date Ended</th>
                             <th>OrderId</th>
                             <th>User</th>
+                            <th>Date Start</th>
+                            <th>Date Ended</th>
                             <th>Frequency</th>
                             <th>Dest. IP</th>
                             <th>Dest. Port</th>
@@ -39,17 +39,17 @@
                         
                             <g:each in="${orders}" status="i" var="order">
                             <tr class="actualOrders" id="tr${order.id}">
-                               <td class="editable" varName="startdate">
-                                  ${order.startdate}
-                               </td>
-                               <td class="editable" varName="enddate">
-                                  ${order.enddate}
-                               </td>
                                <td>
                                   ${order.id}
                                </td>
                                <td>
                                   ${order.userid}
+                               </td>
+					<td class="editable" varName="startdate">
+                                  ${order.startdate}
+                               </td>
+                               <td class="editable" varName="enddate">
+                                  ${order.enddate}
                                </td>
                                <td class="editable" varName="frequency">
                                   ${order.frequency}
