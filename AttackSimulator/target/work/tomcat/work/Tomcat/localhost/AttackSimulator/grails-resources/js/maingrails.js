@@ -5,6 +5,30 @@
  */
 
 $(document).ready(function(){
+    
+    $(".loggedin-user").click(function(){
+        if($(".drpdwn-menu").css("display") == "none"){
+            $(".drpdwn-menu").css("display", "block");
+        }else{
+            $(".drpdwn-menu").css("display", "none");
+        }
+    });
+    
+    $(".username").click(function(){
+        if($(".drpdwn-menu").css("display") == "none"){
+            $(".drpdwn-menu").css("display", "block");
+        }else{
+            $(".drpdwn-menu").css("display", "none");
+        }
+    });
+    
+    $("span[class='ico-dn-arrow dn-arrow'").click(function(){
+        if($(".drpdwn-menu").css("display") == "none"){
+            $(".drpdwn-menu").css("display", "block");
+        }else{
+            $(".drpdwn-menu").css("display", "none");
+        }
+    });
   
  //   $('#simple-menu').sidr();
     $( document ).ajaxStart(function() {
