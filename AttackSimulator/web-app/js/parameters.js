@@ -204,7 +204,10 @@ $(document).ready(function() {
         console.log(destinationport);
         
         var checkVal = checkOtherParams(startdates, enddates, frequencies, destinationip, destinationport);
-        
+        if(ids.length == 0){
+            checkVal = false;
+            $("#errormessages").html("You have to choose atleast one feedtype.");
+        }
         if(checkVal === true){
             //alert("ready to send data");
             $.post("/AttackSimulator/Order/saveOrder", {
@@ -216,8 +219,7 @@ $(document).ready(function() {
                 frequencies: frequencies
             }, function(data){
                 if(data =="success"){
-                    $("#errormessages").html("Your feed has been successfully saved. If approved you will start receiving feeds on the \n\
-    specified dates. Thank you for your interest in Securonix.");
+                    $("#errormessages").html("Your feed has been successfully saved. You can manage your feeds in your Orders page. Thank you for your interest in Securonix.");
                 }else{
                     $("#errormessages").html("There has been some problem with saving your feed. Please contact us,and we will help you out.");
                 }

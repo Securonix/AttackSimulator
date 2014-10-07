@@ -350,23 +350,6 @@ table.message th, table.response th {
     border: 1px solid;
 }
 
-#loginregisterbutton{
-
-}
-
-#loading{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px; /* half width of the spinner gif */
-    margin-top: -50px; /* half height of the spinner gif */
-    text-align:center;
-    z-index:1234;
-    overflow: hidden;
-    width: 150px; /* width of the spinner gif */
-    height: 152px; /*hight of the spinner gif +2px to fix IE8 issue */
-}
-
 #logo .notlogin{
     height: 55px;
 }

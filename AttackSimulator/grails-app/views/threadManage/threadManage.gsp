@@ -17,13 +17,12 @@
             <div id="content">
                 <div id="index">
 
-                    <h1>Welcome to the Securonix feed generator Thread management page.</h1>
-
-
+                    <h1>Manage your orders</h1>
+                    <hr/>
                     <div class="clear"></div>
                 </div>
                 <div id="Control-panel">
-                    
+                    <p id="editOrder" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px">Edit your orders<p>
                     <table style="border-style: solid;" align="center" border="1">
                         <tr>
                             <th>Date Start</th>
@@ -39,11 +38,11 @@
                         </tr>
                         
                             <g:each in="${orders}" status="i" var="order">
-                            <tr>
-                               <td>
+                            <tr class="actualOrders" id="tr${order.id}">
+                               <td class="editable" varName="startdate">
                                   ${order.startdate}
                                </td>
-                               <td>
+                               <td class="editable" varName="enddate">
                                   ${order.enddate}
                                </td>
                                <td>
@@ -52,16 +51,16 @@
                                <td>
                                   ${order.userid}
                                </td>
-                               <td>
+                               <td class="editable" varName="frequency">
                                   ${order.frequency}
                                </td>
-                               <td>
+                               <td class="editable" varName="destinationip">
                                   ${order.destinationip}
                                </td>
-                               <td>
+                               <td class="editable" varName="destinationport">
                                   ${order.destinationport}
                                </td>
-                               <td>
+                               <td style="text-transform: uppercase">
                                   ${order.feedtype}
                                </td>
                                <td >
@@ -76,6 +75,9 @@
                             </g:each>
                     </table>
                     
+                    <br/>
+                    <br/>
+                    <button id="submitButton">Submit</button>
                     <div id="messages"></div>
 
                     <div style="clear:both; text-align: center; color: red; text-decoration: bold; font-size: 15px;" id="message"></div> 

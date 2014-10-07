@@ -22,7 +22,7 @@
                 <td>
                     <input type="checkbox" name="feedtype" style="float: left; width: 20px" value="${feedtype.feedtype}" id="${i+1}"/> 
                 </td>
-                <td>
+                <td style="text-transform: uppercase">
                     ${feedtype.feedtype} 
                 </td>
                 <td>

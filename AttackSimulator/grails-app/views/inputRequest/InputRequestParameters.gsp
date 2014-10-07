@@ -15,9 +15,6 @@
     <body>
             <div id="content">
                 <div id="index">
-
-                    <h1>Welcome to the Securonix feed generator system</h1>
-
                     <p class="big">In order to request trial feed from Securonix, please fill out the form below.</p>
 
                     <hr />
