@@ -26,12 +26,16 @@
         <script type="text/javascript" src="${resource(dir: 'js', file: 'nprogress.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'maingrails.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'registration.js')}"></script>
+        <script type="text/javascript">
+            $("#centerthis").center();
+        </script>
     </head>
     <body onLoad="document.forms.loginForm.username.focus();">
         <br/>
         <br/>
         <br/>
         <div id="container">
+            <div id="centerthis">
             <div id="logo-main">
                 <img src="${request.contextPath}/images/lg_images/logo_high_res.png" alt="" style="float:left;" />
                 <span class="product-header">Attack Simulator</span>
@@ -125,6 +129,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum ele
             <div class="footer-wrapper">
                 <span style="color:#434343"></span>
             </div>
+        </div>
         </div>
     </body>
 </html>

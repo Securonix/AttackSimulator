@@ -49,7 +49,7 @@ $(document).ready(function(){
     });
     
     $("#submitButton").click(function(){
-        var allTrsWithOrders = $("tr[class='actualOrders'");
+        var allTrsWithOrders = $("tr.actualOrders");
         allTrsWithOrders.each(function(index){
             //get all the tds in this particular row.
             var orderid = $(this).attr("id");
