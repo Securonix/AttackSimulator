@@ -20,8 +20,10 @@
         <meta name="keywords" content="Attack Simulator" />
         <meta name="description" content="This is log feed simulator and can be used to model log feeds when a particular attack happens on company network" />
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'new_framework.css')}" type="text/css"/>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'nprogress.css')}" type="text/css"/>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.10.4.custom.min.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'nprogress.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'maingrails.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'registration.js')}"></script>
     </head>
