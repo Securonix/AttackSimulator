@@ -86,7 +86,7 @@ td.errors input {border: 1px solid red;}
 table {width: 100%;}
 .tableBorder {border: 1px solid #ccc;}
 tr {border: 0;}
-td, th {font: 12px verdana, arial, helvetica, sans-serif;padding: 2px;text-align: left;vertical-align: top;}
+td, th {font: 12px verdana, arial, helvetica, sans-serif;padding: 2px;text-align: left;vertical-align: middle;}
 .noPadding {padding: 0px;}
 .bigCellPadding {padding: 5px;}
 .noText {font-size: 1px;}

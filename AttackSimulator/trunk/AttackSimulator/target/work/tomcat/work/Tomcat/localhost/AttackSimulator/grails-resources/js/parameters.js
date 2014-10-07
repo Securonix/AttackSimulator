@@ -204,7 +204,10 @@ $(document).ready(function() {
         console.log(destinationport);
         
         var checkVal = checkOtherParams(startdates, enddates, frequencies, destinationip, destinationport);
-        
+        if(ids.length == 0){
+            checkVal = false;
+            $("#errormessages").html("You have to choose atleast one feedtype.");
+        }
         if(checkVal === true){
             //alert("ready to send data");
             $.post("/AttackSimulator/Order/saveOrder", {

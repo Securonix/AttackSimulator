@@ -40,5 +40,16 @@ class LogicalTagLib {
             out << body();
         }
     }
+    
+    def currentUrl = { attrs, body ->
+        def location = request.forwardURI;
+        if(location.contains("Environment")){
+            out << "Environment";
+        }else if(location.contains("Request")){
+            out << "Place an Order";
+        }else if(location.contains("Thread")){
+            out << "Your Orders";
+        }
+    }
 }
 

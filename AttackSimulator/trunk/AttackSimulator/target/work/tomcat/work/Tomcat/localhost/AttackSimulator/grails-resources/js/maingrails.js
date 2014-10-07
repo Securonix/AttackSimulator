@@ -7,6 +7,13 @@
 $(document).ready(function(){
   
  //   $('#simple-menu').sidr();
+    $( document ).ajaxStart(function() {
+        NProgress.start();
+     });
+    
+    $(document).ajaxStop(function(){
+        NProgress.done();
+    });
     
     $("#sidebar-wrapper").hide();
     $("#adminBarClosed").show();

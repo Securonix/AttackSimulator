@@ -1,6 +1,7 @@
 package feedgeneratorgrails
 
 import org.feedgeneratorgrails.Orders;
+import groovy.json.JsonSlurper
 import org.codehaus.groovy.grails.validation.routines.InetAddressValidator;
 
 class OrderController {
@@ -122,5 +123,38 @@ class OrderController {
         }
         
         render "success"
+    }
+    
+    def updateOrder(){
+        System.out.println(params.get("order"));
+        def slurper = new JsonSlurper();
+        def orderParams = slurper.parseText(params.get("order"));
+        System.out.println("The class of orderParams: "+ orderParams.getClass());
+        
+        def order = Orders.get(orderParams.id);
+        
+        if(orderParams.containsKey("frequency")){
+            order.frequency = orderParams.frequency;
+        }
+        
+        if(orderParams.containsKey("startdate")){
+            order.startdate = orderParams.startdate;
+        }
+        
+        if(orderParams.containsKey("enddate")){
+            order.enddate = orderParams.enddate;
+        }
+        
+        if(orderParams.containsKey("destinationip")){
+            order.destinationip = orderParams.destinationip;
+        }
+        
+        if(orderParams.containsKey("destinationport")){
+            order.destinationport = orderParams.destinationport;
+        }
+        
+        order.save(flush: true);
+        
+        render "success";
     }
 }
