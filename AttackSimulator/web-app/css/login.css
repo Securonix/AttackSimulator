@@ -9,7 +9,14 @@ and open the template in the editor.
 */
 
 body {background-image:url(../images/lg_images/body-bg.jpg); /* background-color:white */ color: black; /* #717275 */ line-height: 20px; font-family: helvetica,arial,san serif; font-size: 11px; font-weight: normal;}
-#container{width :730px;margin: 0px auto; border: none}
+#container{width :730px;border: none; margin-left: auto ;
+  margin-right: auto ;}
+#centerthis{
+    width: 700px;
+    position:absolute;
+    left:30%;
+    top:20%;
+}
 a:link {color:#43790b; text-decoration:none;}
 a:visited {color:#43790b; text-decoration:none;}
 a:hover {color:#43790b;text-decoration:underline; background-color:#ffffcc;}
@@ -107,7 +114,7 @@ li {list-style: none;}
     top: 10px;
     z-index: 9999;
     margin: 0 auto;
-    top: 50px;
-    left: 570px;
+    top: 10px;
+    left: 65px;
 }
 
