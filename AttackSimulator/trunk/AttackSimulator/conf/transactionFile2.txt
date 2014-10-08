@@ -1,0 +1,5 @@
+Firstname: {{usermaster.firstname}} ------- Lastname: {{usermaster.lastname}} ------- and Department: {{usermaster.department}} -- WINDOWS weight: 12 << 12
+Securonix User: {{sec_user.username}} -------- Email: {{sec_user.workemail}} ------- Company: {{sec_user.company}} ------ checking datetime: {{datetime}} -- WINDOWS weight: 23 << 23
+This is a sample line: {{usermaster.firstname}} ---shows multiple table use: {{usermaster.lastname}} ------final table: {{sysipusermapping.ipaddress}} -- WINDOWS weight:34 << 34
+This line tests Random Value generator: {{randomvalue}} -- WINDOWS weight: 45 << 45
+This line tests sequenctial value generator: {{sequence}} -- WINDOWS weight: 56 << 56
