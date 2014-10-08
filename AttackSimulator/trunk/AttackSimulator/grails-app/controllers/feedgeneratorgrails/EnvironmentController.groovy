@@ -26,20 +26,25 @@ class EnvironmentController {
             System.out.println("Class type of sysipuser: "+sysipusers.getClass());
             
             ArrayList<Usermaster> users = new ArrayList<>();
-            ArrayList<String> ipaddress = new ArrayList<>();
+            ArrayList<String> ipaddress1 = new ArrayList<>();
+            ArrayList<String> ipaddress2 = new ArrayList<>();
+            ArrayList<String> ipaddress3 = new ArrayList<>();
+            
             for(Sysipusermapping sysipuser: sysipusers){
                 def user = Usermaster.findById(sysipuser.userid);
                 System.out.println("Sysipuser firstname:" + user.firstname);
                 System.out.println("Sysipuser lastname:" + user.lastname);
                 System.out.println("Sysipuser department:" + user.department);
                 users.add(user);
-                ipaddress.add(sysipuser.ipaddress);
+                ipaddress1.add(sysipuser.ipaddress1);
+                ipaddress2.add(sysipuser.ipaddress2);
+                ipaddress3.add(sysipuser.ipaddress3);
             }
             
-            def dmzaddress = Dmzusermapping.findAllBySecUserid(springSecurityService.currentUser.id);
-            def extcountry = Extusermapping.findAllBySecUserid(springSecurityService.currentUser.id);
+            def dmzaddress = Dmzusermapping.findAllBySecuserid(springSecurityService.currentUser.id);
+            def extcountry = Extusermapping.findAllBySecuserid(springSecurityService.currentUser.id);
             
-           render(view:'/environment/EnvironmentDetails.gsp', model: [user: springSecurityService.currentUser.username, countries: countries, users: users, ipaddress: ipaddress, dmzaddress:dmzaddress, countryByUser: extcountry]);
+           render(view:'/environment/EnvironmentDetails.gsp', model: [user: springSecurityService.currentUser.username, countries: countries, users: users, ipaddress1: ipaddress1, ipaddress2: ipaddress2, ipaddress3: ipaddress3, dmzaddress:dmzaddress, countryByUser: extcountry]);
            //render countries;
         }else{
             redirect(controller:"login", action:"auth");
@@ -60,7 +65,7 @@ class EnvironmentController {
             Integer userid = userip.getKey();
             ArrayList<String> ips = userip.getValue();
             String ipaddress = ips[0]+","+ips[1]+","+ips[2];
-            Sysipusermapping systable = new Sysipusermapping(id: 1, secuserid: secuserid, userid: userid, ipaddress: ipaddress);
+            Sysipusermapping systable = new Sysipusermapping(id: 1, secuserid: secuserid, userid: userid, ipaddress1: ips[0], ipaddress2: ips[1], ipaddress3: ips[2]);
             systable.save(flush: true);
         }
         
@@ -68,13 +73,13 @@ class EnvironmentController {
          Integer randomDmzSize = (new Random()).nextInt(50);
         for(int i=0; i<randomDmzSize; i++){
             String dmzaddress = getDMZRange(dmzrange);
-            Dmzusermapping dmzuser = new Dmzusermapping(id:1, secUserid: secuserid, dmzaddress: dmzaddress);
+            Dmzusermapping dmzuser = new Dmzusermapping(id:1, secuserid: secuserid, dmzaddress: dmzaddress);
             dmzuser.save(flush: true);
         }
         
         //extusermapping
         for(int i=0; i<countries.length; i++){
-            Extusermapping extcountry = new Extusermapping(id: 1, secUserid: secuserid, country: countries[i]);
+            Extusermapping extcountry = new Extusermapping(id: 1, secuserid: secuserid, country: countries[i]);
             extcountry.save(flush: true);
         }
         
@@ -291,12 +296,12 @@ class EnvironmentController {
             sysipuser.delete(flush: true);
         }
         
-        def dmzaddresses = Dmzusermapping.findAllBySecUserid(secuserid);
+        def dmzaddresses = Dmzusermapping.findAllBySecuserid(secuserid);
         for(Dmzusermapping dmzaddress: dmzaddresses){
             dmzaddress.delete(flush: true);
         }
         
-        def countries = Extusermapping.findAllBySecUserid(secuserid);
+        def countries = Extusermapping.findAllBySecuserid(secuserid);
         for(Extusermapping country : countries){
             country.delete(flush: true);
         }

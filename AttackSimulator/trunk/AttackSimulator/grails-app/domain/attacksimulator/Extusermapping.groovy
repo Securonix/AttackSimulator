@@ -7,7 +7,7 @@ class Extusermapping {
     
     static constraints = {
         id blank: false
-        secUserid blank: false
+        secuserid blank: false
         country blank: false
     }
 }

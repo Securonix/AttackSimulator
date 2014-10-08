@@ -108,9 +108,6 @@ public final class TemplatingSystem {
                             HashMap<String, Object> resultSet = (new MySQLDBClass()).getTemplateMasterValues(variable);
                             String valueGen = (String) resultSet.get("variablegenerator");
                             ArrayList<String> params = (ArrayList<String>) resultSet.get("parameters");
-                            if(params.size() == 1 && ("usermaster".equalsIgnoreCase(params.get(0)) || "dmzusermapping".equalsIgnoreCase(params.get(0)) || "extusermapping".equalsIgnoreCase(params.get(0)))){
-                                params.add("secuserid="+userid);
-                            }
                             ValueGeneratorType temp = null;
                             switch (valueGen) {
                                 case "tablevaluegenerator":
@@ -127,6 +124,26 @@ public final class TemplatingSystem {
                                     break;
                                 case "sequentialvaluegenerator":
                                     temp = new SequentialGenerator(variable, params);
+                                    vgtMap.put(variable, temp);
+                                    break;
+                                case "usermastertablegenerator":
+                                    if(params != null){
+                                        params.add(userid.toString());
+                                    }else{
+                                        params = new ArrayList<>();
+                                        params.add(userid.toString());
+                                    }
+                                    temp = new UsermasterTableGenerator(variable, params);
+                                    vgtMap.put(variable, temp);
+                                    break;
+                                case "dmztablegenerator":
+                                    if(params != null){
+                                        params.add(userid.toString());
+                                    }else{
+                                        params = new ArrayList<>();
+                                        params.add(userid.toString());
+                                    }
+                                    temp = new DmzTableGenerator(variable, params);
                                     vgtMap.put(variable, temp);
                                     break;
                             }
