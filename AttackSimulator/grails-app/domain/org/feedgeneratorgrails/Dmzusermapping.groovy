@@ -2,7 +2,7 @@ package org.feedgeneratorgrails
 
 class Dmzusermapping {
     Integer id;
-    Integer secUserid;
+    Integer secuserid;
     String dmzaddress;
     
     static constraints = {

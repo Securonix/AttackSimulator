@@ -46,14 +46,14 @@ public final class TemplatingSystem {
         weightedTransactionIds = new ArrayList<>();
     }
 
-    public TemplatingSystem(String feedtype) {
+    public TemplatingSystem(String feedtype, Integer userid) {
         transactionFile = getTransactionFile(feedtype);
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
         running = true;
         transactionWeights = new ArrayList<>();
         weightedTransactionIds = new ArrayList<>();
-        bufferAllTransactionLines();
+        bufferAllTransactionLines(userid);
         rand = new Random();
     }
 
@@ -67,7 +67,7 @@ public final class TemplatingSystem {
         return null;
     }
 
-    public void bufferAllTransactionLines() {
+    public void bufferAllTransactionLines(Integer userid) {
         //This function buffers the transaction lines and builds the array that will be used to generate the feed with weights.
         BufferedReader br = null;
         try {
@@ -108,6 +108,9 @@ public final class TemplatingSystem {
                             HashMap<String, Object> resultSet = (new MySQLDBClass()).getTemplateMasterValues(variable);
                             String valueGen = (String) resultSet.get("variablegenerator");
                             ArrayList<String> params = (ArrayList<String>) resultSet.get("parameters");
+                            if(params.size() == 1 && ("usermaster".equalsIgnoreCase(params.get(0)) || "dmzusermapping".equalsIgnoreCase(params.get(0)) || "extusermapping".equalsIgnoreCase(params.get(0)))){
+                                params.add("secuserid="+userid);
+                            }
                             ValueGeneratorType temp = null;
                             switch (valueGen) {
                                 case "tablevaluegenerator":
@@ -245,7 +248,7 @@ public final class TemplatingSystem {
     public static void main(String[] args) {
         // TODO code application logic here
         TemplatingSystem ts = new TemplatingSystem();
-        ts.bufferAllTransactionLines();
+        //ts.bufferAllTransactionLines();
         ts.generateFeed(Integer.SIZE, null, null, null, null, Integer.SIZE);
     }
 

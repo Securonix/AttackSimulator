@@ -69,6 +69,7 @@
                 </div>
                 </g:userenvironmentunknown>
                 <g:userenvironmentknown>
+                    <p id="modifyenv" style="text-decoration: underline; font-weight: bold; cursor: pointer">Recreate your Environment</p>
                      <div class="fixed-table-container">
                         <div class="header-background"> </div>
                         <div class="fixed-table-container-inner">
