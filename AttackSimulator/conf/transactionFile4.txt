@@ -1,0 +1,5 @@
+Firstname: {{usermaster.firstname}} ------- Lastname: {{usermaster.lastname}} ------- and Department: {{usermaster.department}} -- SHAREPOINT <<10
+Securonix User: {{sec_user.username}} -------- Email: {{sec_user.workemail}} ------- Company: {{sec_user.company}} ------ checking datetime: {{datetime}} -- SHAREPOINT << 10
+This is a sample line: {{usermaster.firstname}} ---shows multiple table use: {{usermaster.lastname}} ------final table: {{sysipusermapping.ipaddress}} -- SHAREPOINT << 10
+This line tests Random Value generator: {{randomvalue}} -- SHAREPOINT << 10
+This line tests sequenctial value generator: {{sequence}} -- SHAREPOINT << 10
