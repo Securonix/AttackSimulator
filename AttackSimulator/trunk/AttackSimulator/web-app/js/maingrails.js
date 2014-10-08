@@ -46,19 +46,20 @@ $(document).ready(function(){
     
     $("#hideSideBarAdmin").click(function(event){
         event.preventDefault();
-        $("#adminBarClosed").show("slow");
         $("#sidebar-wrapper").hide("slow");
+        $("#adminBarClosed").show("slow");
         $("#content").css("margin-left","0px");
     });
     
     $("#showSideBarAdmin").click(function(event){
         event.preventDefault();
-        $("#sidebar-wrapper").show("slow");
         $("#adminBarClosed").hide("slow");
+        $("#sidebar-wrapper").show("slow");
         $("#content").css("margin-left","280px");
     })
     
-    $("#register-button").click(function(){
+    //$("#register-button").click(function(){
+    function addSecUser(){
         var name = document.getElementById('register-name').value;
         var email = document.getElementById('register-email').value;
         var confirmEmail = document.getElementById('register-confirm-email').value;
@@ -131,7 +132,7 @@ $(document).ready(function(){
                $("#messageModal").html("There was some problem registering, please try again later");
            }
         });
-    });
+    };
     
     function toggleDiv(divId)
 {
