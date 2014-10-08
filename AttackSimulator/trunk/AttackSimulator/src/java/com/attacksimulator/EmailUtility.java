@@ -106,10 +106,10 @@ public class EmailUtility {
             senderEmail = from;
             recipientEmails = new ArrayList<>();
             recipientEmails.add(to);
-            host = properties.getProperty("host");
-            port = properties.getProperty("port");
-            username = properties.getProperty("username");
-            password = properties.getProperty("password");
+            host = properties.getProperty("host").trim();
+            port = properties.getProperty("port").trim();
+            username = properties.getProperty("username").trim();
+            password = properties.getProperty("password").trim();
         } catch (IOException ex) {
             Logger.getLogger(EmailUtility.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -134,7 +134,7 @@ public class EmailUtility {
         }
 
         if (authSSL) {
-            props.put("mail.smtp.socketFactory.port", port);
+            props.put("mail.smtp.socketFactory.port", port.trim());
             props.put("mail.smtp.socketFactory.class",
                     "javax.net.ssl.SSLSocketFactory");
             props.put("mail.smtp.auth", "true");
