@@ -30,6 +30,15 @@ class LogicalTagLib {
             out << body();
         }
     }
+    
+    def userenvironmentunknown = { attrs, body ->
+        def userid = springSecurityService.currentUser.id;
+        def sysipmappingentries = Sysipusermapping.findAllBySecuserid(userid);
+        System.out.println("Object of type: " + sysipmappingentries.getClass());   
+        if(sysipmappingentries.isEmpty()){
+            out << body();
+        }
+    }
       
     def userhasorders = { attrs, body ->
         def userid = springSecurityService.currentUser.id;

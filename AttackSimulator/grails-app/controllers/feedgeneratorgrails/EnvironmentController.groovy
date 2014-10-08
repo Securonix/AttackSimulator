@@ -1,10 +1,13 @@
 package feedgeneratorgrails
 
+import attacksimulator.Extusermapping
 import com.attacksimulator.*;
 import com.attacksimulator.UserImport;
+import org.feedgeneratorgrails.Dmzusermapping
 import org.feedgeneratorgrails.Ipcountry;
 import org.feedgeneratorgrails.Sysipusermapping;
 import org.feedgeneratorgrails.Users;
+import org.feedgeneratorgrails.Usermaster;
 
 class EnvironmentController {
     
@@ -18,7 +21,25 @@ class EnvironmentController {
                     distinct("country")
                 }
             }
-           render(view:'/environment/EnvironmentDetails.gsp', model: [user: springSecurityService.currentUser.username, countries: countries]);
+            
+            def sysipusers = Sysipusermapping.findAllBySecuserid(springSecurityService.currentUser.id);
+            System.out.println("Class type of sysipuser: "+sysipusers.getClass());
+            
+            ArrayList<Usermaster> users = new ArrayList<>();
+            ArrayList<String> ipaddress = new ArrayList<>();
+            for(Sysipusermapping sysipuser: sysipusers){
+                def user = Usermaster.findById(sysipuser.userid);
+                System.out.println("Sysipuser firstname:" + user.firstname);
+                System.out.println("Sysipuser lastname:" + user.lastname);
+                System.out.println("Sysipuser department:" + user.department);
+                users.add(user);
+                ipaddress.add(sysipuser.ipaddress);
+            }
+            
+            def dmzaddress = Dmzusermapping.findAllBySecUserid(springSecurityService.currentUser.id);
+            def extcountry = Extusermapping.findAllBySecUserid(springSecurityService.currentUser.id);
+            
+           render(view:'/environment/EnvironmentDetails.gsp', model: [user: springSecurityService.currentUser.username, countries: countries, users: users, ipaddress: ipaddress, dmzaddress:dmzaddress, countryByUser: extcountry]);
            //render countries;
         }else{
             redirect(controller:"login", action:"auth");
@@ -33,8 +54,8 @@ class EnvironmentController {
         def dmzrange = params.get("dmzrange"); //not saving
         def secuserid = springSecurityService.currentUser.id;
         
+        //sysipusermapping
         def useripmapping = getUserIpMapping(internalrange, Integer.parseInt(numofusers), secuserid);
-        
         for(Map.Entry<Integer, ArrayList<String>> userip : useripmapping.entrySet()){
             Integer userid = userip.getKey();
             ArrayList<String> ips = userip.getValue();
@@ -43,7 +64,62 @@ class EnvironmentController {
             systable.save(flush: true);
         }
         
+        //dmzusermapping
+         Integer randomDmzSize = (new Random()).nextInt(50);
+        for(int i=0; i<randomDmzSize; i++){
+            String dmzaddress = getDMZRange(dmzrange);
+            Dmzusermapping dmzuser = new Dmzusermapping(id:1, secUserid: secuserid, dmzaddress: dmzaddress);
+            dmzuser.save(flush: true);
+        }
+        
+        //extusermapping
+        for(int i=0; i<countries.length; i++){
+            Extusermapping extcountry = new Extusermapping(id: 1, secUserid: secuserid, country: countries[i]);
+            extcountry.save(flush: true);
+        }
+        
         render "success"
+    }
+    
+    String getDMZRange(String dmzrange){
+        /*
+        *   Class A range: 0.0.0.0   -------    127.255.255.255
+        *   Class B range: 128.0.0.0 -----    191.255.  255.255
+        *   Class C range: 192.0.0.0 ------   223.255.255.255  
+        */
+       
+        Integer firstquart;
+        Integer secondquart;
+        Integer thirdquart;
+        Integer lastquart;
+       
+        switch(dmzrange){
+            case "classa" :
+                firstquart = getRandomInRange(0, 127);
+                secondquart = getRandomInRange(0, 255);
+                thirdquart = getRandomInRange(0,255);
+                lastquart = getRandomInRange(0,255);
+                break;
+                
+            case "classb" :
+                firstquart = getRandomInRange(128, 191);
+                secondquart = getRandomInRange(0, 255);
+                thirdquart = getRandomInRange(0,255);
+                lastquart = getRandomInRange(0,255);
+                break;
+                
+            case "classc" :
+                firstquart = getRandomInRange(192, 223);
+                secondquart = getRandomInRange(0, 255);
+                thirdquart = getRandomInRange(0,255);
+                lastquart = getRandomInRange(0,255);
+                break;
+                
+            default:
+                throw new NumberFormatException();
+        }
+        
+        return firstquart+"."+secondquart+"."+thirdquart+"."+lastquart;
     }
     
     HashMap< Integer, ArrayList<String> > getUserIpMapping(String internalrange, Integer numofusers, Integer secuserid){

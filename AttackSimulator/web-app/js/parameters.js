@@ -31,12 +31,6 @@ $(document).ready(function() {
 
     $("#loading").hide();
 
-  $(document).ajaxStart(function() {
-    $("#loading").show();
-  }).ajaxStop(function() {
-    $("#loading").hide();
-  });
-
     function cleanupErrorMessages(id){
       $("#"+id).css("color", "black");
       $("#errormessages").html("");
@@ -220,6 +214,13 @@ $(document).ready(function() {
             }, function(data){
                 if(data =="success"){
                     $("#errormessages").html("Your feed has been successfully saved. You can manage your feeds in your Orders page. Thank you for your interest in Securonix.");
+                    //have to make the My Orders link operational
+                    var textInSpan = $("#linkenable").html();
+                    if(textInSpan.indexOf("a href") >= 0){
+                         //My Orders is already functional
+                    }else{
+                        $("#linkenable").html("<a href=\"/AttackSimulator/ThreadManage\">"+textInSpan+"</a>");
+                    }
                 }else{
                     $("#errormessages").html("There has been some problem with saving your feed. Please contact us,and we will help you out.");
                 }

@@ -10,7 +10,7 @@ class ThreadManageController {
     
     def index() { 
         if(!springSecurityService.isLoggedIn()){
-            redirect action:'auth';
+            redirect(controller:"login", action:"auth");
         }
         def userid = springSecurityService.currentUser.id;
         def orders = Orders.findAllByApprovedAndUserid("1", userid);

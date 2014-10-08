@@ -17,8 +17,10 @@
     </head>
     <body>
             <div id="content">
+                <g:userenvironmentunknown>
                 <div id="index">
-                    <p class="big">In order to request trial feed from Securonix, please fill out the form below.</p>
+                    <p class="big">Describe your Environment. We will pick randomized users for you and assign them ips based on your choice of 
+                    IP range</p>
                     <hr />
                     <br />
                     <div id="form-fields">
@@ -65,7 +67,94 @@
 
                     <div class="clear"></div>
                 </div>
-
+                </g:userenvironmentunknown>
+                <g:userenvironmentknown>
+                     <div class="fixed-table-container">
+                        <div class="header-background"> </div>
+                        <div class="fixed-table-container-inner">
+                          <table cellspacing="0" class="environment">
+                            <thead>
+                              <tr>
+                                <th class="first">
+                                  <div class="th-inner">First Name</div>
+                                </th>
+                                <th class="second">
+                                  <div class="th-inner">Last Name</div>
+                                </th>
+                                <th class="second">
+                                  <div class="th-inner">Department</div>
+                                </th>
+                                <th class="third">
+                                  <div class="th-inner">IpAddress</div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <g:each var="user" in="${users}" status="i">
+                              <tr>
+                                <td>${user.firstname}</td>
+                                <td>${user.lastname}</td>
+                                <td>${user.department}</td>
+                                <td>${ipaddress.get(i)}</td>
+                              </tr>
+                              </g:each>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                      <div class="fixed-table-container">
+                        <div class="header-background"> </div>
+                        <div class="fixed-table-container-inner">
+                          <table cellspacing="0" class="environment">
+                            <thead>
+                              <tr>
+                                <th class="first">
+                                  <div class="th-inner">Sno.</div>
+                                </th>
+                                <th class="third">
+                                  <div class="th-inner">DMZ Address</div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <g:each var="dmz" in="${dmzaddress}" status="i">
+                              <tr>
+                                <td>${i+1}</td>
+                                <td>${dmz.dmzaddress}</td>
+                              </tr>
+                              </g:each>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                      <div class="fixed-table-container">
+                        <div class="header-background"> </div>
+                        <div class="fixed-table-container-inner">
+                          <table cellspacing="0" class="environment">
+                            <thead>
+                              <tr>
+                                <th class="first">
+                                  <div class="th-inner">Sno.</div>
+                                </th>
+                                <th class="third">
+                                  <div class="th-inner">DMZ Address</div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <g:each var="counUser" in="${countryByUser}" status="i">
+                              <tr>
+                                <td>${i+1}</td>
+                                <td>${counUser.country}</td>
+                              </tr>
+                              </g:each>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                </g:userenvironmentknown>
                 <div style="clear:both; text-align: center; color: #fe7700; text-decoration: bold; font-size: 15px;" id="errormessages"></div> 
             </div>
     </body>

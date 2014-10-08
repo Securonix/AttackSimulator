@@ -21,6 +21,7 @@
         <meta name="description" content="This is log feed simulator and can be used to model log feeds when a particular attack happens on company network" />
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'new_framework.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'nprogress.css')}" type="text/css"/>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css"/>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.10.4.custom.min.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'nprogress.js')}"></script>
@@ -108,13 +109,13 @@
                     ${flash.message}
                   </g:if>
             </div>
-            <div id="message" style="float:left; width:600px; color: red;"></div>
+            <div id="message" style="float:left; width:600px; color: green;"></div>
             <div id="information" style="margin-top: 50px; min-height: 200px; float:left"><p style="font-weight: bold">Information:</p>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum eleifend, feugiat elit sit amet, posuere ex. Etiam vel vulputate leo. Aenean mauris sapien, pretium ac feugiat vitae, pellentesque eu mi. Integer eu pulvinar justo. Nam nibh sapien, dictum id aliquet ac, blandit a ante. Morbi tristique euismod dictum. Aliquam dignissim vulputate turpis, et cursus nisl bibendum in. Morbi eleifend elit a blandit faucibus. Pellentesque dignissim sagittis turpis. Donec auctor semper scelerisque.
             </div>
             <div id="register" class="modalDialog">
-                <span style="float: left; margin-top: 15px; font-weight: bold"><h1>Attack Simulator Registration</h1> </span><img id="close-modal" src="${request.contextPath}/images/close.png" style="float:right; width: 50px; height: 50px"/>
-                <ul style="list-style: none; width: 500px; float: left;">
+                <span style="float: left; margin-top: 15px; margin-bottom: 15px; font-weight: bold"><h1 style="font-weight: bold">Attack Simulator Registration</h1> </span>
+                <ul style="list-style: none; width: 400px; float: left;">
                     <li style="width: 150px; float: left;">Name: </li><li style="width: 350px; float: left;"><input type="text" id="register-name" required/></li>
                     <li style="width: 150px; float: left;">Username: </li><li style="width: 350px; float: left;"><input type="text" id="register-username" required/></li>
                     <li style="width: 150px; float: left;">Desired Password: </li><li style="width: 350px; float: left;"><input type="password" id="register-password" required/></li>
@@ -123,8 +124,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum ele
                     <li style="width: 150px; float: left;">Confirm Email: </li><li style="width: 350px; float: left;"><input type="text" id="register-confirm-email" required/></li>
                     <li style="width: 150px; float: left;">Is this for Business use: </li><li style="width: 350px; float: left;"><input type="checkbox" id="businessuse" required/></li>
                 </ul>
-                <div style="padding-left: 120px; clear: both;"><button id="register-button" style="width: 140px">Register</button></div>
-                <div id="messageModal" style="float:left; width:600px; color: red"></div>
+                <div id="messageModal" style="float:left; width:400px; color: red"></div>
             </div>
             <div class="footer-wrapper">
                 <span style="color:#434343"></span>
