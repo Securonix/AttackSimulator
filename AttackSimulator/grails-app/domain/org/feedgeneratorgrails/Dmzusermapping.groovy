@@ -7,7 +7,7 @@ class Dmzusermapping {
     
     static constraints = {
         id blank:false
-        secUserid blank: false
+        secuserid blank: false
         dmzaddress blank: false
     }
 }

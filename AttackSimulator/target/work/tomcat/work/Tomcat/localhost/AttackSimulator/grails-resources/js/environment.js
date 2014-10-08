@@ -48,7 +48,7 @@ $(document).ready(function(){
     
     $("#modifyenv").click(function(){
         $.post("/AttackSimulator/Environment/modifyEnvironment", function(data){
-            alert(data);
+            console.log(data);
             location.reload();
         });
         

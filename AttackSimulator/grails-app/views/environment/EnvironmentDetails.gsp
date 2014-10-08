@@ -85,7 +85,7 @@
                                 <th class="second">
                                   <div class="th-inner">Department</div>
                                 </th>
-                                <th class="third">
+                                <th class="third" colspan="3">
                                   <div class="th-inner">IpAddress</div>
                                 </th>
                               </tr>
@@ -96,7 +96,9 @@
                                 <td>${user.firstname}</td>
                                 <td>${user.lastname}</td>
                                 <td>${user.department}</td>
-                                <td>${ipaddress.get(i)}</td>
+                                <td>${ipaddress1.get(i)}</td>
+                                <td>${ipaddress2.get(i)}</td>
+                                <td>${ipaddress3.get(i)}</td>
                               </tr>
                               </g:each>
                             </tbody>
@@ -140,7 +142,7 @@
                                   <div class="th-inner">Sno.</div>
                                 </th>
                                 <th class="third">
-                                  <div class="th-inner">DMZ Address</div>
+                                  <div class="th-inner">Countries</div>
                                 </th>
                               </tr>
                             </thead>
