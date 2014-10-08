@@ -63,7 +63,7 @@ public class RunSysLogFeeds extends Thread{
             fgi.syslogProxyGenerator(syslogConfigFile, userid, destinationIp, destinationPort, orderId, frequency);
         }
         */
-        templateSys = new TemplatingSystem(feedtype);
+        templateSys = new TemplatingSystem(feedtype, userid);
         templateSys.generateFeed(userid, destinationIp, destinationPort, frequency, feedtype, orderId);
     }
     

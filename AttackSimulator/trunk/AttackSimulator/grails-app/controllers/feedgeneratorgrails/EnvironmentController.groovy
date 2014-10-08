@@ -277,4 +277,28 @@ class EnvironmentController {
         return resultSet;
     }
     
+    def modifyEnvironment(){
+        def secuserid = springSecurityService.currentUser.id;
+        deleteEnvironForUser(secuserid);
+        
+        render "success";
+    }
+    
+    void deleteEnvironForUser(Integer secuserid){
+        //Have to delete the entries from secusermapping table
+        def sysipusers = Sysipusermapping.findAllBySecuserid(secuserid);
+        for(Sysipusermapping sysipuser: sysipusers){
+            sysipuser.delete(flush: true);
+        }
+        
+        def dmzaddresses = Dmzusermapping.findAllBySecUserid(secuserid);
+        for(Dmzusermapping dmzaddress: dmzaddresses){
+            dmzaddress.delete(flush: true);
+        }
+        
+        def countries = Extusermapping.findAllBySecUserid(secuserid);
+        for(Extusermapping country : countries){
+            country.delete(flush: true);
+        }
+    }
 }

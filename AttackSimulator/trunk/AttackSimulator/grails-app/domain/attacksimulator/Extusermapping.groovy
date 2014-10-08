@@ -2,7 +2,7 @@ package attacksimulator
 
 class Extusermapping {
     Integer id;
-    Integer secUserid;
+    Integer secuserid;
     String country;
     
     static constraints = {
