@@ -97,8 +97,7 @@
                         </tr>
                         <tr>
                             <td id="lost-password" colspan="3" style="text-align: left;">
-                                <a href="#register" id="registerfunction">First time user? Register</a> &nbsp;&nbsp; | &nbsp;&nbsp;
-                                <a href="">Lost Password? Request reset</a>
+                                <a href="#register" id="registerfunction">First time user? Register</a>
                             </td>
                         </tr>
                     </table>
