@@ -6,8 +6,9 @@
 
 package com.attacksimulator;
 
-import java.io.FileInputStream;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -752,5 +754,51 @@ public class MySQLDBClass {
              }
         }
         return rs;
+    }
+    
+    String getUserDownloadLink(Integer secuserid, String basepath){
+        String filename = null;
+        try {
+            String query = "select * from users where id in (select userid from sysipusermapping where secuserid="+secuserid+");";
+            createConnection();
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+             filename = UUID.randomUUID().toString().replaceAll("-", "");
+            BufferedWriter out = new BufferedWriter(new FileWriter(basepath+"/downloads/"+filename+".csv"));
+            int columnCount = rsmd.getColumnCount();
+            if(!resultSet.isBeforeFirst()){
+                throw new NullPointerException("No variable entry found");
+            }else{
+                while(resultSet.next()){
+                    String writeToFile = resultSet.getString(1);
+                    for(int i=2; i<columnCount+1; i++){
+                        writeToFile += ","+resultSet.getString(i);
+                    }
+                    out.write(writeToFile);
+                    out.newLine();
+                }
+                out.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                 if(resultSet != null && !resultSet.isClosed()){
+                     resultSet.close();
+                 }
+                 
+                 if(statement != null && !statement.isClosed()){
+                     statement.close();
+                 }
+                 
+                 closeConnection();
+             } catch (SQLException ex) {
+                 Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }
+        return "/downloads/"+filename+".csv";
     }
 }

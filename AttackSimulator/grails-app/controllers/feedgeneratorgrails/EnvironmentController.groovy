@@ -2,6 +2,7 @@ package feedgeneratorgrails
 
 import attacksimulator.Extusermapping
 import com.attacksimulator.*;
+import com.attacksimulator.MySQLDBClass
 import com.attacksimulator.UserImport;
 import org.feedgeneratorgrails.Dmzusermapping
 import org.feedgeneratorgrails.Ipcountry;
@@ -305,5 +306,20 @@ class EnvironmentController {
         for(Extusermapping country : countries){
             country.delete(flush: true);
         }
+    }
+    
+    def getDownloadLink(){
+        MySQLDBClass mydb = new MySQLDBClass();
+        String basepath = request.getSession().getServletContext().getRealPath("/");
+        String hreflink = mydb.getUserDownloadLink(springSecurityService.currentUser.id, basepath);
+        hreflink = "<a href=\"http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()+hreflink+"\" download>Download user data</a>";
+        render hreflink as String;
+    }
+    
+    def deleteFile(){
+        String filename = params.get("filename");
+        String basepath = request.getSession().getServletContext().getRealPath("/");
+        File file = new File(basepath+"/downloads/"+filename);
+        
     }
 }

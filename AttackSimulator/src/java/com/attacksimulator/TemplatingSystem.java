@@ -83,6 +83,23 @@ public final class TemplatingSystem {
                 if (transactions == null) {
                     transactions = new ArrayList<>();
                 }
+                
+                //lines that have a # in the beginning need to not be read as transactions.
+                //lines that are empty need to be discarded.
+                lineRead = lineRead.trim();
+                if(lineRead.contains("#")){
+                    //this isa line that has to either completely be ignored or ignore part of it.
+                    int hashIndex = lineRead.indexOf("#");
+                    if(hashIndex == 0){
+                        continue; //ignoring the entire line.
+                    }else if(hashIndex > 0){
+                        lineRead = lineRead.substring(0, hashIndex);
+                    }
+                }
+                
+                if(lineRead.trim().isEmpty()){
+                    continue;
+                }
 
                 String[] splitLine = lineRead.split("<<");
 
@@ -214,7 +231,6 @@ public final class TemplatingSystem {
             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
             Pattern pat = Pattern.compile(pattern);
             Matcher matcher = pat.matcher(currentTransaction);
-            HashSet<String> variablesFound = new HashSet<>();
             while (matcher.find()) {
                 String var = matcher.group(1);
                 if (var.contains(".")) {

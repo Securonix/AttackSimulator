@@ -51,7 +51,32 @@ $(document).ready(function(){
             console.log(data);
             location.reload();
         });
-        
+    });
+    
+    $("#register").hide();
+
+    dialog = $("#downloaduserdata").dialog({
+        autoOpen: false,
+        height: 200,
+        width: 450,
+        modal: true,
+        buttons: {
+            Cancel: function () {
+                dialog.dialog("close");
+                //send out a post request to delete the temp file
+            }
+        },
+        close: function () {
+            dialog.dialog("close");
+        }
+    });
+    
+    $("#begindownload").click(function(){
+        dialog.dialog("open");
+        $.post("/AttackSimulator/Environment/getDownloadLink", function(data){
+            $("#infoMessage").html("Please click on the following link to begin your download");
+            $("#linkfromserver").html(data);
+        });
     });
 });
 
