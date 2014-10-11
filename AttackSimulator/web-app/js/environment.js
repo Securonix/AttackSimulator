@@ -139,14 +139,16 @@ $(document).ready(function () {
         var dmzid = $(this).attr("dmzid");
         var actualid = dmzid.substring(5);
         var takeinput = $(this).attr("enabled");
+        var withinputString = "<input id=\"dmzprimary"+actualid+"\"/>";
         if(takeinput === "true"){
             //this is the first time the button was clicked.. 
             //change the value in the span to Save hostname
             $(this).html("Save hostname");
-            $("dmzhname"+actualid).html();
+            $("dmzhname"+actualid).html(withinputstring);
         }else if(takeinput === "false"){
             //this is the second time the button was clicked.
             //change the value in the span to 
+            var valueInInput = $("#dmzprimary"+actualid).val();
         }
     });
     
