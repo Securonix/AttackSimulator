@@ -113,27 +113,6 @@ form#payment input[type=radio] {
     margin-right: 5px;
 }
 
-form#payment button {
-    background: #1A89F0;
-    border: none;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -khtml-border-radius: 20px;
-    border-radius: 20px;
-    color: #ffffff;
-    display: block;
-    font: 18px Georgia, "Times New Roman", Times, serif;
-    letter-spacing: 1px;
-    margin: auto;
-    padding: 7px 25px;
-    text-shadow: 0 1px 1px #000000;
-    text-transform: uppercase;
-}
-form#payment button:hover {
-    background: #1460E7;
-    cursor: pointer;
-}
-
 td {
     border-bottom: 1px solid #ccc;
     padding: 5px;
@@ -236,4 +215,8 @@ table.environment {
     height: 0;
     white-space: nowrap;
     padding-right: 5px;
+}
+
+#countryname{
+    height: 200px;
 }
