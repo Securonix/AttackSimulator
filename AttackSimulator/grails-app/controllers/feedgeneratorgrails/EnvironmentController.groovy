@@ -9,6 +9,7 @@ import org.feedgeneratorgrails.Ipcountry;
 import org.feedgeneratorgrails.Sysipusermapping;
 import org.feedgeneratorgrails.Users;
 import org.feedgeneratorgrails.Usermaster;
+import org.feedgeneratorgrails.Orders;
 
 class EnvironmentController {
     
@@ -22,7 +23,7 @@ class EnvironmentController {
                     distinct("country")
                 }
             }
-            
+            Collections.sort(countries);
             def sysipusers = Sysipusermapping.findAllBySecuserid(springSecurityService.currentUser.id);
             System.out.println("Class type of sysipuser: "+sysipusers.getClass());
             
@@ -71,10 +72,13 @@ class EnvironmentController {
         }
         
         //dmzusermapping
-         Integer randomDmzSize = (new Random()).nextInt(50);
-        for(int i=0; i<randomDmzSize; i++){
+        
+        int dmzHostLength = Integer.parseInt(params.get("dmzhostslength"));
+         
+        for(int i=0; i<dmzHostLength; i++){
             String dmzaddress = getDMZRange(dmzrange);
-            Dmzusermapping dmzuser = new Dmzusermapping(id:1, secuserid: secuserid, dmzaddress: dmzaddress);
+            String dmzRandomName = getRandomNameString();
+            Dmzusermapping dmzuser = new Dmzusermapping(id:1, secuserid: secuserid, dmzaddress: dmzaddress, dmzhostname: dmzRandomName);
             dmzuser.save(flush: true);
         }
         
@@ -85,6 +89,12 @@ class EnvironmentController {
         }
         
         render "success"
+    }
+    
+    String getRandomNameString(){
+        String currentUsername = springSecurityService.currentUser.username;
+        String randomUUID = UUID.randomUUID().toString().replaceAll("-", "");
+        return currentUsername+randomUUID.substring(0, 4);
     }
     
     String getDMZRange(String dmzrange){
@@ -306,6 +316,25 @@ class EnvironmentController {
         for(Extusermapping country : countries){
             country.delete(flush: true);
         }
+        
+        def orders = Orders.findAllByUserid(secuserid);
+        for(Orders order: orders){
+            //Stop the java thread if its running and then delete the order.
+            Thread currentThread = Thread.currentThread();
+            ThreadGroup threadGroup = getThreadGroup(currentThread);
+            int allActiveThreads = threadGroup.activeCount();
+            Thread[] allThreads = new Thread[allActiveThreads];
+            threadGroup.enumerate(allThreads);
+
+            for(int i=0; i < allThreads.length; i++){
+                Thread thread = allThreads[i];
+                if(thread.getId() == order.threadid){
+                    ((RunSysLogFeeds)thread).shutdown();
+                }
+            }
+            
+            order.delete(flush: true);
+        }
     }
     
     def getDownloadLink(){
@@ -320,6 +349,21 @@ class EnvironmentController {
         String filename = params.get("filename");
         String basepath = request.getSession().getServletContext().getRealPath("/");
         File file = new File(basepath+"/downloads/"+filename);
+        file.delete();
         
+        render "success";
+    }
+    
+    ThreadGroup getThreadGroup(Thread thread){
+        ThreadGroup rootGroup = thread.getThreadGroup();
+        while(true){
+            ThreadGroup parentGroup = rootGroup.getParent();
+            if(parentGroup == null){
+                break;
+            }
+            rootGroup = parentGroup;
+         }
+        
+        return rootGroup;
     }
 }
