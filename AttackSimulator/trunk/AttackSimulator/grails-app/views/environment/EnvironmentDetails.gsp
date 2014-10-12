@@ -136,7 +136,7 @@
                                             <tr>
                                                 <td>${i+1}</td>
                                                 <td>${dmz.dmzaddress}</td>
-                                                <td class="dmzhostnamesClass"><span style="width: 100%"><span id="dmzhname${dmz.id}">${dmz.dmzhostname}</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right" role="button" aria-disabled="false"><span class="ui-button-text" dmzid="dmzid${dmz.id}" enabled="true">Edit hostname</span></button></span></td>
+                                                <td class="dmzhostnamesClass"><span style="width: 100%"><span id="dmzhname${dmz.id}">${dmz.dmzhostname}</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="float: right" role="button" aria-disabled="false"><span class="ui-button-text dmzclass" dmzid="dmzid${dmz.id}" enabled="true">Edit hostname</span></button></span></td>
                                             </tr>
                                         </g:each>
                                     </tbody>

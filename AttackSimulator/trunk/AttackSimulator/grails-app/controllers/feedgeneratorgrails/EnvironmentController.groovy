@@ -367,7 +367,7 @@ class EnvironmentController {
         return rootGroup;
     }
     
-    def saveDmzHostname(){
+    def saveDmzHostName(){
         def dmzhostname = params.get("hostname");
         def dmzid = params.get("dmzid");
         def dmz = Dmzusermapping.get(dmzid);
