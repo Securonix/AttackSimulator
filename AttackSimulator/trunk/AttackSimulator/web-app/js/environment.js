@@ -139,16 +139,25 @@ $(document).ready(function () {
         var dmzid = $(this).attr("dmzid");
         var actualid = dmzid.substring(5);
         var takeinput = $(this).attr("enabled");
-        var withinputString = "<input id=\"dmzprimary"+actualid+"\"/>";
+        var withinputstring = "<input id=\"dmzprimary"+actualid+"\" value=\"";
         if(takeinput === "true"){
             //this is the first time the button was clicked.. 
             //change the value in the span to Save hostname
             $(this).html("Save hostname");
-            $("dmzhname"+actualid).html(withinputstring);
+            var currentHostname = $("#dmzhname"+actualid).html();            
+            $("#dmzhname"+actualid).html(withinputstring+currentHostname+"\"/>");
+            $(this).attr("enabled", "false");
         }else if(takeinput === "false"){
             //this is the second time the button was clicked.
             //change the value in the span to 
             var valueInInput = $("#dmzprimary"+actualid).val();
+            $.post("/AttackSimulator/Environment/saveDmzHostName", {hostname: valueInInput, dmzid: actualid}, function(data){
+                if(data === "success"){
+                    $("#errors").html("DMZ hostname updated");
+                }
+            });
+            $("dmzhname"+actualid).html(valueInInput);
+            $(this).attr("enabled", "true");
         }
     });
     
