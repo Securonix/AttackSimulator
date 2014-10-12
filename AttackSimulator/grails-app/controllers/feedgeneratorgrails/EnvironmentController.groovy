@@ -366,4 +366,14 @@ class EnvironmentController {
         
         return rootGroup;
     }
+    
+    def saveDmzHostname(){
+        def dmzhostname = params.get("hostname");
+        def dmzid = params.get("dmzid");
+        def dmz = Dmzusermapping.get(dmzid);
+        dmz.dmzhostname = dmzhostname;
+        dmz.save(flush:true);
+        
+        render "success";
+    }
 }
