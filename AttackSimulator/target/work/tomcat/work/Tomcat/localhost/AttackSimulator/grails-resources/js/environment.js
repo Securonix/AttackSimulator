@@ -135,7 +135,7 @@ $(document).ready(function () {
         dialog2.dialog("open");
     });
     
-    $("span[dmzid]").click(function(){
+    $("span.dmzclass").click(function(){
         var dmzid = $(this).attr("dmzid");
         var actualid = dmzid.substring(5);
         var takeinput = $(this).attr("enabled");
@@ -144,8 +144,9 @@ $(document).ready(function () {
             //this is the first time the button was clicked.. 
             //change the value in the span to Save hostname
             $(this).html("Save hostname");
-            var currentHostname = $("#dmzhname"+actualid).html();
+            var currentHostname = $("#dmzhname"+actualid).html();            
             $("#dmzhname"+actualid).html(withinputstring+currentHostname+"\"/>");
+            $(this).attr("enabled", "false");
         }else if(takeinput === "false"){
             //this is the second time the button was clicked.
             //change the value in the span to 
@@ -155,7 +156,9 @@ $(document).ready(function () {
                     $("#errors").html("DMZ hostname updated");
                 }
             });
-            $("dmzhname"+actualid).html(valueInInput);
+            $("#dmzhname"+actualid).html(valueInInput);
+            $(this).html("Edit hostname");
+            $(this).attr("enabled", "true");
         }
     });
     

@@ -125,10 +125,10 @@
                             </li>
                         </ul-->
                     </div>
-                    <div id="chooseIp" style="float: left; width:100%">
+                    <div id="chooseIp" style="float: left; width:35%; border: 1px solid; margin: 20px; padding: 5px">
                         <ul style="list-style: none; float: left">
                             <li style="float: left; padding-right: 20px">Destination Ip: <input id="destinationIp" type="text" title="This will be the IP to which syslog will send the logs"/></li>
-                            <li style="float: left">Destination Port: <input id="destinationPort" type="text" title="This will be port where syslog sends the log"/></li>
+                            <li style="float: right">Destination Port: <input id="destinationPort" type="text" title="This will be port where syslog sends the log"/></li>
                         </ul>
                     </div>
                     <div style="float:left; width: 100%"><button id="parameterssubmit">Submit</button></div>

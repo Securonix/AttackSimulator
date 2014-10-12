@@ -135,7 +135,7 @@ $(document).ready(function () {
         dialog2.dialog("open");
     });
     
-    $("span[dmzid]").click(function(){
+    $("span.dmzclass").click(function(){
         var dmzid = $(this).attr("dmzid");
         var actualid = dmzid.substring(5);
         var takeinput = $(this).attr("enabled");
@@ -156,7 +156,8 @@ $(document).ready(function () {
                     $("#errors").html("DMZ hostname updated");
                 }
             });
-            $("dmzhname"+actualid).html(valueInInput);
+            $("#dmzhname"+actualid).html(valueInInput);
+            $(this).html("Edit hostname");
             $(this).attr("enabled", "true");
         }
     });

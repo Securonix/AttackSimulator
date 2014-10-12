@@ -29,8 +29,11 @@ public class UsermasterTableGenerator extends ValueGeneratorType{
         String countQuery = "select count(*) from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+";";
         query = "select usermaster.userid, usermaster.firstname, usermaster.middlename, usermaster.lastname, usermaster.workemail, usermaster.lanid, usermaster.networkid, usermaster.manageremployeeid, usermaster.department, sysipusermapping.ipaddress1, sysipusermapping.ipaddress2, sysipusermapping.ipaddress3 from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+";";
         
-        if(params.size() > 1){
+        if(params.size() == 1){
             //need to include these in the where clause. Allow only one parameter?
+            query = "select usermaster.userid, usermaster.firstname, usermaster.middlename, usermaster.lastname, usermaster.workemail, usermaster.lanid, usermaster.networkid, usermaster.manageremployeeid, usermaster.department, sysipusermapping.ipaddress1, sysipusermapping.ipaddress2, sysipusermapping.ipaddress3 from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+"and "+params.get(0)+";";
+        }else if(params.size() > 1){
+            throw new OperationNotSupportedException();
         }
 
         HashMap<String, String> temp = mydb.executeQuery(query, countQuery, variableName);
