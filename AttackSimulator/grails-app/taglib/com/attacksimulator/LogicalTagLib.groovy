@@ -7,6 +7,7 @@
 package com.attacksimulator
 import org.feedgeneratorgrails.Sysipusermapping;
 import org.feedgeneratorgrails.Orders;
+import attacksimulator.Attackorders;
 
 /**
  *
@@ -58,7 +59,7 @@ class LogicalTagLib {
             out << "Place an Order";
         }else if(location.contains("Thread")){
             out << "Your Orders";
-        }else if(ocation.contains("Attack")){
+        }else if(location.contains("Attack")){
             out << "Attack Management";
         }
     }
