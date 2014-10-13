@@ -46,7 +46,7 @@ class OrderController {
             def prevOrder = Orders.find("from Orders where feedtype='"+ feedtype[i]+"' and destinationip='" +destinationip+"' and userid="+userid);
             
             if(prevOrder == null){
-                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 1, threadid: -1);
+                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip, destinationport: destinationport, approved: 1, threadid: -1, weekendfactor: 10);
                 order.save(flush: true);
             }else{
                 prevOrder.frequency = frequencies[i];

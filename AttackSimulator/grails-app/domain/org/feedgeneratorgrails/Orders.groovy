@@ -9,6 +9,7 @@ class Orders {
     Date enddate;
     String destinationip;
     String destinationport;
+    String weekendfactor;
     Integer approved;
     Integer threadid;
     

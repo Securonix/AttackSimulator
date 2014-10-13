@@ -31,10 +31,10 @@ class ThreadManageController {
             def frequency = order?.frequency;
             def feedtype = order?.feedtype;
             def userid = order?.userid;
-            
+            def factorString = order?.weekendfactor;
             //per orderid we have only one thread.. we have made sure of it right now.. 
             //we have all the parameters that we need to start the thread 
-            RunSysLogFeeds th = new RunSysLogFeeds(userid, destinationIp, destinationPort, frequency, feedtype, Integer.parseInt(orderid));
+            RunSysLogFeeds th = new RunSysLogFeeds(userid, destinationIp, destinationPort, frequency, feedtype, Integer.parseInt(orderid), factorString);
             th.start();
             order.threadid = th.getId();
             order.save(flush: true);

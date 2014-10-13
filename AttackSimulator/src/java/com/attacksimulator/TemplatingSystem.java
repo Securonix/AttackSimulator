@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -215,7 +215,7 @@ public final class TemplatingSystem {
         }
     }
 
-    public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid) {
+    public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid, String factorString) {
         syslogUtility = new SyslogUtility(feedtype+orderid, destinationip, destionationport);
 
         while (running) {
@@ -225,6 +225,7 @@ public final class TemplatingSystem {
              * @TODO
              */
             //int index = random.nextInt(transactions.size());
+           
             int index = getRandomizedIndex();
             String currentTransaction = transactions.get(index);
             Long currentFrequency = getCurrentFrequencyTest(frequency);
@@ -262,7 +263,14 @@ public final class TemplatingSystem {
                 System.out.println(transaction.trim());
                 syslogUtility.publishString(transaction.trim());
             }
-
+            //Find the current day of the week.
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            Long factor = Long.parseLong(factorString);
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            if(dayOfWeek == 1 || dayOfWeek == 7){
+                currentFrequency = currentFrequency*factor;
+            }
             try {
                 Thread.sleep(currentFrequency);
             } catch (InterruptedException ex) {
@@ -282,7 +290,7 @@ public final class TemplatingSystem {
         // TODO code application logic here
         TemplatingSystem ts = new TemplatingSystem();
         //ts.bufferAllTransactionLines();
-        ts.generateFeed(Integer.SIZE, null, null, null, null, Integer.SIZE);
+        //ts.generateFeed(Integer.SIZE, null, null, null, null, Integer.SIZE);
     }
 
     private Long getCurrentFrequency(String frequency) {

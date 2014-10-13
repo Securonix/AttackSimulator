@@ -21,8 +21,9 @@ public class RunSysLogFeeds extends Thread{
      private int orderId;
      private Integer userid;
      private TemplatingSystem templateSys;
+     private String factorString;
 
-     public RunSysLogFeeds(Integer userid, String desIp, String desPort, String freq, String ftype, int orderId){
+     public RunSysLogFeeds(Integer userid, String desIp, String desPort, String freq, String ftype, int orderId, String factorString){
         destinationIp = desIp;
         destinationPort = desPort;
         frequency = freq;
@@ -32,6 +33,7 @@ public class RunSysLogFeeds extends Thread{
         this.userid = userid;
         fgi = null;
         templateSys = null;
+        this.factorString = factorString;
      }
 
     @Override
@@ -64,7 +66,7 @@ public class RunSysLogFeeds extends Thread{
         }
         */
         templateSys = new TemplatingSystem(feedtype, userid);
-        templateSys.generateFeed(userid, destinationIp, destinationPort, frequency, feedtype, orderId);
+        templateSys.generateFeed(userid, destinationIp, destinationPort, frequency, feedtype, orderId, factorString);
     }
     
     public void shutdown(){
