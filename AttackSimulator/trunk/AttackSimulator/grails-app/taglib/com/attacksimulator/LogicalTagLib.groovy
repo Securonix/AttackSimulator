@@ -58,6 +58,16 @@ class LogicalTagLib {
             out << "Place an Order";
         }else if(location.contains("Thread")){
             out << "Your Orders";
+        }else if(ocation.contains("Attack")){
+            out << "Attack Management";
+        }
+    }
+    
+    def hasattackorders = { attrs, body->
+        def secuserid = springSecurityService.currentUser.id;
+        def attackorders = Attackorders.findAllBySecuserid(secuserid);
+        if(!attackorders.isEmpty()){
+            out << body();
         }
     }
 }

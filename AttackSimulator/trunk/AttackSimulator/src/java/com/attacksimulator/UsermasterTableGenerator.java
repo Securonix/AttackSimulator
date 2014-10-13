@@ -29,10 +29,13 @@ public class UsermasterTableGenerator extends ValueGeneratorType{
         String countQuery = "select count(*) from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+";";
         query = "select usermaster.userid, usermaster.firstname, usermaster.middlename, usermaster.lastname, usermaster.workemail, usermaster.lanid, usermaster.networkid, usermaster.manageremployeeid, usermaster.department, sysipusermapping.ipaddress1, sysipusermapping.ipaddress2, sysipusermapping.ipaddress3 from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+";";
         
-        if(params.size() == 1){
+        if(params.size() == 2){
             //need to include these in the where clause. Allow only one parameter?
-            query = "select usermaster.userid, usermaster.firstname, usermaster.middlename, usermaster.lastname, usermaster.workemail, usermaster.lanid, usermaster.networkid, usermaster.manageremployeeid, usermaster.department, sysipusermapping.ipaddress1, sysipusermapping.ipaddress2, sysipusermapping.ipaddress3 from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+"and "+params.get(0)+";";
-        }else if(params.size() > 1){
+            query = "select usermaster.userid, usermaster.firstname, usermaster.middlename, usermaster.lastname, usermaster.workemail, usermaster.lanid, usermaster.networkid, usermaster.manageremployeeid, usermaster.department, sysipusermapping.ipaddress1, sysipusermapping.ipaddress2, sysipusermapping.ipaddress3 from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+" and "+params.get(0)+";";
+            countQuery = "select count(*) from usermaster, sysipusermapping where usermaster.id=sysipusermapping.userid and sysipusermapping.secuserid="+secuserid+" and "+ params.get(0)+";";
+            
+            //System.out.println("usermaster query = "+query);
+        }else if(params.size() > 2){
             throw new OperationNotSupportedException();
         }
 

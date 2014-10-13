@@ -23,20 +23,24 @@
                 </div>
                 <div id="Control-panel">
                     <p id="editOrder" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px">Edit your orders<p>
+                    <p id="chooseAttacks" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px; float: right">Choose Attacks<p>
                     <table style="border-style: solid;" align="center" border="1">
                         <tr>
+                            <th>Feed</th>
                             <th>Date Start</th>
                             <th>Date Ended</th>
                             <th>Frequency</th>
                             <th>Dest. IP</th>
                             <th>Dest. Port</th>
-                            <th>Feed</th>
                             <th>Start Service</th>
                             <th>Stop Service</th>
                         </tr>
                         
                             <g:each in="${orders}" status="i" var="order">
                             <tr class="actualOrders" id="tr${order.id}">
+                                <td style="text-transform: uppercase">
+                                  ${order.feedtype}
+                               </td>
                                 <td class="editable" varName="startdate">
                                   ${order.startdate}
                                </td>
@@ -51,9 +55,6 @@
                                </td>
                                <td class="editable" varName="destinationport">
                                   ${order.destinationport}
-                               </td>
-                               <td style="text-transform: uppercase">
-                                  ${order.feedtype}
                                </td>
                                <td >
                                    <button id="${order.id}" service-type="startthread">Start Service </button>
