@@ -73,6 +73,14 @@ public class MySQLDBClass {
     
     private void closeConnection(){
         try {
+            if(statement != null && !statement.isClosed()){
+                statement.close();
+            }
+            
+            if(resultSet != null && !resultSet.isClosed()){
+                resultSet.close();
+            }
+            
             if(myconnection.isValid(0)) {
                 myconnection.close();
             }
@@ -800,5 +808,36 @@ public class MySQLDBClass {
              }
         }
         return "/downloads/"+filename+".csv";
+    }
+    
+    public HashMap<String, ArrayList<AttackOrders>> getListofAvailableAttacks(Integer secuserid){
+        //get the list of available attacks for a particular user.
+        String query = "select * from attackconfiguration where feedtype in (select distinct feedtype from orders where userid="+secuserid+");";
+        HashMap<String, ArrayList<AttackOrders>> returnResult = null;
+        try{
+            createConnection();
+            statement =myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            returnResult = new HashMap<>();
+            
+            if(!resultSet.isBeforeFirst()){
+                return null;
+            }else{
+                while(resultSet.next()){
+                    if(returnResult.containsKey(resultSet.getString("feedtype"))){
+                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id")));
+                    }else{
+                        returnResult.put(resultSet.getString("feedtype"), new ArrayList<AttackOrders>());
+                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id")));
+                    }
+                }
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+        
+        return returnResult;
     }
 }
