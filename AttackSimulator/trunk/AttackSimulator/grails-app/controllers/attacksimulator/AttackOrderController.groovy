@@ -42,7 +42,7 @@ class AttackOrderController {
             System.out.println("The feedorder is : " + feedorder);
             def destinationip = feedorder.destinationip;
             def destinationport = feedorder.destinationport;
-            def order = Attackorders.findAllByAttackid(typeofattackid);
+            def order = Attackorders.findAllByAttackidAndSecuserid(typeofattackid, secuserid);
 //            System.out.println("The destinationip is : " + destinationip);
 //            System.out.println("The destinationport is : " + destinationport);
 //            System.out.println("The startdate is : " + startdate);
@@ -68,7 +68,7 @@ class AttackOrderController {
                 //user know that his order params have been updated
                 if(order.size() == 1){
                     Attackorders oldorder = order.get(0);
-                    oldorder.dayofattack = startdate;
+                    oldorder.dayofattack = Date.parse("MM/dd/yyyy", startdate);
                     oldorder.timeofattack = time;
                     oldorder.attackid = typeofattackid;
                     oldorder.frequency = frequency;
