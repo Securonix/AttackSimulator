@@ -129,14 +129,21 @@ $(document).ready(function(){
         $("#attkorder"+i).click(function(event){
             event.preventDefault();
             //get all the attack details.
-            var startdate = $("#from"+i).val();
-            var time = $("#to"+i).val();
-            var typeofattackid = $("#selectedattack"+i).val();
-            var transactionfile = $("#selectedattack"+i+" option:selected").attr("transactionfilepath");
-            var frequency = $("#frequency"+i).val();
-            var attackerid = $("#selecteduser"+i).val();
-            
+            var idstring = $(this).attr("id");
+            var id = idstring.substring(9);
+            var feedtype = $("#feedname"+id).text();
+            var startdate = $("#from"+id).val();
+            var time = $("#to"+id).val();
+            var typeofattackid = $("#selectedattack"+id).val();
+            var transactionfile = $("#selectedattack"+id+" option:selected").attr("transactionfilepath");
+            var frequency = $("#frequency"+id).val();
+            var attackerid = $("#selecteduser"+id).val();
+            var username = $("#selecteduser"+id+" option:selected").text();
             var test = true;
+            
+            if(feedtype === null || feedtype === ""){
+                test = false;
+            }
             
             if(!checkStartDates(startdate)){
                 test = false;
@@ -153,12 +160,14 @@ $(document).ready(function(){
             if(test){
                 $.post("/AttackSimulator/AttackOrder/saveAttackOrder",
                 {
-                    statedate: startdate,
+                    startdate: startdate,
                     time: time,
                     typeofattackid: typeofattackid,
                     transactionfile: transactionfile,
                     frequency: frequency,
-                    attackerid: attackerid
+                    attackerid: attackerid,
+                    username: username,
+                    feedtype: feedtype
                 },
                 function(data){
                     console.log(data);

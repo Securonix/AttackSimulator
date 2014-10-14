@@ -5,8 +5,9 @@ class Attackorders {
     Integer id;
     Integer attackid;
     Integer attackerid;
+    String username;
     Integer secuserid;
-    String transactionfile
+    String transactionfile;
     String destinationip;
     String destinationport;
     Date dayofattack;
