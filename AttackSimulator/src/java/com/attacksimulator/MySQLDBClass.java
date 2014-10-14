@@ -825,10 +825,10 @@ public class MySQLDBClass {
             }else{
                 while(resultSet.next()){
                     if(returnResult.containsKey(resultSet.getString("feedtype"))){
-                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id")));
+                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id"), resultSet.getString("transactionfile")));
                     }else{
                         returnResult.put(resultSet.getString("feedtype"), new ArrayList<AttackOrders>());
-                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id")));
+                        returnResult.get(resultSet.getString("feedtype")).add(new AttackOrders(resultSet.getString("description"), resultSet.getString("id"), resultSet.getString("transactionfile")));
                     }
                 }
             }
@@ -839,5 +839,31 @@ public class MySQLDBClass {
         }
         
         return returnResult;
+    }
+    
+    public ArrayList<Users> getListOfUsers(Integer secuserid){
+        String query = "select * from usermaster where id in (select userid from sysipusermapping where secuserid="+secuserid+");";
+        ArrayList<Users> listofusers = null;
+        try{
+            createConnection();
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            if(!resultSet.isBeforeFirst()){
+                //no data here..
+            }else{
+                listofusers = new ArrayList<>();
+                while(resultSet.next()){
+                    Users user = new Users(resultSet.getString("id"), resultSet.getString("firstname"), resultSet.getString("lastname"), resultSet.getString("account1"));
+                    listofusers.add(user);
+                }
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            closeConnection();
+        }
+        
+        return listofusers;
     }
 }

@@ -13,9 +13,11 @@ public class AttackOrders {
 
     public String description;
     public String attackid;
-
-    public AttackOrders(String des, String atkid) {
+    public String transactionFilePath;
+    
+    public AttackOrders(String des, String atkid, String transpath) {
         description = des;
         attackid = atkid;
+        transactionFilePath = transpath;
     }
 }

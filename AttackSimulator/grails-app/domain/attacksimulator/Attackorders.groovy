@@ -4,6 +4,7 @@ class Attackorders {
     
     Integer id;
     Integer attackid;
+    Integer attackerid;
     Integer secuserid;
     String transactionfile
     String destinationip;
@@ -16,6 +17,7 @@ class Attackorders {
     static constraints = {
         id blank: false
         attackid blank: false
+        attackerid blank: false
         secuserid blank: false
         transactionfile blank: false
     }
