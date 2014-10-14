@@ -4,6 +4,9 @@ import com.attacksimulator.MySQLDBClass;
 import com.attacksimulator.AttackOrders;
 import attacksimulator.Attackorders;
 import org.feedgeneratorgrails.Orders;
+import java.sql.Time;
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 class AttackOrderController {
     
@@ -35,14 +38,29 @@ class AttackOrderController {
             def attackerid = params.get("attackerid");
             def username = params.get("username");
             def feedtype = params.get("feedtype");
-            def feedorder = Orders.findAllByUseridAndFeedtype(secuserid, feedtype).get(0)
-            def destinationip = feedorder.get(0).destinationip;
-            def destinationport = feedorder.get(0).destinationport;
+            def feedorder = Orders.findAllByUseridAndFeedtype(secuserid, feedtype).get(0);
+            System.out.println("The feedorder is : " + feedorder);
+            def destinationip = feedorder.destinationip;
+            def destinationport = feedorder.destinationport;
             def order = Attackorders.findAllByAttackid(typeofattackid);
+//            System.out.println("The destinationip is : " + destinationip);
+//            System.out.println("The destinationport is : " + destinationport);
+//            System.out.println("The startdate is : " + startdate);
+//            System.out.println("The time is : " + time);
+//            System.out.println("The typeofattackid is : " + typeofattackid);
+//            System.out.println("The frequency is : " + frequency);
+//            System.out.println("The attackerid is : " + attackerid);
+//            System.out.println("The username is : " + username);
+//            System.out.println("The feedtype is : " + feedtype);
+//            System.out.println("The transactionfile is : " + transactionfile);
+            
+            //DateFormat formatter = new SimpleDateFormat("HH:mm");
+            //java.sql.Time sqlTime = new java.sql.Time(formatter.parse(time).getTime());
+            
             if(order.isEmpty()){
                 //everything is fine.. this is a new order.. just save it to the DB.
                 Attackorders neworder = new Attackorders(id: 1, attackid: typeofattackid, attackerid: attackerid, username: username, secuserid: secuserid, 
-                transactionfile: transactionfile, destinationip: destinationip, destinationport: destinationport, dayofattack: startdate, timeofattack: time,
+                transactionfile: transactionfile, destinationip: destinationip, destinationport: destinationport, dayofattack: Date.parse("MM/dd/yyyy", startdate), timeofattack: time,
                 frequency: frequency);
                 neworder.save(flush: true);
             }else{
@@ -66,5 +84,7 @@ class AttackOrderController {
         }else{
             render "failurelogin";
         }
+        
+        render "success";
     }
 }

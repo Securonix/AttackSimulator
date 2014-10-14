@@ -27,15 +27,12 @@ $(document).ready(function(){
     
     function checkStartDates(startdates){
         var today = new Date();
-        
-        for(i=0; i<startdates.length; i++){
-            var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-            var date1 = new Date(startdates[i].replace(pattern, '$3/$1/$2'));
-            var diff1 = dateDiff(date1, today);
-            if(diff1 < 0){
-                alert("We don't allow start dates, earlier than today");
-                return false;
-            }
+        var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+        var date1 = new Date(startdates.replace(pattern, '$3/$1/$2'));
+        var diff1 = dateDiff(date1, today);
+        if(diff1 < 0){
+            alert("We don't allow start dates, earlier than today");
+            return false;
         }
         
         return true;
@@ -140,6 +137,15 @@ $(document).ready(function(){
             var attackerid = $("#selecteduser"+id).val();
             var username = $("#selecteduser"+id+" option:selected").text();
             var test = true;
+            
+//            console.log("The feedtype is : "+ feedtype);
+//            console.log("The startdate is : "+ startdate);
+//            console.log("The time is : "+ time);
+//            console.log("The typeofattackid is : "+ typeofattackid);
+//            console.log("The transactionfile is : "+ transactionfile);
+//            console.log("The frequency is : "+ frequency);
+//            console.log("The attackerid is : "+ attackerid);
+//            console.log("The username is : "+ username);
             
             if(feedtype === null || feedtype === ""){
                 test = false;

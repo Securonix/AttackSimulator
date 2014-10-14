@@ -94,22 +94,26 @@
                                     <th class="second">
                                         <div class="th-inner">Time of Attack</div>
                                     </th>
-                                    <th class="second" colspan="3">
+                                    <th class="second">
                                         <div class="th-inner">Frequency Of Attack</div>
                                     </th>
-                                    <th class="third" colspan="3">
-                                        <div class="th-inner">Destination IP: Port</div>
+                                    <th class="second">
+                                        <div class="th-inner">Destination IP:Port</div>
+                                    </th>
+                                    <th class="third">
+                                        <div class="th-inner">Manage jobs</div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <g:each var="userattack" in="${userattacks}" status="i">
                                     <tr>
-                                        <td>${userattack.username}</td>
-                                        <td>${userattack.dayofattack}</td>
-                                        <td>${userattack.timeofattack}</td>
-                                        <td>${userattack.frequency}</td>
-                                        <td>${userattack.destinationip}:${userattack.destinationport}</td>
+                                        <td style="width: 200px">${userattack.username}</td>
+                                        <td style="width: 200px">${userattack.dayofattack}</td>
+                                        <td style="width: 200px">${userattack.timeofattack}</td>
+                                        <td style="width: 200px">${userattack.frequency}</td>
+                                        <td >${userattack.destinationip}:${userattack.destinationport}</td>
+                                        <td></td>
                                     </tr>
                                 </g:each>
                             </tbody>
