@@ -48,7 +48,7 @@
                         <tbody>
                             <g:each var="attackorder" in="${attackorders}" status="i">
                                 <tr>
-                                    <td style="text-transform: uppercase">${attackorder.key}</td>
+                                    <td style="text-transform: uppercase" id="feedname${i+1}">${attackorder.key}</td>
                                     <td>
                                         <select id="selectedattack${i+1}">
                                             <g:each var="value" in="${attackorder.value}">
@@ -86,23 +86,30 @@
                             <thead>
                                 <tr>
                                     <th class="first">
-                                    <div class="th-inner">First Name</div>
+                                        <div class="th-inner">Attacker Name</div>
                                     </th>
                                     <th class="second">
-                                    <div class="th-inner">Last Name</div>
+                                        <div class="th-inner">Day of Attack</div>
                                     </th>
                                     <th class="second">
-                                    <div class="th-inner">Department</div>
+                                        <div class="th-inner">Time of Attack</div>
+                                    </th>
+                                    <th class="second" colspan="3">
+                                        <div class="th-inner">Frequency Of Attack</div>
                                     </th>
                                     <th class="third" colspan="3">
-                                    <div class="th-inner">IpAddress</div>
+                                        <div class="th-inner">Destination IP: Port</div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <g:each var="attackorder" in="${attackorders}" status="i">
+                                <g:each var="userattack" in="${userattacks}" status="i">
                                     <tr>
-                                        <td>${attackorder}</td>
+                                        <td>${userattack.username}</td>
+                                        <td>${userattack.dayofattack}</td>
+                                        <td>${userattack.timeofattack}</td>
+                                        <td>${userattack.frequency}</td>
+                                        <td>${userattack.destinationip}:${userattack.destinationport}</td>
                                     </tr>
                                 </g:each>
                             </tbody>

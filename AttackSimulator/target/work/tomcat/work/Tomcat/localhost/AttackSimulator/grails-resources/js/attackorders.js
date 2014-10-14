@@ -5,6 +5,43 @@
  */
 
 $(document).ready(function(){
+    
+    function dateDiff(date1, date2){
+        //Dates are in string format mm/dd/yyyy
+        //date2 has to be less than date1
+        if(date2.getFullYear() > date1.getFullYear()){
+            return -1;
+        }else if(date2.getFullYear() == date1.getFullYear()){
+            if(date2.getMonth() > date1.getMonth()){
+                return -1;
+            }else if(date2.getMonth() == date1.getMonth()){
+                if(date2.getDate() > date1.getDate()){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+    
+    function checkStartDates(startdates){
+        var today = new Date();
+        
+        for(i=0; i<startdates.length; i++){
+            var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+            var date1 = new Date(startdates[i].replace(pattern, '$3/$1/$2'));
+            var diff1 = dateDiff(date1, today);
+            if(diff1 < 0){
+                alert("We don't allow start dates, earlier than today");
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
     var rowcount = $("#attacktable tr").length;
     for(var i=1; i < rowcount; i++){
         $( "#from"+ i).datepicker({
@@ -87,6 +124,56 @@ $(document).ready(function(){
             nowButtonText: 'Now',         // Text for the now button
             showDeselectButton: false,    // Shows the deselect time button
             deselectButtonText: 'Deselect' // Text for the deselect button
+        });
+        
+        $("#attkorder"+i).click(function(event){
+            event.preventDefault();
+            //get all the attack details.
+            var idstring = $(this).attr("id");
+            var id = idstring.substring(9);
+            var feedtype = $("#feedname"+id).text();
+            var startdate = $("#from"+id).val();
+            var time = $("#to"+id).val();
+            var typeofattackid = $("#selectedattack"+id).val();
+            var transactionfile = $("#selectedattack"+id+" option:selected").attr("transactionfilepath");
+            var frequency = $("#frequency"+id).val();
+            var attackerid = $("#selecteduser"+id).val();
+            var username = $("#selecteduser"+id+" option:selected").text();
+            var test = true;
+            
+            if(feedtype === null || feedtype === ""){
+                test = false;
+            }
+            
+            if(!checkStartDates(startdate)){
+                test = false;
+            }
+            
+            if(typeofattackid === null || typeofattackid === ""){
+                test = false;
+            }
+            
+            if(transactionfile === null || transactionfile === ""){
+                test = false;
+            }
+            
+            if(test){
+                $.post("/AttackSimulator/AttackOrder/saveAttackOrder",
+                {
+                    startdate: startdate,
+                    time: time,
+                    typeofattackid: typeofattackid,
+                    transactionfile: transactionfile,
+                    frequency: frequency,
+                    attackerid: attackerid,
+                    username: username,
+                    feedtype: feedtype
+                },
+                function(data){
+                    console.log(data);
+                    location.reload();
+                });
+            }
         });
     }
 });
