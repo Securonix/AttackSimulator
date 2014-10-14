@@ -151,8 +151,14 @@ $(document).ready(function(){
                 test = false;
             }
             
+            if(startdate === null || startdate === ""){
+                test = false;
+                alert("Please fill out the start date for the order");
+            }
+            
             if(!checkStartDates(startdate)){
                 test = false;
+                alert("We don't allow start dates earlier than today");
             }
             
             if(typeofattackid === null || typeofattackid === ""){
@@ -161,6 +167,15 @@ $(document).ready(function(){
             
             if(transactionfile === null || transactionfile === ""){
                 test = false;
+            }
+            
+            if(time === null || time === ""){
+                test = false;
+                alert("Time of attack needs to be filled");
+            }
+            
+            if(frequency === null || frequency === ""){
+                frequency = "0";
             }
             
             if(test){
