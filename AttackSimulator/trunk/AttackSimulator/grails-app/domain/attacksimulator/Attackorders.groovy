@@ -11,9 +11,8 @@ class Attackorders {
     String destinationip;
     String destinationport;
     Date dayofattack;
-    Date timeofattack;
+    String timeofattack;
     String frequency;
-    Integer recurring;
     
     static constraints = {
         id blank: false
