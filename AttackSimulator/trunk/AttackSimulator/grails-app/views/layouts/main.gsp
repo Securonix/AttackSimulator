@@ -16,10 +16,10 @@
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.ui.datepicker.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css"/>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'login.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.sidr.dark.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'new_framework.css')}" type="text/css"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'nprogress.css')}" type="text/css"/>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.ui.timepicker.css')}" type="text/css"/>
         <g:javascript library="jquery" />
         <g:javascript library="jquery-ui" />
     <r:layoutResources />
@@ -27,6 +27,7 @@
     <g:javascript src="nprogress.js" />
     <g:javascript src="maingrails.js" />
     <g:javascript src="jquery.sidr.min.js" />
+    <g:javascript src="jquery.ui.timepicker.js" />
 </head>
 <body class="yui-skin-sam">
   <!--div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div-->

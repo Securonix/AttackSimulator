@@ -15,19 +15,33 @@
         <g:javascript src="attackorders.js"/>
     </head>
     <body>
-        <div id="container">
-            
+        <div id="content">
             <div class="fixed-table-container">
                 <div class="header-background"> </div>
                 <div class="fixed-table-container-inner">
-                    <table cellspacing="0" class="environment">
+                    <table cellspacing="0" class="environment" id="attacktable">
                         <thead>
                             <tr>
                                 <th class="first">
-                                <div class="th-inner">Feed Type</div>
+                                    <div class="th-inner">Feed Type</div>
+                                </th>
+                                <th class="second">
+                                    <div class="th-inner">Types of Attack Available</div>
+                                </th>
+                                <th class="second">
+                                    <div class="th-inner">Start Date of Attack</div>
+                                </th>
+                                <th class="second">
+                                    <div class="th-inner">Time of Attack</div>
+                                </th>
+                                <th class="second">
+                                    <div class="th-inner">Frequency of Attack</div>
+                                </th>
+                                <th class="second">
+                                    <div class="th-inner">Attack by which user</div>
                                 </th>
                                 <th class="third">
-                                <div class="th-inner">Types of Attack Available</div>
+                                    <div class="th-inner">Save Attack Order</div>
                                 </th>
                             </tr>
                         </thead>
@@ -36,50 +50,65 @@
                                 <tr>
                                     <td style="text-transform: uppercase">${attackorder.key}</td>
                                     <td>
-                                        <select>
-                                        <g:each var="value" in="${attackorder.value}">
-                                            <option value=${value.attackid}>${value.description}</option>
-                                        </g:each>
+                                        <select id="selectedattack${i+1}">
+                                            <g:each var="value" in="${attackorder.value}">
+                                                <option value=${value.attackid} transactionfilepath="${value.transactionFilePath}">${value.description}</option>
+                                            </g:each>
                                         </select>
                                     </td>
+                                    <td>
+                                        <input id="from${i+1}" class="fromDate" type="text"  value="" title="Start Date for the attack"/>
+                                    </td>
+                                    <td>
+                                        <input id="to${i+1}" class="toDate" type="text"  value="" title="End Date for the attack"/>
+                                    </td>
+                                    <td><input type="text" id="frequency${i+1}"/></td>
+                                    <td>
+                                        <select id="selecteduser${i+1}">
+                                            <g:each var="value" in="${listofusers}">
+                                                <option value=${value.userid} account="${value.account1}">${value.firstname} ${value.lastname} </option>
+                                            </g:each>
+                                        </select>
+                                    </td>
+                                    <td><button id="attkorder${i+1}" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" id='begindownload'><span class="ui-button-text">Submit Attack</span></button></td>
                                 </tr>
                             </g:each>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
             <g:hasattackorders>
-            <div class="fixed-table-container">
-                <div class="header-background"> </div>
-                <div class="fixed-table-container-inner">
-                    <table cellspacing="0" class="environment">
-                        <thead>
-                            <tr>
-                                <th class="first">
-                        <div class="th-inner">First Name</div>
-                        </th>
-                        <th class="second">
-                        <div class="th-inner">Last Name</div>
-                        </th>
-                        <th class="second">
-                        <div class="th-inner">Department</div>
-                        </th>
-                        <th class="third" colspan="3">
-                        <div class="th-inner">IpAddress</div>
-                        </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <g:each var="attackorder" in="${attackorders}" status="i">
+                <div class="fixed-table-container">
+                    <div class="header-background"> </div>
+                    <div class="fixed-table-container-inner">
+                        <table cellspacing="0" class="environment">
+                            <thead>
                                 <tr>
-                                    <td>${attackorder}</td>
+                                    <th class="first">
+                                    <div class="th-inner">First Name</div>
+                                    </th>
+                                    <th class="second">
+                                    <div class="th-inner">Last Name</div>
+                                    </th>
+                                    <th class="second">
+                                    <div class="th-inner">Department</div>
+                                    </th>
+                                    <th class="third" colspan="3">
+                                    <div class="th-inner">IpAddress</div>
+                                    </th>
                                 </tr>
-                            </g:each>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <g:each var="attackorder" in="${attackorders}" status="i">
+                                    <tr>
+                                        <td>${attackorder}</td>
+                                    </tr>
+                                </g:each>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             </g:hasattackorders>
         </div>
     </body>
