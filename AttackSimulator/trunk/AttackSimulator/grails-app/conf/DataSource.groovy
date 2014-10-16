@@ -18,6 +18,24 @@ environments {
             url = "jdbc:mysql://localhost:3306/attacksimdev?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "open24X7"
+            
+            properties 
+            { 
+                maxActive = 50 
+                maxIdle = 25 
+                minIdle =1 
+                initialSize = 1 
+                minEvictableIdleTimeMillis = 60000 
+                timeBetweenEvictionRunsMillis = 60000 
+                numTestsPerEvictionRun = 3 
+                maxWait = 10000 
+
+                testOnBorrow = true 
+                testWhileIdle = true 
+                testOnReturn = false 
+
+                validationQuery = "SELECT 1" 
+            } 
         }
         hibernate {
             show_sql = true
@@ -29,7 +47,25 @@ environments {
             url = "jdbc:mysql://localhost:3306/attacksimtest?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "open24X7"
-        }
+            
+            properties 
+            { 
+                maxActive = 50 
+                maxIdle = 25 
+                minIdle =1 
+                initialSize = 1 
+                minEvictableIdleTimeMillis = 60000 
+                timeBetweenEvictionRunsMillis = 60000 
+                numTestsPerEvictionRun = 3 
+                maxWait = 10000 
+
+                testOnBorrow = true 
+                testWhileIdle = true 
+                testOnReturn = false 
+
+                validationQuery = "SELECT 1" 
+            } 
+        } 
     }
     production {
         dataSource {
@@ -37,6 +73,24 @@ environments {
             url = "jdbc:mysql://localhost:3306/attacksimprod?useUnicode=yes&characterEncoding=UTF-8"
             username = "root"
             password = "open24X7"
+            
+            properties 
+            { 
+                maxActive = 50 
+                maxIdle = 25 
+                minIdle =1 
+                initialSize = 1 
+                minEvictableIdleTimeMillis = 60000 
+                timeBetweenEvictionRunsMillis = 60000 
+                numTestsPerEvictionRun = 3 
+                maxWait = 10000 
+
+                testOnBorrow = true 
+                testWhileIdle = true 
+                testOnReturn = false 
+
+                validationQuery = "SELECT 1" 
+            } 
         }
     }
 }

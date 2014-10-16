@@ -65,6 +65,19 @@
                                     </ol>
                                 </fieldset>
                                 <fieldset>
+                                <legend>Network Information for your organization</legend>
+                                <ol>
+                                    <li>
+                                        <label for=postcode>Destination IP</label>
+                                        <input type="text" id="destinationip"/>
+                                    </li>
+                                    .<li>
+                                        <label for=postcode>Destination Port</label>
+                                        <input type="text" id = "destinationport"/>
+                                    </li>
+                                    </ol>
+                                </fieldset>
+                                <fieldset>
                                     <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" id="payment" ><span class="ui-button-text">Submit details</span></button>
                                 </fieldset>
                             </form>
