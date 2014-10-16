@@ -2,7 +2,8 @@ $(document).ready(function() {
     
     $.post("/AttackSimulator/uielements/getFeedtypes", function(data){
         $("#form_804346").html(data);
-        for(var i=1; i < 5; i++){
+        var rowcount = $("#inputRequest tr").length;
+        for(var i=1; i < rowcount; i++){
             $( "#from"+ i).datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
