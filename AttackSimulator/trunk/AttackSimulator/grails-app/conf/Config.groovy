@@ -151,3 +151,96 @@ grails.plugins.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugins.springsecurity.successHandler.alwaysUseDefaultTargetUrl = false
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/'
 */
+
+/*
+     *  For MySQL... only needed for netbeans
+     *
+     */
+grails.naming.entries = ['jdbc/AttackSimulatorDS': [
+	type: "javax.sql.DataSource", //required
+        auth: "Container", // optional
+        description: "Data source for ...", //optional
+        //properties for particular type of resource
+	//url: "jdbc:mysql://10.127.226.74:3306/securonix",
+       url: "jdbc:mysql://localhost:3306/attacksimdev?autoReconnect=true",
+       // url: "jdbc:mysql://localhost:3306/securonix46_demo_bh_final?autoReconnect=true",
+        username: "root",
+        password: "password",
+//password: "\$ecurity.4u",
+	driverClassName: "com.mysql.jdbc.Driver",
+//        factory: "org.apache.tomcat.jdbc.pool.DataSourceFactory",
+
+//        url: "jdbc:oracle:thin:@192.168.1.2:1522/orcl",	
+//        username: "securonix",
+//        password: "password",
+//        driverClassName: "oracle.jdbc.OracleDriver",
+       maxActive:"300",
+       maxIdle:"20",
+       testOnBorrow:"true",
+       testWhileIdle:"true",
+	testOnReturn:"true",
+	timeBetweenEvictionRunsMillis:"30000" ,
+	validationQuery:"SELECT 1",
+	removeAbandonedTimeout:"60",
+        removeAbandoned:"true",
+        logAbandoned:"true",
+	jdbcInterceptors:"ResetAbandonedTimer",
+	abandonWhenPercentageFull:"50"
+                        
+//        initialSize:"5",
+//        maxActive: "100",
+//        maxIdle: "40",         
+//        minIdle : "5",
+//        maxIdle : "25",
+//        initialSize : "50",
+//        minEvictableIdleTimeMillis :"60000",
+//        timeBetweenEvictionRunsMillis :"60000",
+//        numTestsPerEvictionRun : "3",
+//        maxWait :"10000",
+//        validationQuery: "SELECT 1",
+//        validationQueryTimeout: "3", 
+//        validationInterval : "15000",
+//        testOnBorrow:"true",
+//        testOnReturn:"false", 
+//        ignoreExceptionOnPreLoad:"true",
+//        testWhileIdle :"true",
+     //   jmxEnabled:"true",
+       // maxAge: "10 * 60000", 
+     //   jdbcInterceptors : "ConnectionState;StatementCache(max=200)",
+      //  timeBetweenEvictionRunsMillis: "5000",
+       // factory:"com.securonix.application.common.util.EncryptionFactory"
+     	]
+
+    /*
+     *  For SQL Server... only needed for netbeans
+     *
+     */
+        
+//       
+//        grails.naming.entries = ['jdbc/securonixDS': [
+//	type: "javax.sql.DataSource", //required
+//        auth: "Container", // optional
+//        description: "Data source for ...", //optional
+//        //properties for particular type of resource
+//	url: "jdbc:jtds:sqlserver://192.168.1.29:1433/securonix",
+//	username: "sa",
+//	password: "abcd1234",
+//	driverClassName: "net.sourceforge.jtds.jdbc.Driver",
+//	maxActive: "10", //and so on
+//        maxIdle: "4"
+//	]
+        
+    //
+]
+
+hibernate {
+    //config.location = "file:src/java/hibernate.cfg.xml"
+
+    //cache.use_second_level_cache=true
+    //cache.use_query_cache=true
+    //cache.provider_class='com.opensymphony.oscache.hibernate.OSCacheProvider'
+    cache.use_query_cache=true
+    cache.use_second_level_cache=false
+    cache.provider_class='org.hibernate.cache.EhCacheProvider'
+
+}
