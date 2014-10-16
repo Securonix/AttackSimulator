@@ -35,6 +35,10 @@ public class RunSysLogFeeds extends Thread{
         templateSys = null;
         this.factorString = factorString;
      }
+     
+     public int getOrderId(){
+         return orderId;
+     }
 
     @Override
     public void run() {
