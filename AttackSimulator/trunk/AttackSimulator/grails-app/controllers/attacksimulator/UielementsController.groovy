@@ -1,19 +1,31 @@
 package attacksimulator;
 
 import org.feedgeneratorgrails.Feedmaster;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
-import org.quartz.SimpleScheduleBuilder;
-
 
 class UielementsController {
-	
-	def quartzScheduler;
+
+    def quartzScheduler;
 
     def index() {
-		System.out.println("The type of the scheduler is : "+ quartzScheduler.getClass());
-		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(2).repeatForever()).build();
-		
+        System.out.println("The type of the scheduler is : "+ quartzScheduler.getClass());	
+    }
+    
+    def scheduleAttackOrder(){
+        def attackorderid = params.get("id");
+        System.out.println("The attack order id: "+ attackorderid);
+        
+        ScheduleAttackJob.triggerNow([orderid: attackorderid]);
+      
+        render "success";
+    }
+    
+     def deScheduleAttackOrder(){
+        def attackorderid = params.get("id");
+        System.out.println("The attack order id: "+ attackorderid);
+        
+        DeScheduleAttackJob.triggerNow([orderid: attackorderid]);
+      
+        render "success";
     }
     
     def getFeedtypes(){
