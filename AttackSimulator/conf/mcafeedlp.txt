@@ -1,0 +1,4 @@
+{{datetimeyyyymmddhhmssss}} {{financeusers.userid}} printing a sensitive document<<100
+{{datetimeyyyymmddhhmssss}} {{financeusers.userid}} plugged in a usb device||{{datetimeyyyymmddhhmssss}} {{financeusers.userid}} unplugged a usb device << 1
+
+

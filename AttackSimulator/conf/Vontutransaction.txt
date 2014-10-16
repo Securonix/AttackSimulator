@@ -1,0 +1,3 @@
+{{usermaster.firstname}} {{usermaster.lastname}} {{usermaster.department}} || {{randomvalue}} generated this random value : weight 10 << 10
+{{usermaster.firstname}} {{usermaster.lastname}} {{usermaster.department}} || {{randomvalue}} generated this random value : weight 20 << 20
+{{usermaster.firstname}} {{usermaster.lastname}} {{usermaster.department}} || {{randomvalue}} generated this random value : weight 100 << 100
