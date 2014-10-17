@@ -165,7 +165,7 @@ grails.naming.entries = ['jdbc/AttackSimulatorDS': [
        url: "jdbc:mysql://localhost:3306/attacksimdev?autoReconnect=true",
        // url: "jdbc:mysql://localhost:3306/securonix46_demo_bh_final?autoReconnect=true",
         username: "root",
-        password: "password",
+        password: "open24X7",
 //password: "\$ecurity.4u",
 	driverClassName: "com.mysql.jdbc.Driver",
 //        factory: "org.apache.tomcat.jdbc.pool.DataSourceFactory",

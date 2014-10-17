@@ -10,6 +10,7 @@ import org.feedgeneratorgrails.Sysipusermapping;
 import org.feedgeneratorgrails.Users;
 import org.feedgeneratorgrails.Usermaster;
 import org.feedgeneratorgrails.Orders;
+import attacksimulator.Usersyslogdetails;
 
 class EnvironmentController {
     
@@ -25,7 +26,7 @@ class EnvironmentController {
             }
             Collections.sort(countries);
             def sysipusers = Sysipusermapping.findAllBySecuserid(springSecurityService.currentUser.id);
-            System.out.println("Class type of sysipuser: "+sysipusers.getClass());
+            //System.out.println("Class type of sysipuser: "+sysipusers.getClass());
             
             ArrayList<Usermaster> users = new ArrayList<>();
             ArrayList<String> ipaddress1 = new ArrayList<>();
@@ -34,9 +35,9 @@ class EnvironmentController {
             
             for(Sysipusermapping sysipuser: sysipusers){
                 def user = Usermaster.findById(sysipuser.userid);
-                System.out.println("Sysipuser firstname:" + user.firstname);
-                System.out.println("Sysipuser lastname:" + user.lastname);
-                System.out.println("Sysipuser department:" + user.department);
+                //System.out.println("Sysipuser firstname:" + user.firstname);
+                //System.out.println("Sysipuser lastname:" + user.lastname);
+                //System.out.println("Sysipuser department:" + user.department);
                 users.add(user);
                 ipaddress1.add(sysipuser.ipaddress1);
                 ipaddress2.add(sysipuser.ipaddress2);
@@ -87,6 +88,13 @@ class EnvironmentController {
             Extusermapping extcountry = new Extusermapping(id: 1, secuserid: secuserid, country: countries[i]);
             extcountry.save(flush: true);
         }
+        
+        //save destinationip and destination port details
+        def destinationip = params.get("destinationip");
+        def destinationport = params.get("destinationport");
+        
+        Usersyslogdetails usersyslog = new Usersyslogdetails(id: 1, secuserid: secuserid, destinationip: destinationip, destinationport: destinationport);
+        usersyslog.save(flush: true);
         
         render "success"
     }
@@ -160,14 +168,14 @@ class EnvironmentController {
                 ArrayList<String> threeUniqueIp = new ArrayList<>();
                 
                 for(int j=0; j<3; j++){
-                    Integer firstquart = getRandomInRange(0, 127);
+                    Integer firstquart = 10;
                     Integer secondquart = getRandomInRange(0, 255);
                     Integer thirdquart = getRandomInRange(0,255);
                     Integer lastquart = getRandomInRange(0,255);
-                    System.out.println(firstquart+" : First Quart");
-                    System.out.println(secondquart+" : Second Quart")
-                    System.out.println(thirdquart+" : Third Quart")
-                    System.out.println(lastquart+" : Fourth Quart")
+                    //System.out.println(firstquart+" : First Quart");
+                    //System.out.println(secondquart+" : Second Quart")
+                    //System.out.println(thirdquart+" : Third Quart")
+                    //System.out.println(lastquart+" : Fourth Quart")
                     
                     String ipaddress = firstquart.toString()+"."+secondquart.toString()+"."+thirdquart.toString()+"."+lastquart.toString();
                     if(usedUpIps.contains(ipaddress)){
@@ -193,14 +201,14 @@ class EnvironmentController {
                 ArrayList<String> threeUniqueIp = new ArrayList<>();
                 
                 for(int j=0; j<3; j++){
-                    Integer firstquart = getRandomInRange(128, 191);
-                    Integer secondquart = getRandomInRange(0, 255);
+                    Integer firstquart = 172;
+                    Integer secondquart = getRandomInRange(16, 31);
                     Integer thirdquart = getRandomInRange(0,255);
                     Integer lastquart = getRandomInRange(0,255);
-                    System.out.println(firstquart+" : First Quart");
-                    System.out.println(secondquart+" : Second Quart")
-                    System.out.println(thirdquart+" : Third Quart")
-                    System.out.println(lastquart+" : Fourth Quart")
+                    //System.out.println(firstquart+" : First Quart");
+                    //System.out.println(secondquart+" : Second Quart")
+                    //System.out.println(thirdquart+" : Third Quart")
+                    //System.out.println(lastquart+" : Fourth Quart")
                     
                     String ipaddress = firstquart.toString()+"."+secondquart.toString()+"."+thirdquart.toString()+"."+lastquart.toString();
                     if(usedUpIps.contains(ipaddress)){
@@ -226,14 +234,14 @@ class EnvironmentController {
                 ArrayList<String> threeUniqueIp = new ArrayList<>();
                 
                 for(int j=0; j<3; j++){
-                    Integer firstquart = getRandomInRange(192, 223);
-                    Integer secondquart = getRandomInRange(0, 255);
+                    Integer firstquart = 192;
+                    Integer secondquart = 168;
                     Integer thirdquart = getRandomInRange(0,255);
                     Integer lastquart = getRandomInRange(0,255);
-                    System.out.println(firstquart+" : First Quart");
-                    System.out.println(secondquart+" : Second Quart")
-                    System.out.println(thirdquart+" : Third Quart")
-                    System.out.println(lastquart+" : Fourth Quart")
+                    //System.out.println(firstquart+" : First Quart");
+                    //System.out.println(secondquart+" : Second Quart")
+                    //System.out.println(thirdquart+" : Third Quart")
+                    //System.out.println(lastquart+" : Fourth Quart")
                     
                     String ipaddress = firstquart.toString()+"."+secondquart.toString()+"."+thirdquart.toString()+"."+lastquart.toString();
                     if(usedUpIps.contains(ipaddress)){
@@ -335,13 +343,18 @@ class EnvironmentController {
             
             order.delete(flush: true);
         }
+        
+        def syslogdeets = Usersyslogdetails.findAllBy(secuserid);
+        for(Usersyslogdetails deets: syslogdeets){
+            deets.delete(flush: true);
+        }
     }
     
     def getDownloadLink(){
         MySQLDBClass mydb = new MySQLDBClass();
         String basepath = request.getSession().getServletContext().getRealPath("/");
         String hreflink = mydb.getUserDownloadLink(springSecurityService.currentUser.id, basepath);
-        hreflink = "<a href=\"http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()+hreflink+"\" download>Download user data</a>";
+        hreflink = "<a href=\"http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()+hreflink+"\" target=\"_blank\" download style=\"text-decoration: underline;\">Download user data</a>";
         render hreflink as String;
     }
     
@@ -371,7 +384,7 @@ class EnvironmentController {
         def dmzhostname = params.get("hostname");
         def dmzid = params.get("dmzid");
         def dmz = Dmzusermapping.get(dmzid);
-        dmz.dmzhostname = dmzhostname;
+        dmz.dmzhostname = dmzhostname;  
         dmz.save(flush:true);
         
         render "success";

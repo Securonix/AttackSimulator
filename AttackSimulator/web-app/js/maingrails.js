@@ -106,10 +106,6 @@ $(document).ready(function(){
             return;
         }
         
-        if($("#businessuse").prop("checked")){
-            businessuser = "true";
-        }
-        
         $.post("/AttackSimulator/Register/addSecUser", {
             name: name,
             username: username,

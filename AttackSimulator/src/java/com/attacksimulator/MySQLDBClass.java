@@ -597,7 +597,7 @@ public class MySQLDBClass {
                 }
                 query2 += ") values (\""+feedtype+"\", "+orderid+", "+ feedconfigid+ ", "+ userid;
                 query2 += query2Secondpart + ");";
-                System.out.println(query2);
+                //System.out.println(query2);
                 statement = myconnection.createStatement();
                 statement.executeUpdate(query2);
             }else{
@@ -607,7 +607,7 @@ public class MySQLDBClass {
                 }
                 query2 = query2.substring(0, query2.length()-2);
                 query2 += " where feedconfigid="+feedconfigid+" and orderid="+orderid+" and userid="+userid+";";
-                System.out.println(query2);
+                //System.out.println(query2);
                 statement = myconnection.createStatement();
                 statement.executeUpdate(query2);
             }  
@@ -781,7 +781,12 @@ public class MySQLDBClass {
                 while(resultSet.next()){
                     String writeToFile = resultSet.getString(1);
                     for(int i=2; i<columnCount+1; i++){
-                        writeToFile += ","+resultSet.getString(i);
+                        String tofile = resultSet.getString(i);
+                        if(tofile == null || tofile.equalsIgnoreCase("null")){
+                            writeToFile += ",";
+                        }else{
+                            writeToFile += ","+tofile;
+                        }
                     }
                     out.write(writeToFile);
                     out.newLine();
