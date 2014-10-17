@@ -1,7 +1,6 @@
 <!--
-  To change this license header, choose License Headers in Project Properties.
-  To change this template file, choose Tools | Templates
-  and open the template in the editor.
+  Creation of the environment means writing to the following tables.
+  Sysipusermapping table, dmztable, extcountry, secuser destinationipporttable
 -->
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -65,7 +64,7 @@
                                     </ol>
                                 </fieldset>
                                 <fieldset>
-                                <legend>Network Information for your organization</legend>
+                                <legend>Syslog Server Details</legend>
                                 <ol>
                                     <li>
                                         <label for=postcode>Destination IP</label>

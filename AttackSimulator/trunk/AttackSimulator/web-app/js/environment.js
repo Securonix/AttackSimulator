@@ -25,6 +25,23 @@ $(document).ready(function () {
     });
 
     $("#type option:selected").removeAttr("selected");
+    
+    function ValidatePort(port){
+    if(port<0 || port > 65535){
+        return false;
+    }
+
+    return true;
+    }
+    
+    function ValidateIPaddress(ipaddress) {
+        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress))
+         {
+           return (true)
+         }
+       //alert("You have entered an invalid IP address!")
+       return (false)
+    }
 
     $("#payment").submit(function (event) {
         //test that the value of user.. cannot be null 
@@ -34,6 +51,9 @@ $(document).ready(function () {
         var internalrange = $("#internalranges option:selected").attr("value");
         var dmzrange = $("#dmzranges option:selected").attr("value");
         var dmzhostslength = filterInt($("#numdmzval").val());
+        var destinationip = $("#destinationip").val();
+        var destinationport = $("#destinationport").val();
+        
         event.preventDefault();
 
         var valid = true;
@@ -42,9 +62,29 @@ $(document).ready(function () {
             $("#errors").html("Values expected for number of users is within 665 and country selected should not contain null");
             valid = false;
         }
+        
+        if(destinationport == null || destinationport == ""){
+            alert("Please enter a destination port")
+            valid = false;
+        }
+        
+        if(destinationip == null || destinationip == ""){
+            alert("Please enter a destination IP");
+            valid = false;
+        }
+        
+        if(!ValidateIPaddress(destinationip)){
+            alert("Invalid IP address entered")           
+            valid =false;
+        }
+        
+        if(!ValidatePort(destinationport)){
+            alert("Valid Port numbers are in the range 0-65535");
+            valid = false;
+        }
 
         if (valid) {
-            $.post("/AttackSimulator/Environment/createUserTables", {country: country, numusers: numberofusers, internal: internalrange, dmzrange: dmzrange, dmzhostslength: dmzhostslength}, function (data) {
+            $.post("/AttackSimulator/Environment/createUserTables", {country: country, numusers: numberofusers, internal: internalrange, dmzrange: dmzrange, dmzhostslength: dmzhostslength, destinationip: destinationip, destinationport: destinationport}, function (data) {
                 if (data === "success") {
                     location.reload();
                     //window.location.href = "/AttackSimulator/inputRequest/inputRequest/inputRequest";
