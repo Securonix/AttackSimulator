@@ -5,6 +5,7 @@ class Attackorders {
     Integer id;
     Integer attackid;
     Integer attackerid;
+    Integer threadid;
     String username;
     Integer secuserid;
     String transactionfile;
