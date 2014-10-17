@@ -56,6 +56,20 @@ public final class TemplatingSystem {
         bufferAllTransactionLines(userid);
         rand = new Random();
     }
+    
+    /*
+    *   Use this constructor for attacks
+    */
+    public TemplatingSystem(String transactionfile, String attackerid, String secuserid){
+        transactionFile = transactionfile;
+        transactions = new ArrayList<>();
+        vgtMap = new HashMap<>();
+        running = true;
+        transactionWeights = new ArrayList<>();
+        weightedTransactionIds = new ArrayList<>();
+        bufferAllTransactionLines(Integer.parseInt(secuserid));
+        rand = new Random();
+    }
 
     public String getTransactionFile(String feedtype) {
         try {
@@ -271,6 +285,55 @@ public final class TemplatingSystem {
             if(dayOfWeek == 1 || dayOfWeek == 7){
                 currentFrequency = currentFrequency*factor;
             }
+            try {
+                Thread.sleep(currentFrequency);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void generateAttack(String feedtype, String attackid, String destinationip, String destinationport, String frequency){
+        syslogUtility = new SyslogUtility(feedtype+attackid, destinationip, destinationport);
+        while (running) {
+            int index = getRandomizedIndex();
+            String currentTransaction = transactions.get(index);
+            Long currentFrequency = Long.parseLong(frequency);
+            String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
+            Pattern pat = Pattern.compile(pattern);
+            Matcher matcher = pat.matcher(currentTransaction);
+            while (matcher.find()) {
+                String var = matcher.group(1);
+                if (var.contains(".")) {
+                    var = var.split("\\.")[0];
+                    HashMap<String, String> res = null;
+                    try {
+                        res = vgtMap.get(var).getValue();
+                        String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
+                        Pattern pattemp = Pattern.compile(pattempstr);
+                        Matcher matchertemp = pattemp.matcher(currentTransaction);
+                        while (matchertemp.find()) {
+                            currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
+                        }
+                    } catch (OperationNotSupportedException ex) {
+                        Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    try {
+                        currentTransaction = currentTransaction.replace(matcher.group(), vgtMap.get(matcher.group(1)).getValue().get(matcher.group(1)));
+                    } catch (OperationNotSupportedException ex) {
+                        Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
+            String[] splitTransactions = currentTransaction.split("\\|\\|");
+            for (String transaction : splitTransactions) {
+                System.out.println(transaction.trim());
+                syslogUtility.publishString(transaction.trim());
+            }
+
             try {
                 Thread.sleep(currentFrequency);
             } catch (InterruptedException ex) {

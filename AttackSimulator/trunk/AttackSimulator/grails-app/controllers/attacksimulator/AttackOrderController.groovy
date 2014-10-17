@@ -61,8 +61,14 @@ class AttackOrderController {
                 //everything is fine.. this is a new order.. just save it to the DB.
                 Attackorders neworder = new Attackorders(id: 1, attackid: typeofattackid, attackerid: attackerid, username: username, secuserid: secuserid, 
                 transactionfile: transactionfile, destinationip: destinationip, destinationport: destinationport, dayofattack: Date.parse("MM/dd/yyyy", startdate), timeofattack: time,
-                frequency: frequency);
+                frequency: frequency, threadid: -1);
                 neworder.save(flush: true);
+                
+                Date scheduleDate = Date.parse("MM/dd/yyyy HH:mm", startdate+" "+time);
+                
+                //schedule attack jobs.
+                ScheduleAAttackJob.schedule(scheduleDate, [orderid: neworder.id, feedtype: feedtype]);
+                
             }else{
                 //this seems to be an order that was already there in the db.. update the params of this order and let the 
                 //user know that his order params have been updated

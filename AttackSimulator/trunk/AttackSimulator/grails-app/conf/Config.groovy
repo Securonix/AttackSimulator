@@ -114,7 +114,7 @@ log4j = {
                 'grails.app.controllers.feedgeneratorgrails.RegisterController'
                 'org.springframework.security'
     */
-    debug  'org.codehaus.groovy.grails.web.servlet',        // controllers
+    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping

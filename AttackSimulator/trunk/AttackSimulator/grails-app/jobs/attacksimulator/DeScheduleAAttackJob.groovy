@@ -1,7 +1,7 @@
 package attacksimulator
 
-import com.attacksimulator.RunSysLogFeeds;
-import org.feedgeneratorgrails.Orders;
+import com.attacksimulator.RunSyslogAttacks;
+import attacksimulator.Attackorders;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -12,7 +12,7 @@ class DeScheduleAAttackJob {
     def execute(context) {
         // execute job
         def orderid = Integer.parseInt(context.mergedJobDataMap.get('orderid'));
-        def order = Orders.get(orderid);
+        def order = Attackorders.get(orderid);
         def threadid = order.threadid;
         if(threadid != -1){
             //stop the thread by making it -1 in the db and find it in the running java threads and killing it
@@ -28,24 +28,24 @@ class DeScheduleAAttackJob {
             for(int i=0; i < allThreads.length; i++){
                 Thread thread = allThreads[i];
                 if(thread.getId() == threadid){
-                    RunSysLogFeeds th = (RunSysLogFeeds)thread;
+                    RunSyslogAttacks th = (RunSyslogAttacks)thread;
                     if(orderid == th.getOrderId())
-                        ((RunSysLogFeeds)thread).shutdown();
+                        ((RunSyslogAttacks)thread).shutdown();
                 }
             }
         }
     }
     
     ThreadGroup getThreadGroup(Thread thread){
-        ThreadGroup rootGroup = thread.getThreadGroup();
-        while(true){
-            ThreadGroup parentGroup = rootGroup.getParent();
-            if(parentGroup == null){
-                break;
-            }
-            rootGroup = parentGroup;
-         }
-        
-        return rootGroup;
-    }
+            ThreadGroup rootGroup = thread.getThreadGroup();
+            while(true){
+                ThreadGroup parentGroup = rootGroup.getParent();
+                if(parentGroup == null){
+                    break;
+                }
+                rootGroup = parentGroup;
+             }
+
+            return rootGroup;
+        }
 }
