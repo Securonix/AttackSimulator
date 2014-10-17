@@ -3,6 +3,7 @@ package feedgeneratorgrails
 import org.feedgeneratorgrails.Orders;
 import groovy.json.JsonSlurper
 import org.codehaus.groovy.grails.validation.routines.InetAddressValidator;
+import attacksimulator.Usersyslogdetails;
 
 class OrderController {
 
@@ -15,14 +16,14 @@ class OrderController {
         }
         
         //check received params server side and then save it in the database
-        def destinationip = params.get("destinationip");
-        def destinationport = params.get("destinationport");
+        def userid = springSecurityService.currentUser.id;
+        def userdeets = Usersyslogdetails.findAllBySecuserid(userid);
+        def destinationip = userdeets.get(0).destinationip;
+        def destinationport = userdeets.get(0).destinationport;
         String[] feedtype = params.list("feedtype[]");
-        log.debug 'Value of feedtype'+feedtype;
         String[] startdates = params.list("startdates[]");
         String[] enddates = params.list("enddates[]");
         String[] frequencies = params.list("frequencies[]");
-        def userid = springSecurityService.currentUser.id;
         
         //make some checks for empty strings wrong values etc on all the variable here to be done
         if(!testIP(destinationip)){
@@ -82,9 +83,9 @@ class OrderController {
         def eddate = Date.parse("MM/dd/yyyy", date2);
         today.clearTime();
         
-        System.out.println("Todays date: "+ today.toString());
-        System.out.println("Start date: "+ stdate.toString());
-        System.out.println("End date: "+ eddate.toString());
+        //System.out.println("Todays date: "+ today.toString());
+        //System.out.println("Start date: "+ stdate.toString());
+        //System.out.println("End date: "+ eddate.toString());
         
         if(today.compareTo(stdate) > 0){
             return false;

@@ -50,7 +50,7 @@ $(document).ready(function() {
         return null;
     }
     
-    function checkOtherParams(startdates, enddates, frequencies, destinationip, destinationport){
+    function checkOtherParams(startdates, enddates, frequencies){
         for(i=0; i<startdates.length; i++){
             if(startdates[i] == "" || startdates[i] == null){
                 alert("You missed the start date on one of the feeds");
@@ -72,48 +72,11 @@ $(document).ready(function() {
             }
         }
         
-        if(destinationport == null || destinationport == ""){
-            alert("Please enter a destination port")
-            return false;
-        }
-        
-        if(destinationip == null || destinationip == ""){
-            alert("Please enter a destination IP");
-            return false;
-        }
-        
-        if(!ValidateIPaddress(destinationip)){
-            alert("Invalid IP address entered")           
-            return false;
-        }
-        
         if(!checkStartEndDates(startdates, enddates)){
             return false;
         }
         
-        if(!ValidatePort(destinationport)){
-            alert("Valid Port numbers are in the range 0-65535");
-            return false;
-        }
-        
         return true;
-    }
-    
-    function ValidatePort(port){
-        if(port<0 || port > 65535){
-            return false;
-        }
-        
-        return true;
-    }
-    
-    function ValidateIPaddress(ipaddress) {
-        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress))
-         {
-           return (true)
-         }
-       //alert("You have entered an invalid IP address!")
-       return (false)
     }
     
     function checkStartEndDates(startdates, enddates){
@@ -161,8 +124,6 @@ $(document).ready(function() {
     $("#parameterssubmit").click(function(event){
         event.preventDefault();
         //we have to make sure that each feed has the start date the end date and the frequency values set
-        var destinationip = $("#destinationIp").val();
-        var destinationport = $("#destinationPort").val();
         var feedtype = new Array();
         var ids = new Array();
         $("input[name=\"feedtype\"]").each(function(){
@@ -195,10 +156,8 @@ $(document).ready(function() {
         console.log(startdates);
         console.log(enddates);
         console.log(frequencies);
-        console.log(destinationip);
-        console.log(destinationport);
         
-        var checkVal = checkOtherParams(startdates, enddates, frequencies, destinationip, destinationport);
+        var checkVal = checkOtherParams(startdates, enddates, frequencies);
         if(ids.length == 0){
             checkVal = false;
             $("#errormessages").html("You have to choose atleast one feedtype.");
@@ -206,8 +165,6 @@ $(document).ready(function() {
         if(checkVal === true){
             //alert("ready to send data");
             $.post("/AttackSimulator/Order/saveOrder", {
-                destinationip: destinationip,
-                destinationport: destinationport,
                 feedtype: feedtype,
                 startdates: startdates,
                 enddates: enddates,

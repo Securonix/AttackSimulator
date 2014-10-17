@@ -119,25 +119,24 @@ class EnvironmentController {
        
         switch(dmzrange){
             case "classa" :
-                firstquart = getRandomInRange(0, 127);
+                firstquart = 10;
                 secondquart = getRandomInRange(0, 255);
                 thirdquart = getRandomInRange(0,255);
                 lastquart = getRandomInRange(0,255);
                 break;
                 
             case "classb" :
-                firstquart = getRandomInRange(128, 191);
-                secondquart = getRandomInRange(0, 255);
+                 firstquart = 172;
+                 secondquart = getRandomInRange(16, 31);
                 thirdquart = getRandomInRange(0,255);
                 lastquart = getRandomInRange(0,255);
                 break;
                 
             case "classc" :
-                firstquart = getRandomInRange(192, 223);
-                secondquart = getRandomInRange(0, 255);
+                firstquart = 192;
+                secondquart = 168;
                 thirdquart = getRandomInRange(0,255);
                 lastquart = getRandomInRange(0,255);
-                break;
                 
             default:
                 throw new NumberFormatException();
@@ -344,7 +343,7 @@ class EnvironmentController {
             order.delete(flush: true);
         }
         
-        def syslogdeets = Usersyslogdetails.findAllBy(secuserid);
+        def syslogdeets = Usersyslogdetails.findAllBySecuserid(secuserid);
         for(Usersyslogdetails deets: syslogdeets){
             deets.delete(flush: true);
         }

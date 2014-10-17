@@ -56,7 +56,7 @@ class LogicalTagLib {
         if(location.contains("Environment")){
             out << "Environment";
         }else if(location.contains("Request")){
-            out << "Place an Order";
+            out << "Place and Manage Orders";
         }else if(location.contains("Thread")){
             out << "Your Orders";
         }else if(location.contains("Attack")){

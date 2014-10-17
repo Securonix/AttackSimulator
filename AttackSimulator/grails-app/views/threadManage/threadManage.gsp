@@ -23,7 +23,6 @@
                 </div>
                 <div id="Control-panel">
                     <p id="editOrder" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px">Edit your orders<p>
-                    <p id="chooseAttacks" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px; float: right">Choose Attacks<p>
                     <table style="border-style: solid;" align="center" border="1">
                         <tr>
                             <th>Feed</th>
