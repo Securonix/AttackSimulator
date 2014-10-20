@@ -175,6 +175,7 @@ $(document).ready(function () {
         dialog2.dialog("open");
     });
     
+    /*
     $("span.dmzclass").click(function(){
         var dmzid = $(this).attr("dmzid");
         var actualid = dmzid.substring(5);
@@ -201,7 +202,43 @@ $(document).ready(function () {
             $(this).attr("enabled", "true");
         }
     });
-    
+    */
+   
+   var rowcount = $("#dmzdetails tr").length;
+   for(var i=0; i<rowcount; i++){
+       $("#dmzdetails"+i).click(function(event){
+            event.preventDefault();
+            var dmzid = $(this).find("span").attr("dmzid");
+            var actualid = dmzid.substring(5);
+            var takeinput = $(this).find("span").attr("enabled");
+            var withinputstring = "<input id=\"dmzprimary"+actualid+"\" value=\"";
+            if(takeinput === "true"){
+                //this is the first time the button was clicked.. 
+                //change the value in the span to Save hostname
+                $(this).find("span").html("Save hostname");
+                var currentHostname = $("#dmzhname"+actualid).html();            
+                $("#dmzhname"+actualid).html(withinputstring+currentHostname+"\"/>");
+                $(this).find("span").attr("enabled", "false");
+            }else if(takeinput === "false"){
+                //this is the second time the button was clicked.
+                //change the value in the span to 
+                var valueInInput = $("#dmzprimary"+actualid).val();
+                $.post("/AttackSimulator/Environment/saveDmzHostName", {hostname: valueInInput, dmzid: actualid}, function(data){
+                    if(data === "success"){
+                        $("#errors").html("DMZ hostname updated");
+                    }
+                });
+                $("#dmzhname"+actualid).html(valueInInput);
+                $(this).find("span").html("Edit hostname");
+                $(this).find("span").attr("enabled", "true");
+            }
+       });
+   }
+   
+   $(document).click(function(event) {
+        var text = $(event.target).text();
+        console.log(event.target);
+    });
 });
 
 $(document).ajaxStart(function () {

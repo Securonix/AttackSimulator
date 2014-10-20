@@ -5,46 +5,129 @@
  */
 
 $(document).ready(function(){
-//    var totalOrders = 0;
-//    $.post("/AttackSimulator/AdminView/getTotalOrderCount", function(data){
-//        totalOrders = parseInt(data);
-//    });
-//    
-//    for(i=0; i < totalOrders; i++){
-//        $("Yes"+i).on("click", function(){
-//            //Click on yes would mean that 
-//            var offset = $(this).attr("offset");
-//        });
-//    }
-
-    //we have to find the total number of radio buttons clicked on the page.. thankfully there are only one set of radiobuttons that we 
-    //care about.. that might make the job easier
     
-    $("#senddata").click(function(){
-        //find all the radio buttons that have yes 
-        var allcheckedradios = $("input[type=radio]:checked");
-        var allyesids = new Array();
-        var allnoids = new Array();
-        allcheckedradios.each(function(index){
-            if($(this).attr("value") == "Yes"){
-                allyesids.push($(this).attr("orderid"));
-            }else if($(this).attr("value") == "No"){
-                allnoids.push($(this).attr("orderid"));
+    function setPassword(){
+        //read the two passwords and check 
+        var password = $("#set-password").val();
+        var conpassword = $("#set-confirm-password").val();
+
+        if(password !== conpassword){
+            $("#messageModal").html("The passwords don't match!!");
+            return;
+        }
+
+        $.post("/AttackSimulator/AdminView/setNewPassword", {
+            userid: userid,
+            password: password
+        }, function(data){
+            if(data === "success"){
+                dialog.dialog("close");
+                location.reload();
+            }else{
+                $("#messageModal").html("There was some problem while saving your passwords.. please try again later");
+                return;
             }
         });
+    }
+    
+    dialog = $( "#setpassworddiv" ).dialog({
+        autoOpen: false,
+        height: 500,
+        width: 450,
+        modal: true,
+        buttons: {
+          "Set New Password": setPassword,
+          Cancel: function() {
+              dialog.dialog( "close" );
+          }
+        },
+        close: function() {
+              dialog.dialog("close");
+        }
+      });
+    
+    var rowcount = $("#admintable tr").length;
+    var userid;
+    
+    for(var i=0; i<rowcount; i++){
+        $("#approve"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/approve", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }
+            });
+        });
+        $("#disapprove"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/disapprove", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }
+            });
+        });
         
-        console.log(allyesids);
-        console.log(allnoids);
+        $("#setpass"+i).click(function(){
+            //before opening the dialog, set the userid variable.
+            userid = $(this).attr("userid");
+            dialog.dialog("open");
+        });
         
-        $.post("/AttackSimulator/Order/deleteOrder", {
-            allyesids: allyesids,
-            allnoids: allnoids
-        }, function(data){
-            alert(data);
-            if(data == "success"){
-                location.reload();
-            }
-        })
-    });
+        $("#setpassappr"+i).click(function(){
+            userid = $(this).attr("userid");
+            dialog.dialog("open");
+        });
+        
+        $("#makeadmin"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/makeAdmin", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }
+            });
+        });
+        $("#makeadminappr"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/makeAdmin", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }
+            });
+        });
+        
+        $("#delete"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/delete", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }    
+            });
+        });
+        $("#deleteappr"+i).click(function(){
+            userid = $(this).attr("userid");
+            $.post("/AttackSimulator/AdminView/delete", {
+                userid: userid
+            }, function(data){
+                if (data === "success"){
+                    console.log("success");
+                    location.reload();
+                }
+            });
+        });
+    }
 });
-

@@ -29,7 +29,7 @@
                     <div class="fixed-table-container">
                     <div class="header-background"> </div>
                     <div class="fixed-table-container-inner">
-                        <table cellspacing="0" class="environment">
+                        <table cellspacing="0" class="environment" id="admintable">
                             <thead>
                                 <tr>
                                     <th class="first">
@@ -57,16 +57,16 @@
                                     <tr>
                                         <td style="width: 200px">${user.username}</td>
                                         <td style="width: 200px">${user.workemail}</td>
-                                        <td style="width: 200px"><button id="approve${user.id}" type="button" \
+                                        <td style="width: 200px"><button id="approve${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Approve User</span></button></td>
-                                        <td style="width: 200px"><button id="delete${user.id}" type="button" \
+                                        <td style="width: 200px"><button id="delete${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Delete User</span></button></td>
-                                        <td ><button id="setpass${user.id}" type="button" \
+                                        <td ><button id="setpass${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Set password</span></button></td>
-                                        <td ><button id="makeadmin${user.id}" type="button" \
+                                        <td ><button id="makeadmin${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Make Admin</span></button></td>
                                     </tr>
@@ -75,22 +75,30 @@
                                     <tr>
                                         <td style="width: 200px">${user.username}</td>
                                         <td style="width: 200px">${user.workemail}</td>
-                                        <td style="width: 200px"><button id="disapprove${user.id}" type="button" \
+                                        <td style="width: 200px"><button id="disapprove${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Disable User</span></button></td>
-                                        <td style="width: 200px"><button id="delete${user.id}" type="button" \
+                                        <td style="width: 200px"><button id="deleteappr${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Delete User</span></button></td>
-                                        <td ><button id="setpass${user.id}" type="button" \
+                                        <td ><button id="setpassappr${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Set password</span></button></td>
-                                        <td ><button id="makeadmin${user.id}" type="button" \
+                                        <td ><button id="makeadminappr${i}" userid="${user.id}" type="button" \
                                             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                                                 <span class="ui-button-text">Make Admin</span></button></td>
                                     </tr>
                                 </g:each>
                             </tbody>
                         </table>
+                    </div>
+                    <div id="setpassworddiv" class="modalDialog">
+                        <span style="float: left; margin-top: 15px; margin-bottom: 15px; font-weight: bold"><h1 style="font-weight: bold">Attack Simulator Registration</h1> </span>
+                        <ul style="list-style: none; width: 400px; float: left;">
+                            <li style="width: 150px; float: left;">Desired Password: </li><li style="width: 350px; float: left;"><input type="password" id="set-password" required/></li>
+                            <li style="width: 150px; float: left;">Confirm Password: </li><li style="width: 350px; float: left;"><input type="password" id="set-confirm-password" required/></li>
+                        </ul>
+                        <div id="messageModal" style="float:left; width:400px; color: red"></div>
                     </div>
                 </div>
 
