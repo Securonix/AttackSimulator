@@ -10,10 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="layout" content="main" />
-<title>Attacksimlator: Order your feeds</title>
+<title>Attack Simulator: Order your feeds</title>
         <g:javascript src="parameters.js"/>
         <g:javascript src="threadManage.js"/>
-    </head>
+         </head>
     <body>
             <div id="content">
                 <div id="index">
@@ -136,8 +136,9 @@
                     <div style="float:left; width: 100%; margin: 10px"><button id="parameterssubmit" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">Submit</button></div>
                     <div class="clear"></div>
                     <div id="Control-panel">
-                    <p id="editOrder" style="text-decoration: underline; margin-bottom: 10px; cursor: pointer; width: 87px">Edit your orders<p>
-                    <table style="border-style: solid;" align="center" border="1">
+                    <button id="editOrder" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">Edit your orders</button>
+                    
+                       <table style="border-style: solid;" align="center" border="1">
                         <tr>
                             <th>Feed</th>
                             <th>Date Start</th>
@@ -183,7 +184,7 @@
                     
                     <br/>
                     <br/>
-                    <button id="submitButton">Submit</button>
+                <button id="submitButton">Submit</button>
                     <div id="messages"></div>
 
                     <div style="clear:both; text-align: center; color: red; text-decoration: bold; font-size: 15px;" id="message"></div> 
