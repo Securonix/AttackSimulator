@@ -46,6 +46,7 @@ $(document).ready(function(){
         });
         
         $("#submitButton").show();
+        $("#editOrder").hide();
     });
     
     $("#submitButton").click(function(){
