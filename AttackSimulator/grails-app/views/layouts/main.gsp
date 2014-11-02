@@ -114,9 +114,9 @@
                                                         <li><span class="ico-help drpdwn-menu-ico"></span><a class="mlnk helplnk" style="cursor: pointer;">Help</a></li>
                                                         <li>
                                                             <span class="ico-home drpdwn-menu-ico"></span>
-                                                            <form method="POST" action="/Profiler/dashboard/loadDashboard" name="mlnkForm_home" id="mlnkForm_home">
+                                                            <form method="POST" action="/AttackSimulator/Enviroment" name="mlnkForm_home" id="mlnkForm_home">
                                                                 <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
-                                                                <a class="mlnk" href="/Profiler/dashboard/loadDashboard">Home</a>
+                                                                <a class="mlnk" href="/AttackSimulator/Enviroment">Home</a>
                                                             </form>
                                                         </li>
                                                         <li>
