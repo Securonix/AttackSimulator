@@ -9,6 +9,56 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title><g:layoutTitle default="Grails"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script>
+  var contextPath='${request.contextPath}';
+  function getValidationMessage(field,type)
+  {
+    var errorIcon='<span class="errorIc" style="float: left; margin-right: 0.3em;"></span>';
+    if(type=='required'){
+      return errorIcon+''+field+' ${g.message(code:'validation.empty.postfix')}';
+    }
+    else if(type=='atLeast'){
+      return errorIcon+'${g.message(code:'validation.atLeast.prefix')} '+field+' ${g.message(code:'validation.atLeast.postfix')}';
+    }
+    else if(type=='email'){
+      return errorIcon+'${g.message(code:'validation.email')}';
+    }
+    else if(type=='password'){
+      return errorIcon+'${g.message(code:'validation.password')}';
+    }
+    else if(type=='select'){
+      return errorIcon+'${g.message(code:'validation.selectPrefix')} '+field+' ${g.message(code:'validation.atLeast.postfix')}';
+    }
+    else if(type=='duplicate'){
+       return errorIcon+field+' ${g.message(code:'validation.duplicate')}';
+    }
+    else if(type=='node'){
+       return errorIcon+' ${g.message(code:'validation.node.notworking')} '+field;
+    }
+    else if(type=='digits'){
+       return errorIcon+ '${g.message(code:'validation.digits')}' + field;
+    }
+    else if(type=='validateDirectory'){
+       return errorIcon+ '${g.message(code:'validation.directory')}' + field;
+    }
+    else if(type=='number'){
+       return errorIcon+ '${g.message(code:'validation.number')}' + field;
+    }
+    else if(type=='min'){
+       return errorIcon+ '${g.message(code:'validation.min')}' +' to '+ field+"...";
+    }
+    else if(type=='max'){
+      if(field.split('&')[1]==undefined){
+        return errorIcon+ '${g.message(code:'validation.max')}' +' to '+ field+"...";
+      }
+      else{
+         var name=field.split('&')[0];
+         var maxSize=field.split('&')[1];
+         return errorIcon+ '${g.message(code:'validation.max.pre')}' +maxSize+' ${g.message(code:'validation.max.post')}'+' to '+ name+"...";
+       }
+    }
+  }
+</script>
         <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
         <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}"/>
         <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"/>
@@ -114,15 +164,16 @@
                                                         <li><span class="ico-help drpdwn-menu-ico"></span><a class="mlnk helplnk" style="cursor: pointer;">Help</a></li>
                                                         <li>
                                                             <span class="ico-home drpdwn-menu-ico"></span>
-                                                            <form method="POST" action="/AttackSimulator/Enviroment" name="mlnkForm_home" id="mlnkForm_home">
+                                                            <form method="POST" action="/AttackSimulator/Environment" name="mlnkForm_home" id="mlnkForm_home">
                                                                 <input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="36d29926-6d10-436f-a527-c89091bc0568">
-                                                                <a class="mlnk" href="/AttackSimulator/Enviroment">Home</a>
+                                                                <a class="mlnk" href="/AttackSimulator/Environment">Home</a>
                                                             </form>
                                                         </li>
                                                         <li>
                                                             <span class="ico-chng-pass drpdwn-menu-ico"></span>
                                                             <a id="ca1c8b384e06486692a49c8702576599" href="#"> Change Password</a>
                                                         </li>
+                                                        
                                                         <li><span class="ico-logout drpdwn-menu-ico"></span><a class="logout-link" href="/AttackSimulator/logout">Logout</a></li>
                                                     </ul>
                                                 </div>
@@ -202,7 +253,14 @@
             <div id="footer">Copyright &copy; Securonix.com. All rights reserved</div>
         </div>
     </g:userloggedin>
-
+ <div id="setpassworddiv" class="modalDialog">
+                        <span style="float: left; margin-top: 15px; margin-bottom: 15px; font-weight: bold"><h1 style="font-weight: bold">Attack Simulator Registration</h1> </span>
+                        <ul style="list-style: none; width: 400px; float: left;">
+                            <li style="width: 150px; float: left;">Desired Password: </li><li style="width: 350px; float: left;"><input type="password" id="set-password" required/></li>
+                            <li style="width: 150px; float: left;">Confirm Password: </li><li style="width: 350px; float: left;"><input type="password" id="set-confirm-password" required/></li>
+                        </ul>
+                        <div id="messageModal" style="float:left; width:400px; color: red"></div>
+                    </div>
 
     <div class="footer" role="contentinfo"></div>
 <r:layoutResources />
