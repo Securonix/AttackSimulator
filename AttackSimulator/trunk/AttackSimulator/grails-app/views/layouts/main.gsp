@@ -253,7 +253,7 @@
             <div id="footer">Copyright &copy; Securonix.com. All rights reserved</div>
         </div>
     </g:userloggedin>
- <div id="setpassworddiv" class="modalDialog">
+    <div id="setpassworddiv" class="modalDialog" style="display:none">
                         <span style="float: left; margin-top: 15px; margin-bottom: 15px; font-weight: bold"><h1 style="font-weight: bold">Attack Simulator Registration</h1> </span>
                         <ul style="list-style: none; width: 400px; float: left;">
                             <li style="width: 150px; float: left;">Desired Password: </li><li style="width: 350px; float: left;"><input type="password" id="set-password" required/></li>
