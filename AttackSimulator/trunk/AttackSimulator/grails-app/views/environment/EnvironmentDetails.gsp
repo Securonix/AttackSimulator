@@ -85,7 +85,7 @@
                     </div>
             </g:userenvironmentunknown>
             <g:userenvironmentknown>
-                <div id="organizationstructure" style="float: left; width: 50%">
+                <div id="organizationstructure" style="float: left; width: 100%">
                     <div style="float:right; margin-bottom: 20px">
                         <div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" id='begindownload'><span class="ui-button-text">Download User Data</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" id="modifyenv" ><span class="ui-button-text">Recreate your environment</span></button></div></div>
                     <div style="float: left; margin-top: 10px; width:100%">
@@ -108,8 +108,20 @@
                                     <th class="third" colspan="3">
                                     <div class="th-inner">IpAddress</div>
                                     </th>
+                                    <th class="third" colspan="1" style="width:70px">
+                                    <div class="th-inner">Username</div>
+                                    </th>
+                                    <th class="third" colspan="1">
+                                    <div class="th-inner">Workemail</div>
+                                    </th>
+                                    <th class="third" colspan="1">
+                                    <div class="th-inner">Lanid</div>
+                                    </th>
+                                    <th class="third" colspan="1">
+                                    <div class="th-inner">Account1</div>
+                                    </th>
                                     </tr>
-                                    </thead>
+                                   </thead>
                                     <tbody>
                                         <g:each var="user" in="${users}" status="i">
                                             <tr>
@@ -119,6 +131,10 @@
                                                 <td>${ipaddress1.get(i)}</td>
                                                 <td>${ipaddress2.get(i)}</td>
                                                 <td>${ipaddress3.get(i)}</td>
+                                                <td>${user.userid}</td>
+                                                <td>${user.workemail}</td>
+                                                <td>${user.lanid}</td>
+                                                <td>${user.account1}</td>
                                             </tr>
                                         </g:each>
                                     </tbody>
@@ -183,9 +199,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="helpcontent" style="float:right; width: 45%">
+<!--                <div id="helpcontent" style="float:right; width: 45%">
                     <p>Help Text will go here!</p>
-                </div>
+                </div>-->
             </g:userenvironmentknown>
             <div style="clear:both; text-align: center; color: #fe7700; text-decoration: bold; font-size: 15px;" id="errormessages"></div> 
         </div>
