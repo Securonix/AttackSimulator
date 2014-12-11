@@ -14,6 +14,7 @@ class Usermaster {
     String internalip;
     String desktopipaddress;
     String desktopname;
+    String account1;
     
     static constraints = {
         id blank: false

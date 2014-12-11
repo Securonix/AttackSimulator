@@ -8,6 +8,14 @@ class Sysipusermapping {
     String ipaddress1;
     String ipaddress2;
     String ipaddress3;
+     String username;
+    String workemail;
+    String lanid;
+     String account1;
+     
+
+
+
     
     static constraints = {
         id blank: false
