@@ -66,9 +66,12 @@ class EnvironmentController {
         def useripmapping = getUserIpMapping(internalrange, Integer.parseInt(numofusers), secuserid);
         for(Map.Entry<Integer, ArrayList<String>> userip : useripmapping.entrySet()){
             Integer userid = userip.getKey();
+            Usermaster um = Usermaster.findById(userid);
             ArrayList<String> ips = userip.getValue();
             String ipaddress = ips[0]+","+ips[1]+","+ips[2];
-            Sysipusermapping systable = new Sysipusermapping(id: 1, secuserid: secuserid, userid: userid, ipaddress1: ips[0], ipaddress2: ips[1], ipaddress3: ips[2]);
+            Sysipusermapping systable = new Sysipusermapping(id: 1, secuserid: secuserid, userid: userid, ipaddress1: ips[0], ipaddress2: ips[1], ipaddress3: ips[2],
+                username: um.getUserid(), account1: um.getAccount1(), workemail: um.getWorkemail(),
+                lanid: um.getLanid());
             systable.save(flush: true);
         }
         
