@@ -1,9 +1,10 @@
 # Use double pipe sign || to signify one transaction occurring after another transaction
 # Use variable name enclosed between {{ & }}
-# Use the double greater then sign << followed by a number to signify the number of occurrences for that line
+# Use the double less than sign << followed by a number to signify the number of occurrences for that line
 ## Example: transaction A needs to occur 10 times more frequently then transaction B
 ## transaction A << 10
 ## transcation B << 1
+## Cisco ASA proxy log example
 
 {{datetime}} SECX-ASA : %ASA-6-302015: Built outbound UDP connection {{sequence}} for outside:{{randomvalue1}}.{{randomvalue2}}.{{randomvalue3}}.{{randomvalue4}}/{{port1}} ({{randomvalue5}}.{{randomvalue6}}.{{randomvalue7}}.{{randomvalue8}}/{{port1}}) to DMZ:{{dmzaddress1.dmzaddress}}/{{port2}} ({{dmzaddress2.dmzaddress}}/{{port2}}) || {{datetime}} SECX-ASA : %ASA-6-302016: Teardown UDP connection {{sequence}} for outside:{{randomvalue1}}.{{randomvalue2}}.{{randomvalue3}}.{{randomvalue4}}/{{port1}} to DMZ:{{dmzaddress1.dmzaddress}}/{{port2}} duration {{randomvalue9}}:{{randomvalue10}}:{{randomvalue11}} bytes {{randomvalue}} << 10
 {{datetime}} SECX-ASA : %ASA-6-302013: Built outbound TCP connection {{sequence}} for outside:{{randomvalue1}}.{{randomvalue2}}.{{randomvalue3}}.{{randomvalue4}}/{{port1}} ({{randomvalue5}}.{{randomvalue6}}.{{randomvalue7}}.{{randomvalue8}}/{{port1}}) to DMZ:{{dmzaddress1.dmzaddress}}/{{port2}} ({{dmzaddress2.dmzaddress}}/{{port2}}) || {{datetime}} SECX-ASA : %ASA-6-302014: Teardown TCP connection {{sequence}} for outside:{{randomvalue1}}.{{randomvalue2}}.{{randomvalue3}}.{{randomvalue4}}/{{port1}} to DMZ:{{dmzaddress1.dmzaddress}}/{{port2}} duration {{randomvalue9}}:{{randomvalue10}}:{{randomvalue11}} bytes {{randomvalue}} << 10
