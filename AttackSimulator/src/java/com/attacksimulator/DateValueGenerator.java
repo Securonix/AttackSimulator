@@ -30,9 +30,13 @@ public class DateValueGenerator extends ValueGeneratorType{
             Date now = new Date();
             date = sdf.format(now);
         }else if(params.size() == 1){
-            SimpleDateFormat sdf = new SimpleDateFormat(params.get(0));
-            Date now = new Date();
-            date = sdf.format(now);
+            if (params.get(0).equalsIgnoreCase("Epoch")) {
+                date = (System.currentTimeMillis() / 1000L) + "";
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat(params.get(0));
+                Date now = new Date();
+                date = sdf.format(now);
+            }
         }else if(params.size() > 1){
             throw new UnsupportedOperationException();
         }
