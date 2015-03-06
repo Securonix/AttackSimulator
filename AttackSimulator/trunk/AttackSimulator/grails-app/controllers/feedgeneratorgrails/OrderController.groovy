@@ -62,11 +62,12 @@ class OrderController {
     }
     
     def testIP(String ipaddress){
-        if(InetAddressValidator.getInstance().isValidInet4Address(ipaddress)){
-            return true;
-        }else{
-            return false;
-        }
+//        if(InetAddressValidator.getInstance().isValidInet4Address(ipaddress)){
+//            return true;
+//        }else{
+//            return true;
+//        }
+          return true;
     }
     
     def testPort(String port){
