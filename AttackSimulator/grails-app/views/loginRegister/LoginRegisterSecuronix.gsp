@@ -110,7 +110,7 @@
             </div>
             <div id="message" style="float:left; width:600px; color: green;"></div>
             <div id="information" style="margin-top: 50px; min-height: 200px; float:left"><p style="font-weight: bold">Information:</p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sit amet ipsum eleifend, feugiat elit sit amet, posuere ex. Etiam vel vulputate leo. Aenean mauris sapien, pretium ac feugiat vitae, pellentesque eu mi. Integer eu pulvinar justo. Nam nibh sapien, dictum id aliquet ac, blandit a ante. Morbi tristique euismod dictum. Aliquam dignissim vulputate turpis, et cursus nisl bibendum in. Morbi eleifend elit a blandit faucibus. Pellentesque dignissim sagittis turpis. Donec auctor semper scelerisque.
+                The AttackSimulator Project is created by Securonix to simulate data feed and attacks. 
             </div>
             <div id="register" class="modalDialog">
                 <span style="float: left; margin-top: 15px; margin-bottom: 15px; font-weight: bold"><h1 style="font-weight: bold">Attack Simulator Registration</h1> </span>
