@@ -32,4 +32,9 @@ class UielementsController {
         def feedtypes = Feedmaster.getAll();
         render(template:'orderlist', model:[feeds:feedtypes]);
     }
+    
+    def getFeedtypesFile(){
+        def feedtypes = Feedmaster.getAll();
+        render(template:'fileexport', model:[feeds:feedtypes]);
+    }
 }

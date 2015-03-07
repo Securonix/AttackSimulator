@@ -35,6 +35,7 @@ public final class TemplatingSystem {
     private final ArrayList<Integer> weightedTransactionIds;
     private final Random rand;
     private SyslogUtility syslogUtility;
+    private FileWriterUtility fileWriterUtility;
 
     public TemplatingSystem() {
         transactionFile = "";
@@ -44,6 +45,7 @@ public final class TemplatingSystem {
         rand = new Random();
         transactionWeights = new ArrayList<>();
         weightedTransactionIds = new ArrayList<>();
+        fileWriterUtility = new FileWriterUtility();
     }
 
     public TemplatingSystem(String feedtype, Integer userid) {
@@ -55,6 +57,7 @@ public final class TemplatingSystem {
         weightedTransactionIds = new ArrayList<>();
         bufferAllTransactionLines(userid);
         rand = new Random();
+        fileWriterUtility = new FileWriterUtility();
     }
     
     /*
@@ -69,6 +72,7 @@ public final class TemplatingSystem {
         weightedTransactionIds = new ArrayList<>();
         bufferAllTransactionLines(Integer.parseInt(secuserid));
         rand = new Random();
+        fileWriterUtility = new FileWriterUtility();
     }
 
     public String getTransactionFile(String feedtype) {
@@ -276,6 +280,7 @@ public final class TemplatingSystem {
             for (String transaction : splitTransactions) {
                 System.out.println(transaction.trim());
                 syslogUtility.publishString(transaction.trim());
+                //fileWriterUtility.writeString(transaction.trim());
             }
             //Find the current day of the week.
             Calendar c = Calendar.getInstance();
@@ -406,8 +411,16 @@ public final class TemplatingSystem {
         return 0L;
     }
 
-    private int getRandomizedIndex() {
+    public int getRandomizedIndex() {
         int index = rand.nextInt(1000);
         return weightedTransactionIds.get(index);
+    }
+    
+    public ArrayList<String> getTransactions(){
+        return transactions;
+    }
+    
+    public  HashMap<String,ValueGeneratorType> getVgetMap(){
+        return vgtMap;
     }
 }
