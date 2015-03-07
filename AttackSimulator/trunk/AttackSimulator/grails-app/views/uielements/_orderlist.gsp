@@ -42,3 +42,5 @@
         </g:each>
     </tbody>
 </table>
+
+<div style="float:left; width: 100%; margin: 10px"><button id="parameterssubmit" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">Submit</button></div>

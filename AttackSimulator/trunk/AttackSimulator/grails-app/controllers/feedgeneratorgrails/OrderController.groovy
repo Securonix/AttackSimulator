@@ -61,6 +61,58 @@ class OrderController {
         render "success";
     }
     
+    def saveOrderFile() {
+        
+        if(!springSecurityService.isLoggedIn()){
+            redirect action: 'auth', params: params;
+        }
+        
+        //check received params server side and then save it in the database
+        def userid = springSecurityService.currentUser.id;
+        def userdeets = Usersyslogdetails.findAllBySecuserid(userid);
+        String[] destinationip = params.list("destinationip[]");
+        def destinationport = "-1";
+        String[] feedtype = params.list("feedtype[]");
+        String[] startdates = params.list("startdates[]");
+        String[] enddates = params.list("enddates[]");
+        String[] frequencies = params.list("frequencies[]");
+        String[] dateformat = params.list("dateformat[]");
+        //make some checks for empty strings wrong values etc on all the variable here to be done
+//        if(!testIP(destinationip)){
+//            render "ipfailed";
+//            return;
+//        }
+        
+//        if(!testPort(destinationport)){
+//            render "portfailed";
+//            return;
+//        }
+//        
+//        for(int i=0; i<startdates.length; i++){
+//            if(!testDate(startdates[i], enddates[i])){
+//                render "dateswrong";
+//                return;
+//            }
+//        }
+//       
+        for(int i=0; i<feedtype.length; i++){
+            def prevOrder = Orders.find("from Orders where feedtype='"+ feedtype[i]+"' and destinationip='" +destinationip+"' and userid="+userid);
+            
+            if(prevOrder == null){
+                Orders order = new Orders(id: 1, userid: userid, feedtype: feedtype[i], startdate: Date.parse("MM/dd/yyyy", startdates[i]), enddate: Date.parse("MM/dd/yyyy", enddates[i]), frequency: frequencies[i], destinationip: destinationip[i], destinationport: destinationport, approved: 1, threadid: -1, weekendfactor: dateformat[i]);
+                order.save(flush: true);
+            }else{
+                prevOrder.frequency = frequencies[i];
+                prevOrder.destinationport = destinationport;
+                prevOrder.startdate = Date.parse("MM/dd/yyyy", startdates[i]);
+                prevOrder.enddate = Date.parse("MM/dd/yyyy", enddates[i]);
+                prevOrder.save(flush: true);
+            }
+        }
+        
+        render "success";
+    }
+    
     def testIP(String ipaddress){
 //        if(InetAddressValidator.getInstance().isValidInet4Address(ipaddress)){
 //            return true;

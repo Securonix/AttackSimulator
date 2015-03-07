@@ -2,6 +2,7 @@ package attacksimulator
 
 import com.attacksimulator.RunSysLogFeeds;
 import org.feedgeneratorgrails.Orders;
+import com.attacksimulator.FileFeedGenerator;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -23,10 +24,19 @@ class ScheduleAttackJob {
         def frequency = order.frequency;
         def feedtype = order.feedtype;
         def factorString = order.weekendfactor;
+        def startdate = order.startdate;
+        def enddate = order.enddate;
         
-        RunSysLogFeeds th = new RunSysLogFeeds(secuserid, destinationip, destinationport, frequency, feedtype, orderid, factorString);
-        th.start();
-        order.threadid = th.getId();
-        order.save(flush: true);
+        if(!destinationport .trim().equalsIgnoreCase("-1")){
+            RunSysLogFeeds th = new RunSysLogFeeds(secuserid, destinationip, destinationport, frequency, feedtype, orderid, factorString);
+            th.start();
+            order.threadid = th.getId();
+            order.save(flush: true);
+        }else{
+            //this is historical order.. needs to be written to a file.
+            FileFeedGenerator ffg = new FileFeedGenerator();
+            //public void generateFeed(String feedtype, int userid, String outputPrefix, String freq, Date startdate, Date enddate)
+            ffg.generateFeed(feedtype, secuserid, destinationip, frequency, startdate, enddate, factorString);
+        }
     }
 }
