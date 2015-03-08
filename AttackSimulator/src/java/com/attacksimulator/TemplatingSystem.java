@@ -59,11 +59,11 @@ public final class TemplatingSystem {
         rand = new Random();
         fileWriterUtility = new FileWriterUtility();
     }
-    
+
     /*
-    *   Use this constructor for attacks
-    */
-    public TemplatingSystem(String transactionfile, String attackerid, String secuserid){
+     *   Use this constructor for attacks
+     */
+    public TemplatingSystem(String transactionfile, String attackerid, String secuserid) {
         transactionFile = transactionfile;
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
@@ -101,21 +101,21 @@ public final class TemplatingSystem {
                 if (transactions == null) {
                     transactions = new ArrayList<>();
                 }
-                
+
                 //lines that have a # in the beginning need to not be read as transactions.
                 //lines that are empty need to be discarded.
                 lineRead = lineRead.trim();
-                if(lineRead.contains("#")){
+                if (lineRead.contains("#")) {
                     //this isa line that has to either completely be ignored or ignore part of it.
                     int hashIndex = lineRead.indexOf("#");
-                    if(hashIndex == 0){
+                    if (hashIndex == 0) {
                         continue; //ignoring the entire line.
-                    }else if(hashIndex > 0){
+                    } else if (hashIndex > 0) {
                         lineRead = lineRead.substring(0, hashIndex);
                     }
                 }
-                
-                if(lineRead.trim().isEmpty()){
+
+                if (lineRead.trim().isEmpty()) {
                     continue;
                 }
 
@@ -137,6 +137,7 @@ public final class TemplatingSystem {
                         variable = variable.split("\\.")[0];
                     }
 
+                    System.out.println("For variable "+ variable);
                     if (vgtMap != null && !vgtMap.containsKey(variable)) {
                         //get the row from the templatemaster table;
                         try {
@@ -162,19 +163,20 @@ public final class TemplatingSystem {
                                     vgtMap.put(variable, temp);
                                     break;
                                 case "usermastertablegenerator":
-                                    if(params != null){
+                                    if (params != null) {
                                         params.add(userid.toString());
-                                    }else{
+                                    } else {
                                         params = new ArrayList<>();
                                         params.add(userid.toString());
                                     }
                                     temp = new UsermasterTableGenerator(variable, params);
                                     vgtMap.put(variable, temp);
+                                    System.out.println("\tAdding "+ params);
                                     break;
                                 case "dmztablegenerator":
-                                    if(params != null){
+                                    if (params != null) {
                                         params.add(userid.toString());
-                                    }else{
+                                    } else {
                                         params = new ArrayList<>();
                                         params.add(userid.toString());
                                     }
@@ -189,6 +191,7 @@ public final class TemplatingSystem {
                 }
             }
 
+            System.out.println("vgtMap size "+ vgtMap.size());
             //first sum up all the weights that we got from the transaction file.
             int sumOfWeights = 0;
             for (Integer weight : transactionWeights) {
@@ -234,7 +237,7 @@ public final class TemplatingSystem {
     }
 
     public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid, String factorString) {
-        syslogUtility = new SyslogUtility(feedtype+orderid, destinationip, destionationport);
+        syslogUtility = new SyslogUtility(feedtype + orderid, destinationip, destionationport);
 
         while (running) {
             /*
@@ -243,7 +246,7 @@ public final class TemplatingSystem {
              * @TODO
              */
             //int index = random.nextInt(transactions.size());
-           
+
             int index = getRandomizedIndex();
             String currentTransaction = transactions.get(index);
             Long currentFrequency = getCurrentFrequencyTest(frequency);
@@ -254,6 +257,10 @@ public final class TemplatingSystem {
                 String var = matcher.group(1);
                 if (var.contains(".")) {
                     var = var.split("\\.")[0];
+                    System.out.println("vgtMap size "+ vgtMap.size());
+                    System.out.println("var "+ var);
+                    System.out.println("Contains? "+ vgtMap.containsKey(var));
+                    
                     HashMap<String, String> res = null;
                     try {
                         res = vgtMap.get(var).getValue();
@@ -261,7 +268,14 @@ public final class TemplatingSystem {
                         Pattern pattemp = Pattern.compile(pattempstr);
                         Matcher matchertemp = pattemp.matcher(currentTransaction);
                         while (matchertemp.find()) {
-                            currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
+                            //System.out.println("matcher group " + matchertemp.group() + "-- Resource get " + res.get(matchertemp.group(1)) + "-- matcher temp group -- " + matchertemp.group(1));
+                            if ("null".equals(res.get(matchertemp.group(1))) || res.get(matchertemp.group(1)) == null) {
+                                currentTransaction = currentTransaction.replace(matchertemp.group(), "");
+                            } else {
+                                currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
+                            }
+//                            currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
+
                         }
                     } catch (OperationNotSupportedException ex) {
                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,8 +301,8 @@ public final class TemplatingSystem {
             c.setTime(new Date());
             Long factor = Long.parseLong(factorString);
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            if(dayOfWeek == 1 || dayOfWeek == 7){
-                currentFrequency = currentFrequency*factor;
+            if (dayOfWeek == 1 || dayOfWeek == 7) {
+                currentFrequency = currentFrequency * factor;
             }
             try {
                 Thread.sleep(currentFrequency);
@@ -297,9 +311,9 @@ public final class TemplatingSystem {
             }
         }
     }
-    
-    public void generateAttack(String feedtype, String attackid, String destinationip, String destinationport, String frequency){
-        syslogUtility = new SyslogUtility(feedtype+attackid, destinationip, destinationport);
+
+    public void generateAttack(String feedtype, String attackid, String destinationip, String destinationport, String frequency) {
+        syslogUtility = new SyslogUtility(feedtype + attackid, destinationip, destinationport);
         while (running) {
             int index = getRandomizedIndex();
             String currentTransaction = transactions.get(index);
