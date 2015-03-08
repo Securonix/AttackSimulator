@@ -156,6 +156,7 @@ public class FileFeedGenerator {
                                         Pattern pattemp = Pattern.compile(pattempstr);
                                         Matcher matchertemp = pattemp.matcher(currentTransaction);
                                         while (matchertemp.find()) {
+                                            System.out.println("Matchertemp.group(): " + matchertemp.group() + " matchertemp.group(1): " + matchertemp.group(1));
                                             currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
                                         }
                                     } catch (OperationNotSupportedException ex) {

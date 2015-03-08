@@ -30,6 +30,9 @@ public class TableValueGenerator extends ValueGeneratorType{
 
     public TableValueGenerator(String variableName, ArrayList<String> params){
         super(variableName, params);
+        if (params == null || params.isEmpty()){
+            throw new UnsupportedOperationException("Table value generator needs the table name");
+        }
         mydb = new MySQLDBClass();
     }
 
@@ -42,22 +45,40 @@ public class TableValueGenerator extends ValueGeneratorType{
         */
         
         String countQuery = "select count(*) from " + params.get(0);
-        query = "select * from "+ params.get(0) + "";
+        
+        query = "select * from "+ params.get(0);
         
         if(params.size() > 1){
-            query +=" where ";
             countQuery += " where ";
             for (String param : params){
-                query += param;
                 countQuery += param;
             }
         }
-        
-        query += ";";
         countQuery += ";";
         
-        HashMap<String, String> temp = mydb.executeQuery(query, countQuery, variableName);
+        int countResult = mydb.executeQuery(countQuery);
+        int randomIndex = randomValueGenerate(countResult);
+        
+        if(params.size() > 1){
+            query +=" where ";
+            for (String param : params){
+                query += param;
+            }
+            query += "and id=" + randomIndex;
+        }else{
+            query +=" where id=" + randomIndex;
+        }
+        
+        query += ";";
+        
+        HashMap<String, String> temp = mydb.executeQuery(query, variableName);
         
         return temp;
+    }
+    
+    private int randomValueGenerate(int maxVal){
+        Random random = new Random();
+        int index = random.nextInt(maxVal);
+        return index;
     }
 }
