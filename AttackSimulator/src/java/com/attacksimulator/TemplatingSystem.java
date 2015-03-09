@@ -183,6 +183,16 @@ public final class TemplatingSystem {
                                     temp = new DmzTableGenerator(variable, params);
                                     vgtMap.put(variable, temp);
                                     break;
+                                case "sysipusermappinggenerator":
+                                    if (params != null) {
+                                        params.add(userid.toString());
+                                    } else {
+                                        params = new ArrayList<>();
+                                        params.add(userid.toString());
+                                    }
+                                    temp = new SysipUserMappingGenerator(variable, params);
+                                    vgtMap.put(variable, temp);
+                                    break;
                             }
                         } catch (NullPointerException ex) {
                             ex.getMessage();
