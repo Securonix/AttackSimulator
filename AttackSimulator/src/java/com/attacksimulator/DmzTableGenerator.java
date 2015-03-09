@@ -82,8 +82,8 @@ public class DmzTableGenerator extends ValueGeneratorType{
         }
 
 //        int countResult = mydb.executeQuery(countQuery);
-        int randomIndex = randomValueGenerate(idMap.size());
-        System.out.println("RandomIndex=" + randomIndex);
+//        int randomIndex = randomValueGenerate(idMap.size());
+//        System.out.println("RandomIndex=" + randomIndex);
 
         if(params.size() > 1){
             query +=" where ";
