@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  *
@@ -19,7 +21,7 @@ import javax.naming.OperationNotSupportedException;
 public class TableValueGenerator extends ValueGeneratorType{
     private String query;
     private MySQLDBClass mydb;
-    
+
     /*
     * Key for the params for Table Value Generator:
     * 1. Table Name
@@ -43,29 +45,39 @@ public class TableValueGenerator extends ValueGeneratorType{
         * 1. Table Name
         * 2. Where conditions.From 2 onwards whatever we have is just part of the where condition of the table query.
         */
-        
-        String countQuery = "select count(*) from " + params.get(0);
-        
-        query = "select * from "+ params.get(0);
-        
+
+        String countQuery = "select id from " + params.get(0);
+
+        query = "select * from " + params.get(0);
+
         // params.get(0) = dmzusermapping
         // params.get(1) = dmzhostname = 'VPNConcentrator'
-        
+
         if(params.size() > 1){
             countQuery += " where ";
             int counter=0;
-            
+
             for (String param : params){
                 if (counter++ > 0)
                     countQuery += param;
-                
+
             }
         }
         countQuery += ";";
-        
-        int countResult = mydb.executeQuery(countQuery);
-        int randomIndex = randomValueGenerate(countResult);
-        
+
+        System.out.println("CountQuery- " + countQuery);
+        HashMap<String, String> idMap = mydb.executeQuery(countQuery, variableName);
+        List<String> list = new ArrayList<String>();
+        System.out.println("Got Ids ..");
+        for (Entry<String, String> entry : idMap.entrySet()) {
+            list.add(entry.getValue());
+            System.out.println(entry.getKey() + "=" + entry.getValue());
+        }
+
+//        int countResult = mydb.executeQuery(countQuery);
+        int randomIndex = randomValueGenerate(idMap.size());
+        System.out.println("RandomIndex=" + randomIndex);
+
         if(params.size() > 1){
             query +=" where ";
              int counter=0;
@@ -73,18 +85,18 @@ public class TableValueGenerator extends ValueGeneratorType{
                 if (counter++ > 0)
                 query += param;
             }
-            query += " and id=" + randomIndex;
+            query += " and id=" + list.get(randomIndex);
         }else{
-            query +=" where id=" + randomIndex;
+            query += " where id=" + list.get(randomIndex);
         }
-        
+
         query += ";";
         System.out.println("Query:" + query);
         HashMap<String, String> temp = mydb.executeQuery(query, variableName);
-        
+
         return temp;
     }
-    
+
     private int randomValueGenerate(int maxVal){
         Random random = new Random();
         int index = random.nextInt(maxVal);
