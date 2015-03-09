@@ -48,10 +48,17 @@ public class TableValueGenerator extends ValueGeneratorType{
         
         query = "select * from "+ params.get(0);
         
+        // params.get(0) = dmzusermapping
+        // params.get(1) = dmzhostname = 'VPNConcentrator'
+        
         if(params.size() > 1){
             countQuery += " where ";
+            int counter=0;
+            
             for (String param : params){
-                countQuery += param;
+                if (counter++ > 0)
+                    countQuery += param;
+                
             }
         }
         countQuery += ";";
@@ -61,16 +68,18 @@ public class TableValueGenerator extends ValueGeneratorType{
         
         if(params.size() > 1){
             query +=" where ";
+             int counter=0;
             for (String param : params){
+                if (counter++ > 0)
                 query += param;
             }
-            query += "and id=" + randomIndex;
+            query += " and id=" + randomIndex;
         }else{
             query +=" where id=" + randomIndex;
         }
         
         query += ";";
-        
+        System.out.println("Query:" + query);
         HashMap<String, String> temp = mydb.executeQuery(query, variableName);
         
         return temp;
