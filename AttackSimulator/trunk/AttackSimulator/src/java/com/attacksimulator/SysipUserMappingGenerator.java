@@ -73,16 +73,9 @@ public class SysipUserMappingGenerator extends ValueGeneratorType{
         }
    
         System.out.println("CountQuery- " + countQuery);
-        HashMap<String, String> idMap = mydb.executeQuery(countQuery, variableName);
-        List<String> list = new ArrayList<String>();
-        System.out.println("Got Ids ..");
-        for (Entry<String, String> entry : idMap.entrySet()) {
-            list.add(entry.getValue());
-            System.out.println(entry.getKey() + "=" + entry.getValue());
-        }
-
-//        int countResult = mydb.executeQuery(countQuery);
-        int randomIndex = randomValueGenerate(idMap.size());
+        ArrayList<String> list = mydb.executeCountQuery(countQuery);
+        
+        int randomIndex = randomValueGenerate(list.size());
         System.out.println("RandomIndex=" + randomIndex);
 
         if(params.size() > 1){
