@@ -58,7 +58,7 @@ public class DmzTableGenerator extends ValueGeneratorType{
         // params.get(0) = dmzusermapping
         // params.get(1) = dmzhostname = 'VPNConcentrator'
 
-        if(params.size() > 0){
+        if(params.size() > 1){
             countQuery += " where ";
             int counter=0;
 
@@ -85,7 +85,7 @@ public class DmzTableGenerator extends ValueGeneratorType{
         int randomIndex = randomValueGenerate(idMap.size());
         System.out.println("RandomIndex=" + randomIndex);
 
-        if(params.size() > 0){
+        if(params.size() > 1){
             query +=" where ";
              int counter=0;
             for (String param : params){

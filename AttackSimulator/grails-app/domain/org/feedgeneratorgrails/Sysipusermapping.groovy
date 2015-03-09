@@ -12,11 +12,10 @@ class Sysipusermapping {
     String workemail;
     String lanid;
      String account1;
-     
+     String internalip;
+     String desktopipaddress;
+     String desktophostname;
 
-
-
-    
     static constraints = {
         id blank: false
         secuserid blank: false
