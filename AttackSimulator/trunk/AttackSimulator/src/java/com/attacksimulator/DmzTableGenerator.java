@@ -22,6 +22,7 @@ public class DmzTableGenerator extends ValueGeneratorType{
     private String query;
     private MySQLDBClass mydb;
     private String secuserid;
+    private Random random;
     /*
     * Key for the params for Table Value Generator:
     * 1. Table Name
@@ -41,6 +42,7 @@ public class DmzTableGenerator extends ValueGeneratorType{
         for(String p : params) {
             System.out.println(p);
         }
+        random = new Random();
     }
 
     @Override
@@ -99,7 +101,6 @@ public class DmzTableGenerator extends ValueGeneratorType{
     }
 
     private int randomValueGenerate(int maxVal){
-        Random random = new Random();
         int index = random.nextInt(maxVal);
         return index;
     }
