@@ -636,7 +636,7 @@ public class MySQLDBClass {
         }
         return false;
     }
-    
+
     HashMap<String, String> executeQuery(String query, String variableName) {
         HashMap<String, String> temp = null;
         try {
@@ -645,7 +645,7 @@ public class MySQLDBClass {
             System.out.println("The query is: " + query);
             resultSet = statement.executeQuery(query);
             ResultSetMetaData rsmd = resultSet.getMetaData();
-            
+
             if (!resultSet.isBeforeFirst()) {
                 //no data
             } else {
@@ -658,6 +658,46 @@ public class MySQLDBClass {
                         temp.put(variableName + "." + rsmd.getColumnName(i + 1), "");
                     }
                     //System.out.println("Column Value: " + rsmd.getColumnName(i+1) + "Value: " + resultSet.getString(i+1) );
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
+
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return temp;
+    }
+
+    ArrayList<String> executeCountQuery(String query) {
+        ArrayList<String> temp = null;
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            System.out.println("The query is: " + query);
+            resultSet = statement.executeQuery(query);
+            if (!resultSet.isBeforeFirst()) {
+                //no data
+            } else {
+                temp = new ArrayList<>();
+                while (resultSet.next()) {
+                    temp.add(resultSet.getString(1));
+                    if (resultSet.wasNull()) {
+                        temp.add("");
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -749,23 +789,23 @@ public class MySQLDBClass {
             System.out.println("Exception occured in executeQuery(String query) function in MySQLDBClass");
             ex.printStackTrace();
         } finally {
-            if(countResultSet != null){
+            if (countResultSet != null) {
                 try {
                     countResultSet.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if(countStatement != null){
+            if (countStatement != null) {
                 try {
                     countStatement.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             closeConnection();
-        }        
+        }
         return rowCount;
     }
 
