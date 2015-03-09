@@ -218,6 +218,9 @@ public class FileFeedGenerator {
                                     var = var.split("\\.")[0];
                                     HashMap<String, String> res = null;
                                     try {
+                                        System.out.println("tmp="+tmp);
+                                        System.out.println("map=" + tmp.getVgetMap());
+                                        System.out.println(var + "=" + tmp.getVgetMap().get(var));
                                         res = tmp.getVgetMap().get(var).getValue();
                                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                                         Pattern pattemp = Pattern.compile(pattempstr);
