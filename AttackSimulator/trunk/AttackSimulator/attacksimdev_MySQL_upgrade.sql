@@ -20,4 +20,4 @@ where si.userid=um.id;
 
 alter table sysipusermapping add column desktophostname varchar(255) DEFAULT NULL;
 alter table sysipusermapping add column desktopipaddress varchar(255) DEFAULT NULL;
-alter table sysipusermapping add coulmn internalip varchar(255) DEFAULT NULL;
+alter table sysipusermapping add column internalip varchar(255) DEFAULT NULL;
