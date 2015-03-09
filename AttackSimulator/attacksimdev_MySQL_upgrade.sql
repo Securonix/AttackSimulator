@@ -15,3 +15,7 @@ ADD COLUMN `username` VARCHAR(255) NULL AFTER `account1`;
 
 update attacksimdev.sysipusermapping si, attacksimdev.usermaster um set si.workemail=um.workemail, si.lanid=um.lanid,si.account1=um.account1,si.username=um.userid
 where si.userid=um.id;
+
+alter table sysipusermapping add column desktophostname varchar(255) DEFAULT NULL;
+alter table sysipusermapping add column desktopipaddress varchar(255) DEFAULT NULL;
+alter table sysipusermapping add coulmn internalip varchar(255) DEFAULT NULL;
