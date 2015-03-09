@@ -85,9 +85,9 @@ public class TableValueGenerator extends ValueGeneratorType{
                 if (counter++ > 0)
                 query += param;
             }
-            query += " and id=" + list.get(randomIndex);
+            query += " and id=" + list.get(randomValueGenerate(idMap.size()));
         }else{
-            query += " where id=" + list.get(randomIndex);
+            query += " where id=" + list.get(randomValueGenerate(idMap.size()));
         }
 
         query += ";";
