@@ -105,9 +105,9 @@ public final class TemplatingSystem {
                 //lines that have a # in the beginning need to not be read as transactions.
                 //lines that are empty need to be discarded.
                 lineRead = lineRead.trim();
-                if (lineRead.contains("#")) {
+                if (lineRead.contains("####")) {
                     //this isa line that has to either completely be ignored or ignore part of it.
-                    int hashIndex = lineRead.indexOf("#");
+                    int hashIndex = lineRead.indexOf("####");
                     if (hashIndex == 0) {
                         continue; //ignoring the entire line.
                     } else if (hashIndex > 0) {
@@ -120,10 +120,13 @@ public final class TemplatingSystem {
                 }
 
                 String[] splitLine = lineRead.split("<<");
-
+                
                 transactions.add(splitLine[0].trim());
+//                try{
                 transactionWeights.add(Integer.parseInt(splitLine[1].trim()));
-
+//                }catch(ArrayIndexOutOfBoundsException ex){
+//                	System.out.println("The offending line: " + lineRead);
+//                }
                 //find all the values in the {{ .* }} 
                 String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
                 Pattern pat = Pattern.compile(pattern);
