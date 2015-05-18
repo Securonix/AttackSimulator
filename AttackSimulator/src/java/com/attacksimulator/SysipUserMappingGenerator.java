@@ -21,6 +21,7 @@ public class SysipUserMappingGenerator extends ValueGeneratorType{
     private String query;
     private MySQLDBClass mydb;
     private String secuserid;
+    private ArrayList<String> list;
     /*
     * Key for the params for Table Value Generator:
     * 1. Table Name
@@ -40,6 +41,8 @@ public class SysipUserMappingGenerator extends ValueGeneratorType{
         for(String p : params) {
             System.out.println(p);
         }
+        
+        list = null;
     }
 
     @Override
@@ -72,7 +75,10 @@ public class SysipUserMappingGenerator extends ValueGeneratorType{
         }
    
         System.out.println("CountQuery- " + countQuery);
-        ArrayList<String> list = mydb.executeCountQuery(countQuery);
+        if(list == null){
+            list = new ArrayList<String>();
+            list = mydb.executeCountQuery(countQuery);
+        }
         
         int randomIndex = randomValueGenerate(list.size());
         System.out.println("RandomIndex=" + randomIndex);

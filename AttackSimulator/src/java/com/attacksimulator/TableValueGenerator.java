@@ -21,6 +21,7 @@ public class TableValueGenerator extends ValueGeneratorType{
     private String query;
     private MySQLDBClass mydb;
     private Random random;
+    private ArrayList<String> list;
     /*
     * Key for the params for Table Value Generator:
     * 1. Table Name
@@ -36,6 +37,7 @@ public class TableValueGenerator extends ValueGeneratorType{
         }
         mydb = new MySQLDBClass();
         random = new Random();
+        list = null;
     }
 
     @Override
@@ -66,7 +68,10 @@ public class TableValueGenerator extends ValueGeneratorType{
         countQuery += ";";
 
         System.out.println("CountQuery- " + countQuery);
-        ArrayList<String> list = mydb.executeCountQuery(countQuery);
+        if(list == null){
+            list = new ArrayList<>();
+            list =mydb.executeCountQuery(countQuery);
+        }
         
         if(params.size() > 1){
             query +=" where ";

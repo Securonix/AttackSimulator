@@ -25,7 +25,7 @@ class EnvironmentController {
                 }
             }
             Collections.sort(countries);
-            def sysipusers = Sysipusermapping.findAllBySecuserid(springSecurityService.currentUser.id, [max: 10, sort: "title", order: "desc", offset: 0]);
+            def sysipusers = Sysipusermapping.findAllBySecuserid(springSecurityService.currentUser.id, [max: 10, offset: 0]);
             //System.out.println("Class type of sysipuser: "+sysipusers.getClass());
             
             ArrayList<Usermaster> users = new ArrayList<>();
