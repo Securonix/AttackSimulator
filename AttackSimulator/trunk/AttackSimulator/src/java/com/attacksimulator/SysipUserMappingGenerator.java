@@ -9,9 +9,8 @@ package com.attacksimulator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 import javax.naming.OperationNotSupportedException;
-import java.util.List;
-import java.util.Map.Entry;
 
 /**
  *
@@ -37,7 +36,7 @@ public class SysipUserMappingGenerator extends ValueGeneratorType{
         }
         mydb = new MySQLDBClass();
         secuserid = params.get(params.size()-1);
-        System.out.println("DmzTableGenerator params : " );
+        System.out.println("SysipUserMappingGenerator params : " );
         for(String p : params) {
             System.out.println(p);
         }

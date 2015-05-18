@@ -84,6 +84,7 @@ public class SyslogSAPFeedGenerator extends FeedGeneratorInterface {
                         }
                         lines.add(lineA);
                     }
+                    reader.close();
                 }
             }
              SimpleDateFormat logdateFormat = new SimpleDateFormat("yyyyMMdd");
