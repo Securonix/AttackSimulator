@@ -5,8 +5,6 @@
  */
 package com.attacksimulator;
 
-import java.util.Date;
-
 /**
  *
  * @author securonix

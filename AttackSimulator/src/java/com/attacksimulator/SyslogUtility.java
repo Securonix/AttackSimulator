@@ -20,25 +20,27 @@ import org.productivity.java.syslog4j.impl.net.udp.UDPNetSyslogConfig;
  */
 
 public class SyslogUtility {
-	private static enum LEVEL{
+	private static enum LEVEL {
 		alert, critical, debug, emergency, error, info, notice, warn
 	}
-	
+
 	private final Map<LEVEL, Pattern> linePatterns = new EnumMap<>(LEVEL.class);
 	private final Map<LEVEL, String> facility = new EnumMap<>(LEVEL.class);
 	private SyslogConfigIF config;
 	private SyslogIF syslog;
-	
-	public SyslogUtility(String instancename, String destinationip, String destinationport){
-		config = new UDPNetSyslogConfig(destinationip, Integer.parseInt(destinationport));
-                          try{
-                                syslog = Syslog.createInstance(instancename, config);
-                          }catch(SyslogRuntimeException e){
-                              syslog = Syslog.getInstance(instancename);
-                          }
+
+	public SyslogUtility(String instancename, String destinationip,
+			String destinationport) {
+		config = new UDPNetSyslogConfig(destinationip,
+				Integer.parseInt(destinationport));
+		try {
+			syslog = Syslog.createInstance(instancename, config);
+		} catch (SyslogRuntimeException e) {
+			syslog = Syslog.getInstance(instancename);
+		}
 	}
-	
-	public void publishString(String str){
+
+	public void publishString(String str) {
 		syslog.info(str);
 	}
 }
