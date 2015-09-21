@@ -1,0 +1,8 @@
+# Use double pipe sign || to signify one transaction occurring after another transaction
+# Use variable name enclosed between {{ & }}
+# Use the double greater then sign << followed by a number to signify the number of occurrences for that line
+## Example: transaction A needs to occur 10 times more frequently then transaction B
+## transaction A << 10
+## transcation B << 1
+
+{{datetime}} {{usermaster.lanid}} sent email with subject {{dlpmetadata.emailsubject}} to recipient {{dlpmetadata.emailrecipient}}<< 10
