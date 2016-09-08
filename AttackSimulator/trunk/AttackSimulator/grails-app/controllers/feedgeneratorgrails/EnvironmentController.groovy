@@ -64,8 +64,10 @@ class EnvironmentController {
         
         //sysipusermapping
         def useripmapping = getUserIpMapping(internalrange, Integer.parseInt(numofusers), secuserid);
+        println "Size id" + useripmapping.size();
         for(Map.Entry<Integer, ArrayList<String>> userip : useripmapping.entrySet()){
             Integer userid = userip.getKey();
+            println "userid is " + userid;
             Usermaster um = Usermaster.findById(userid);
             ArrayList<String> ips = userip.getValue();
             String ipaddress = ips[0]+","+ips[1]+","+ips[2];
@@ -281,11 +283,17 @@ class EnvironmentController {
     }
     
     ArrayList<Integer> getListOfUsers(Integer numofusers ){
+        
+        
+        int numberOfUsers =  new  MySQLDBClass ().getMaxOfUsers();
+        if(numberOfUsers==-1){
+            return new ArrayList<Integer>();
+        }
         //This list of users have to be random.
         ArrayList<Integer> randomIndexs = new ArrayList<>();
         Random rand = new Random();
         //System.out.println("This function is being called so this will be printed for sure");
-        for(int i=1; i<677+1; i++){
+        for(int i=1; i<numberOfUsers+1; i++){
             randomIndexs.add(i);
         }
         

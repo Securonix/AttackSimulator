@@ -325,6 +325,22 @@ public class MySQLDBClass {
         return returnentity;
     }
 
+    public int getMaxOfUsers(){
+          createConnection();
+          createConnection();
+        try {
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery("select max(id) from users");
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return -1;
+    }
+    
     public ArrayList<String> getAllUsersForSecUser(int secuserid) {
         String query = "select userid, firstname, lastname from users where id in (select userid from sysipusermapping where secuserid=" + secuserid
                 + ");";
