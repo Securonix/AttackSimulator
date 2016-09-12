@@ -161,6 +161,10 @@ public final class TemplatingSystem {
                                     temp = new RandomValueGenerator(variable, params);
                                     vgtMap.put(variable, temp);
                                     break;
+                                case "randomstringgenerator":
+                                    temp = new RandomStringGenerator(variable, params);
+                                    vgtMap.put(variable, temp);
+                                    break;
                                 case "sequentialvaluegenerator":
                                     temp = new SequentialGenerator(variable, params);
                                     vgtMap.put(variable, temp);
@@ -184,6 +188,16 @@ public final class TemplatingSystem {
                                         params.add(userid.toString());
                                     }
                                     temp = new DmzTableGenerator(variable, params);
+                                    vgtMap.put(variable, temp);
+                                    break;
+                                case "randomexternalipgenerator":
+                                    if (params != null) {
+                                        params.add(userid.toString());
+                                    } else {
+                                        params = new ArrayList<>();
+                                        params.add(userid.toString());
+                                    }
+                                    temp = new RandomExternalIPGenerator(variable, params);
                                     vgtMap.put(variable, temp);
                                     break;
                                 case "sysipusermappinggenerator":

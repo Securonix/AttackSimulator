@@ -697,6 +697,79 @@ public class MySQLDBClass {
 
         return temp;
     }
+    
+    ResultSet executeQueryReturnResultSet(String query) {
+        
+        ResultSet temp = null;
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            System.out.println("The query is: " + query);
+            temp = statement.executeQuery(query);
+            
+
+        } catch (SQLException ex) {
+            System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
+
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return temp;
+    }
+    
+    
+    String executeQueryReturnString(String query) {
+        String temp = null;
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            System.out.println("The query is: " + query);
+            resultSet = statement.executeQuery(query);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+
+            if (!resultSet.isBeforeFirst()) {
+                //no data
+            } else {
+                resultSet.next();
+                int colNum = rsmd.getColumnCount();
+                for (int i = 0; i < colNum; i++) {
+                    temp = resultSet.getString(i + 1);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
+
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return temp;
+    }
 
     ArrayList<String> executeCountQuery(String query) {
         ArrayList<String> temp = null;
