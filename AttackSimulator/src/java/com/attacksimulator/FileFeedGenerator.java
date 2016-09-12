@@ -44,6 +44,15 @@ public class FileFeedGenerator {
         "Sep", "Oct", "Nov", "Dec"};
 
     public void generateFeed(String feedtype, int userid, String outputPrefix, String freq, Timestamp startdate, Timestamp enddate, String dateformat) {
+        
+//        System.out.println("String feedtype ="+ feedtype+";");
+//        System.out.println("int userid ="+ userid+";");
+//        System.out.println("String outputPrefix "+ outputPrefix+";");
+//        System.out.println("freq "+ freq+";");
+//        System.out.println("long startdate milli "+ startdate.getTime()+";");
+//        System.out.println("long enddate milli "+ enddate.getTime()+";");
+//        System.out.println("String dateformat "+ dateformat+";");
+        
         String filepath = "conf/Feedgenerator.properties";//args[1]
         // TODO code application logic here
         tmp = new TemplatingSystem(feedtype, userid);
@@ -129,7 +138,11 @@ public class FileFeedGenerator {
                         FileWriter fstream = new FileWriter(output, true);
                         BufferedWriter out = new BufferedWriter(fstream);
 
+                        HashMap<String , HashMap<String, String>> varResultBuffer;
                         for (int i = 0; i <= ran; i++) {
+                            
+//                            System.out.println("------ START ------");
+//                            Calendar cal = Calendar.getInstance();
 //                            String userName = users.get(generator2.nextInt(users.size()));
 //                            String IPAddress = usersIps.get(userName).get(generator2.nextInt(usersIps.get(userName).size()));
                             String timeString = hour + ":" + generator2.nextInt(60) + ":" + generator2.nextInt(60);
@@ -139,6 +152,7 @@ public class FileFeedGenerator {
 //                            for (String tran : trans) {
 //                                out.write("" + userName + "|" + tran + "|" + IPAddress + "|" + dateString + "|" + timeString + "\n");
 //                            }
+                            varResultBuffer = new HashMap<String , HashMap<String, String>>();
                             int index = tmp.getRandomizedIndex();
                             String currentTransaction = tmp.getTransactions().get(index);
                             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
@@ -150,12 +164,17 @@ public class FileFeedGenerator {
                                     var = var.split("\\.")[0];
                                     HashMap<String, String> res = null;
                                     try {
-                                        res = tmp.getVgetMap().get(var).getValue();
+                                        if(varResultBuffer.containsKey(var))
+                                            res = varResultBuffer.get(var);
+                                        else {
+                                            res = tmp.getVgetMap().get(var).getValue();
+                                            varResultBuffer.put(var, res);
+                                        }
                                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                                         Pattern pattemp = Pattern.compile(pattempstr);
                                         Matcher matchertemp = pattemp.matcher(currentTransaction);
                                         while (matchertemp.find()) {
-                                            System.out.println("Matchertemp.group(): " + matchertemp.group() + " matchertemp.group(1): " + matchertemp.group(1));
+//                                            System.out.println("Matchertemp.group(): " + matchertemp.group() + " matchertemp.group(1): " + matchertemp.group(1));
                                             currentTransaction = currentTransaction.replace(matchertemp.group(), res.get(matchertemp.group(1)));
                                         }
                                     } catch (OperationNotSupportedException ex) {
@@ -163,25 +182,37 @@ public class FileFeedGenerator {
                                     }
                                 } else {
                                     try {
+                                        HashMap<String, String> res = null;
                                         if (matcher.group(1).contains("datetime")) {
                                             String currentdate = dateString + " " + timeString;
                                             String wanteddate = convertToAnotherFormat(currentdate, dateformat);
                                             currentTransaction = currentTransaction.replace(matcher.group(), wanteddate);
                                         } else {
-                                            currentTransaction = currentTransaction.replace(matcher.group(), tmp.getVgetMap().get(matcher.group(1)).getValue().get(matcher.group(1)));
+                                            if(varResultBuffer.containsKey(var))
+                                                res = varResultBuffer.get(var);
+                                            else {
+                                                res = tmp.getVgetMap().get(matcher.group(1)).getValue();
+                                                varResultBuffer.put(var, res);
+                                            }
+                                            currentTransaction = currentTransaction.replace(matcher.group(), res.get(matcher.group(1)));
+                                            
+//                                            currentTransaction = currentTransaction.replace(matcher.group(), tmp.getVgetMap().get(matcher.group(1)).getValue().get(matcher.group(1)));
                                         }
                                     } catch (OperationNotSupportedException ex) {
                                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 }
                             }
-
+                                
                             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
                             String[] splitTransactions = currentTransaction.split("\\|\\|");
                             for (String transaction : splitTransactions) {
-                                System.out.println(transaction.trim());
+//                                System.out.println(transaction.trim());
                                 out.write(transaction.trim() + "\n");
                             }
+//                            
+//                            Calendar cal2 = Calendar.getInstance();
+//                            System.out.println("----- DONE ------- "+ (cal2.getTimeInMillis() - cal.getTimeInMillis()) +" millisec");
                         }
                         out.close();
                     }
@@ -203,10 +234,11 @@ public class FileFeedGenerator {
 
                         FileWriter fstream = new FileWriter(output, true);
                         BufferedWriter out = new BufferedWriter(fstream);
-
+                        HashMap<String , HashMap<String, String>> varResultBuffer;
                         for (int i = 0; i <= ran; i++) {
                             String timeString = hour + ":" + generator2.nextInt(60) + ":" + generator2.nextInt(60);
                             int index = tmp.getRandomizedIndex();
+                            varResultBuffer = new HashMap<String , HashMap<String, String>>();
                             String currentTransaction = tmp.getTransactions().get(index);
                             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
                             Pattern pat = Pattern.compile(pattern);
@@ -217,10 +249,15 @@ public class FileFeedGenerator {
                                     var = var.split("\\.")[0];
                                     HashMap<String, String> res = null;
                                     try {
-                                        System.out.println("tmp="+tmp);
-                                        System.out.println("map=" + tmp.getVgetMap());
-                                        System.out.println(var + "=" + tmp.getVgetMap().get(var));
-                                        res = tmp.getVgetMap().get(var).getValue();
+//                                        System.out.println("tmp="+tmp);
+//                                        System.out.println("map=" + tmp.getVgetMap());
+//                                        System.out.println(var + "=" + tmp.getVgetMap().get(var));
+                                        if(varResultBuffer.containsKey(var))
+                                            res = varResultBuffer.get(var);
+                                        else {
+                                            res = tmp.getVgetMap().get(var).getValue();
+                                            varResultBuffer.put(var, res);
+                                        }
                                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                                         Pattern pattemp = Pattern.compile(pattempstr);
                                         Matcher matchertemp = pattemp.matcher(currentTransaction);
@@ -232,12 +269,22 @@ public class FileFeedGenerator {
                                     }
                                 } else {
                                     try {
+                                        HashMap<String, String> res = null;
                                         if (matcher.group(1).contains("datetime")) {
                                             String currentdate = dateString + " " + timeString;
                                             String wanteddate = convertToAnotherFormat(currentdate, dateformat);
                                             currentTransaction = currentTransaction.replace(matcher.group(), wanteddate);
                                         } else {
-                                            currentTransaction = currentTransaction.replace(matcher.group(), tmp.getVgetMap().get(matcher.group(1)).getValue().get(matcher.group(1)));
+                                            
+                                            if(varResultBuffer.containsKey(var))
+                                                res = varResultBuffer.get(var);
+                                            else {
+                                                res = tmp.getVgetMap().get(matcher.group(1)).getValue();
+                                                varResultBuffer.put(var, res);
+                                            }
+                                            currentTransaction = currentTransaction.replace(matcher.group(), res.get(matcher.group(1)));
+                                            
+//                                            currentTransaction = currentTransaction.replace(matcher.group(), tmp.getVgetMap().get(matcher.group(1)).getValue().get(matcher.group(1)));
                                         }
                                     } catch (OperationNotSupportedException ex) {
                                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,7 +295,7 @@ public class FileFeedGenerator {
                             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
                             String[] splitTransactions = currentTransaction.split("\\|\\|");
                             for (String transaction : splitTransactions) {
-                                System.out.println(transaction.trim());
+//                                System.out.println(transaction.trim());
                                 out.write(transaction.trim() + "\n");
                             }
                         }
@@ -271,10 +318,11 @@ public class FileFeedGenerator {
 
                         FileWriter fstream = new FileWriter(output, true);
                         BufferedWriter out = new BufferedWriter(fstream);
-
+                        HashMap<String , HashMap<String, String>> varResultBuffer;
                         for (int i = 0; i <= ran; i++) {
                             String timeString = hour + ":" + generator2.nextInt(60) + ":" + generator2.nextInt(60);
                             int index = tmp.getRandomizedIndex();
+                            varResultBuffer = new HashMap<String , HashMap<String, String>>();
                             String currentTransaction = tmp.getTransactions().get(index);
                             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
                             Pattern pat = Pattern.compile(pattern);
@@ -285,7 +333,12 @@ public class FileFeedGenerator {
                                     var = var.split("\\.")[0];
                                     HashMap<String, String> res = null;
                                     try {
-                                        res = tmp.getVgetMap().get(var).getValue();
+                                        if(varResultBuffer.containsKey(var))
+                                            res = varResultBuffer.get(var);
+                                        else {
+                                            res = tmp.getVgetMap().get(var).getValue();
+                                            varResultBuffer.put(var, res);
+                                        }
                                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                                         Pattern pattemp = Pattern.compile(pattempstr);
                                         Matcher matchertemp = pattemp.matcher(currentTransaction);
@@ -297,12 +350,19 @@ public class FileFeedGenerator {
                                     }
                                 } else {
                                     try {
+                                        HashMap<String, String> res = null;
                                         if (matcher.group(1).contains("datetime")) {
                                             String currentdate = dateString + " " + timeString;
                                             String wanteddate = convertToAnotherFormat(currentdate, dateformat);
                                             currentTransaction = currentTransaction.replace(matcher.group(), wanteddate);
                                         } else {
-                                            currentTransaction = currentTransaction.replace(matcher.group(), tmp.getVgetMap().get(matcher.group(1)).getValue().get(matcher.group(1)));
+                                            if(varResultBuffer.containsKey(var))
+                                                res = varResultBuffer.get(var);
+                                            else {
+                                                res = tmp.getVgetMap().get(matcher.group(1)).getValue();
+                                                varResultBuffer.put(var, res);
+                                            }
+                                            currentTransaction = currentTransaction.replace(matcher.group(), res.get(matcher.group(1)));
                                         }
                                     } catch (OperationNotSupportedException ex) {
                                         Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,7 +373,7 @@ public class FileFeedGenerator {
                             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
                             String[] splitTransactions = currentTransaction.split("\\|\\|");
                             for (String transaction : splitTransactions) {
-                                System.out.println(transaction.trim());
+//                                System.out.println(transaction.trim());
                                 out.write(transaction.trim() + "\n");
                             }
                         }
@@ -350,4 +410,4 @@ public class FileFeedGenerator {
         }
         return formattedDate;
     }
-}
+    }
