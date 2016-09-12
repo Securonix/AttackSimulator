@@ -26,10 +26,6 @@ public class RandomExternalIPGenerator extends ValueGeneratorType {
 
     /*
     * Key for the params for Table Value Generator:
-    * 1. Table Name
-    * 2. Column Name
-    * 3. This is the first where clause , ResultSet only for a particular value (Select columnName from TableName where "userid=value")
-    * 4. Onwards this will be anded and will all be part of the where clause;
      */
     public RandomExternalIPGenerator(String variableName, ArrayList<String> params) {
         super(variableName, params);
@@ -50,8 +46,8 @@ public class RandomExternalIPGenerator extends ValueGeneratorType {
     public HashMap<String, String> getValue() throws OperationNotSupportedException {
         /*
         * Depending on the number of parameters that are there in the arraylist we will interpret what needs to be done with the query.
-        * 1. Table Name
-        * 2. Where conditions.From 2 onwards whatever we have is just part of the where condition of the table query.
+        * 1. when 1 param present, it considers it to be securserid
+        * 2. When 2 parameters, the first parameter is country (matches to select country from ipcountry), 2nd param is secuserid
          */
         String country = null;
         HashMap<String, String> temp = new HashMap<>();
