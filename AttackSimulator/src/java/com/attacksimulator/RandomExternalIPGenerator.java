@@ -34,7 +34,7 @@ public class RandomExternalIPGenerator extends ValueGeneratorType {
         }
         mydb = new MySQLDBClass();
         secuserid = params.get(params.size() - 1);
-        System.out.println("SysipGeoUserMappingGenerator params : ");
+        System.out.println("RandomExternalIPGenerator params : ");
         for (String p : params) {
             System.out.println(p);
         }
