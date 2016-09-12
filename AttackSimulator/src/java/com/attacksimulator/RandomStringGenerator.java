@@ -38,7 +38,7 @@ public class RandomStringGenerator extends ValueGeneratorType {
             temp.put(variableName, RandomStringUtils.randomAlphanumeric(10));
             return temp;
         } else if(params.size() == 1){
-            temp.put(variableName, RandomStringUtils.randomAlphanumeric(Integer.parseInt(params.get(1))));
+            temp.put(variableName, RandomStringUtils.randomAlphanumeric(Integer.parseInt(params.get(0))));
             return temp;
         } else{
             throw new UnsupportedOperationException("We support only two parameters for this variable.");
