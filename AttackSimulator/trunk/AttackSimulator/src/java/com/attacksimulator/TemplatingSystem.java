@@ -38,6 +38,7 @@ public final class TemplatingSystem {
     private FileWriterUtility fileWriterUtility;
 
     public TemplatingSystem() {
+        System.out.println("Hello 1");
         transactionFile = "";
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
@@ -49,6 +50,7 @@ public final class TemplatingSystem {
     }
 
     public TemplatingSystem(String feedtype, Integer userid) {
+        System.out.println("Hello 2");
         transactionFile = getTransactionFile(feedtype);
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
@@ -64,6 +66,7 @@ public final class TemplatingSystem {
      *   Use this constructor for attacks
      */
     public TemplatingSystem(String transactionfile, String attackerid, String secuserid) {
+        System.out.println("Hello 3");
         transactionFile = transactionfile;
         transactions = new ArrayList<>();
         vgtMap = new HashMap<>();
@@ -85,8 +88,9 @@ public final class TemplatingSystem {
         return null;
     }
 
-    public void bufferAllTransactionLines(Integer userid) {
+    private void bufferAllTransactionLines(Integer userid) {
         //This function buffers the transaction lines and builds the array that will be used to generate the feed with weights.
+        System.out.println("===== Enter bufferAllTransactionLines =====");
         BufferedReader br = null;
         try {
             if (transactionFile.isEmpty()) {
@@ -120,7 +124,7 @@ public final class TemplatingSystem {
                 }
 
                 String[] splitLine = lineRead.split("<<");
-                
+
                 transactions.add(splitLine[0].trim());
 //                try{
                 transactionWeights.add(Integer.parseInt(splitLine[1].trim()));
@@ -140,7 +144,7 @@ public final class TemplatingSystem {
                         variable = variable.split("\\.")[0];
                     }
 
-                    System.out.println("For variable "+ variable);
+                    System.out.println("For variable " + variable);
                     if (vgtMap != null && !vgtMap.containsKey(variable)) {
                         //get the row from the templatemaster table;
                         try {
@@ -178,7 +182,7 @@ public final class TemplatingSystem {
                                     }
                                     temp = new UsermasterTableGenerator(variable, params);
                                     vgtMap.put(variable, temp);
-                                    System.out.println("\tAdding "+ params);
+                                    System.out.println("\tAdding " + params);
                                     break;
                                 case "dmztablegenerator":
                                     if (params != null) {
@@ -218,7 +222,7 @@ public final class TemplatingSystem {
                 }
             }
 
-            System.out.println("vgtMap size "+ vgtMap.size());
+            System.out.println("vgtMap size " + vgtMap.size());
             //first sum up all the weights that we got from the transaction file.
             int sumOfWeights = 0;
             for (Integer weight : transactionWeights) {
@@ -261,11 +265,13 @@ public final class TemplatingSystem {
                 }
             }
         }
+
+        System.out.println("===== Exit bufferAllTransactionLines =====");
     }
 
     public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid, String factorString) {
         syslogUtility = new SyslogUtility(feedtype + orderid, destinationip, destionationport);
-
+        HashMap<String , HashMap<String, String>> varResultBuffer;
         while (running) {
             /*
              * Here we have to put in the intelligence to first look at the configuration of the feed and then generate only the feeds
@@ -275,6 +281,7 @@ public final class TemplatingSystem {
             //int index = random.nextInt(transactions.size());
 
             int index = getRandomizedIndex();
+            varResultBuffer = new HashMap<String , HashMap<String, String>>();
             String currentTransaction = transactions.get(index);
             Long currentFrequency = getCurrentFrequencyTest(frequency);
             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
@@ -284,13 +291,18 @@ public final class TemplatingSystem {
                 String var = matcher.group(1);
                 if (var.contains(".")) {
                     var = var.split("\\.")[0];
-                    System.out.println("vgtMap size "+ vgtMap.size());
-                    System.out.println("var "+ var);
-                    System.out.println("Contains? "+ vgtMap.containsKey(var));
-                    
+                    System.out.println("vgtMap size " + vgtMap.size());
+                    System.out.println("var " + var);
+                    System.out.println("Contains? " + vgtMap.containsKey(var));
+
                     HashMap<String, String> res = null;
                     try {
-                        res = vgtMap.get(var).getValue();
+                        if (varResultBuffer.containsKey(var)) {
+                            res = varResultBuffer.get(var);
+                        } else {
+                            res = vgtMap.get(var).getValue();
+                            varResultBuffer.put(var, res);
+                        }
                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                         Pattern pattemp = Pattern.compile(pattempstr);
                         Matcher matchertemp = pattemp.matcher(currentTransaction);
@@ -341,8 +353,10 @@ public final class TemplatingSystem {
 
     public void generateAttack(String feedtype, String attackid, String destinationip, String destinationport, String frequency) {
         syslogUtility = new SyslogUtility(feedtype + attackid, destinationip, destinationport);
+        HashMap<String , HashMap<String, String>> varResultBuffer;
         while (running) {
             int index = getRandomizedIndex();
+            varResultBuffer = new HashMap<String , HashMap<String, String>>();
             String currentTransaction = transactions.get(index);
             Long currentFrequency = Long.parseLong(frequency);
             String pattern = "\\{\\{([\\w\\.]+)\\}\\}";
@@ -354,7 +368,12 @@ public final class TemplatingSystem {
                     var = var.split("\\.")[0];
                     HashMap<String, String> res = null;
                     try {
-                        res = vgtMap.get(var).getValue();
+                        if (varResultBuffer.containsKey(var)) {
+                            res = varResultBuffer.get(var);
+                        } else {
+                            res = vgtMap.get(var).getValue();
+                            varResultBuffer.put(var, res);
+                        }
                         String pattempstr = "\\{\\{(" + var + "\\.\\w+)\\}\\}";
                         Pattern pattemp = Pattern.compile(pattempstr);
                         Matcher matchertemp = pattemp.matcher(currentTransaction);
@@ -456,12 +475,12 @@ public final class TemplatingSystem {
         int index = rand.nextInt(1000);
         return weightedTransactionIds.get(index);
     }
-    
-    public ArrayList<String> getTransactions(){
+
+    public ArrayList<String> getTransactions() {
         return transactions;
     }
-    
-    public  HashMap<String,ValueGeneratorType> getVgetMap(){
+
+    public HashMap<String, ValueGeneratorType> getVgetMap() {
         return vgtMap;
     }
 }

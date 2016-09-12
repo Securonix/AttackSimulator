@@ -658,7 +658,6 @@ public class MySQLDBClass {
         try {
             createConnection();
             statement = myconnection.createStatement();
-            System.out.println("The query is: " + query);
             resultSet = statement.executeQuery(query);
             ResultSetMetaData rsmd = resultSet.getMetaData();
 
@@ -704,7 +703,6 @@ public class MySQLDBClass {
         try {
             createConnection();
             statement = myconnection.createStatement();
-            System.out.println("The query is: " + query);
             temp = statement.executeQuery(query);
             
 
@@ -736,7 +734,6 @@ public class MySQLDBClass {
         try {
             createConnection();
             statement = myconnection.createStatement();
-            System.out.println("The query is: " + query);
             resultSet = statement.executeQuery(query);
             ResultSetMetaData rsmd = resultSet.getMetaData();
 
@@ -776,7 +773,6 @@ public class MySQLDBClass {
         try {
             createConnection();
             statement = myconnection.createStatement();
-            System.out.println("The query is: " + query);
             resultSet = statement.executeQuery(query);
             if (!resultSet.isBeforeFirst()) {
                 //no data
