@@ -62,7 +62,7 @@ public class MySQLDBClass {
     private void createConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            // System.out.println(dbUrl);
+             System.out.println(dbUrl);
             myconnection = DriverManager.getConnection(dbUrl);
         } catch (SQLException ex) {
             Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -672,7 +672,7 @@ public class MySQLDBClass {
                     if (resultSet.wasNull()) {
                         temp.put(variableName + "." + rsmd.getColumnName(i + 1), "");
                     }
-                    //System.out.println("Column Value: " + rsmd.getColumnName(i+1) + "Value: " + resultSet.getString(i+1) );
+                    System.out.println("Column Value: " + rsmd.getColumnName(i+1) + "Value: " + resultSet.getString(i+1) );
                 }
             }
         } catch (SQLException ex) {
@@ -693,6 +693,88 @@ public class MySQLDBClass {
                 Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return temp;
+    }
+    
+    HashMap<Integer, HashMap<String, String>> executeQueryForCache(String query)
+    {
+	System.out.println("Inside executeQueryForCache");
+	HashMap<Integer, HashMap<String, String>> temp = null;
+	HashMap<String, String> allvalues = new HashMap<>();
+	try
+	{
+	    createConnection();
+	    statement = myconnection.createStatement();
+	    resultSet = statement.executeQuery(query);
+	    ResultSetMetaData rsmd = resultSet.getMetaData();
+	    String columnname = "";
+	    String columnvalue = "";
+	    temp = new HashMap<>();
+            int keyno=1;
+            int count=0;
+	    while (resultSet.next())
+	    {
+		allvalues = new HashMap<>();
+//		    resultSet.next();
+		int colNum = rsmd.getColumnCount();
+		int id = -1;
+		for (int i = 1; i <= colNum; i++)
+		{
+		    columnname = rsmd.getColumnName(i);
+		    columnvalue = resultSet.getString(i);
+//		    System.out.println(columnname + " - " + columnvalue);
+
+		    if (columnname.equals("id"))
+		    {
+			id = keyno++;
+		    }
+		    else if (!allvalues.containsKey(columnname))
+		    {
+//			System.out.println("Added to allvalues :" + columnname + " - " + columnvalue);
+			allvalues.put(columnname, columnvalue);
+		    }
+		}
+		if (id != -1)
+		{
+		    if (!temp.containsKey(id))
+		    {
+			System.out.println("Putting values in hash table for id : " + id + "-" + allvalues);
+                        count++;
+			temp.put(id , allvalues);
+			id = -1;
+		    }
+		}
+	    }
+            System.out.println("Populated hashtable with count : " + count);
+
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+	    ex.printStackTrace();
+	}
+	finally
+	{
+	    try
+	    {
+		if (resultSet != null && !resultSet.isClosed())
+		{
+		    resultSet.close();
+		}
+
+		if (statement != null && !statement.isClosed())
+		{
+		    statement.close();
+		}
+
+		closeConnection();
+	    }
+	    catch (SQLException ex)
+	    {
+		Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
 
         return temp;
     }
