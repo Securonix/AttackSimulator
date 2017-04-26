@@ -222,7 +222,7 @@ public final class TemplatingSystem {
                 }
             }
 
-            System.out.println("vgtMap size " + vgtMap.size());
+//            System.out.println("vgtMap size " + vgtMap.size());
             //first sum up all the weights that we got from the transaction file.
             int sumOfWeights = 0;
             for (Integer weight : transactionWeights) {
@@ -291,9 +291,9 @@ public final class TemplatingSystem {
                 String var = matcher.group(1);
                 if (var.contains(".")) {
                     var = var.split("\\.")[0];
-                    System.out.println("vgtMap size " + vgtMap.size());
-                    System.out.println("var " + var);
-                    System.out.println("Contains? " + vgtMap.containsKey(var));
+//                    System.out.println("vgtMap size " + vgtMap.size());
+//                    System.out.println("var " + var);
+//                    System.out.println("Contains? " + vgtMap.containsKey(var));
 
                     HashMap<String, String> res = null;
                     try {
@@ -331,7 +331,7 @@ public final class TemplatingSystem {
             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
             String[] splitTransactions = currentTransaction.split("\\|\\|");
             for (String transaction : splitTransactions) {
-                System.out.println(transaction.trim());
+//                System.out.println(transaction.trim());
                 syslogUtility.publishString(transaction.trim());
                 //fileWriterUtility.writeString(transaction.trim());
             }
@@ -395,7 +395,7 @@ public final class TemplatingSystem {
             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
             String[] splitTransactions = currentTransaction.split("\\|\\|");
             for (String transaction : splitTransactions) {
-                System.out.println(transaction.trim());
+//                System.out.println(transaction.trim());
                 syslogUtility.publishString(transaction.trim());
             }
 
