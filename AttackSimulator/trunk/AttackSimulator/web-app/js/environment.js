@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         var valid = true;
 
-        if (country === null || country[0] === null || numberofusers < 1 || numberofusers > 665) {
+        if (country === null || country[0] === null || numberofusers < 1 || numberofusers > 1000) {
             $("#errors").html("Values expected for number of users is within 665 and country selected should not contain null");
             valid = false;
         }
