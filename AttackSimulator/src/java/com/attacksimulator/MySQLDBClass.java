@@ -44,6 +44,9 @@ public class MySQLDBClass {
     private String dbPassword = null;
     private String dbUrl = null;
     private String dbPort = null;
+    private String dbserverName = null;
+    
+    
 
     MySQLDBClass() {
         String path = "jdbc.properties";
@@ -55,7 +58,7 @@ public class MySQLDBClass {
 
         setProperties(path);
 
-        dbUrl = "jdbc:mysql://localhost:" + dbPort + "/" + databaseName + "?user=" + dbUsername + "&password=" + dbPassword;
+        dbUrl = "jdbc:mysql://"+dbserverName+":" + dbPort + "/" + databaseName + "?user=" + dbUsername + "&password=" + dbPassword;
         // System.out.println(dbUrl);
     }
 
@@ -382,6 +385,12 @@ public class MySQLDBClass {
             dbPassword = props.getProperty("password");
             databaseName = props.getProperty("database");
             dbPort = props.getProperty("port");
+            
+            if(props.getProperty("servername")==null || props.getProperty("servername").isEmpty())
+                dbserverName = "localhost";
+            else
+                dbserverName = props.getProperty("servername");
+            
             /*
              dbUsername = "root";//props.getProperty("username");
              dbPassword = "open24X7";//props.getProperty("password");
