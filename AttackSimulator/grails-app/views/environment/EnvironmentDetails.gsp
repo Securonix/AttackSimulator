@@ -30,7 +30,7 @@
                                 <ol>
                                     <li>
                                         <label for=name>Number of Users</label>
-                                        <input id="name" name="name" type="number" placeholder="1-665" required autofocus>
+                                        <input id="name" name="name" type="number" placeholder="1-1000" required autofocus>
                                     </li>
                                 </ol>
                             </fieldset>
