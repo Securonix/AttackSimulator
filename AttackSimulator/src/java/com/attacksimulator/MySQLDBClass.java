@@ -30,6 +30,7 @@ import java.util.logging.Logger;
  * @author securonix
  */
 public class MySQLDBClass {
+
     /*
      * This class will handle all connections to the Database and querying.
      */
@@ -45,8 +46,6 @@ public class MySQLDBClass {
     private String dbUrl = null;
     private String dbPort = null;
     private String dbserverName = null;
-    
-    
 
     MySQLDBClass() {
         String path = "jdbc.properties";
@@ -58,14 +57,14 @@ public class MySQLDBClass {
 
         setProperties(path);
 
-        dbUrl = "jdbc:mysql://"+dbserverName+":" + dbPort + "/" + databaseName + "?user=" + dbUsername + "&password=" + dbPassword;
+        dbUrl = "jdbc:mysql://" + dbserverName + ":" + dbPort + "/" + databaseName + "?user=" + dbUsername + "&password=" + dbPassword;
         // System.out.println(dbUrl);
     }
 
     private void createConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-             System.out.println(dbUrl);
+            System.out.println(dbUrl);
             myconnection = DriverManager.getConnection(dbUrl);
         } catch (SQLException ex) {
             Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -328,9 +327,9 @@ public class MySQLDBClass {
         return returnentity;
     }
 
-    public int getMaxOfUsers(){
-          createConnection();
-          createConnection();
+    public int getMaxOfUsers() {
+        createConnection();
+        createConnection();
         try {
             statement = myconnection.createStatement();
             resultSet = statement.executeQuery("select max(id) from users");
@@ -343,7 +342,7 @@ public class MySQLDBClass {
         }
         return -1;
     }
-    
+
     public ArrayList<String> getAllUsersForSecUser(int secuserid) {
         String query = "select userid, firstname, lastname from users where id in (select userid from sysipusermapping where secuserid=" + secuserid
                 + ");";
@@ -385,12 +384,13 @@ public class MySQLDBClass {
             dbPassword = props.getProperty("password");
             databaseName = props.getProperty("database");
             dbPort = props.getProperty("port");
-            
-            if(props.getProperty("servername")==null || props.getProperty("servername").isEmpty())
+
+            if (props.getProperty("servername") == null || props.getProperty("servername").isEmpty()) {
                 dbserverName = "localhost";
-            else
+            } else {
                 dbserverName = props.getProperty("servername");
-            
+            }
+
             /*
              dbUsername = "root";//props.getProperty("username");
              dbPassword = "open24X7";//props.getProperty("password");
@@ -681,7 +681,7 @@ public class MySQLDBClass {
                     if (resultSet.wasNull()) {
                         temp.put(variableName + "." + rsmd.getColumnName(i + 1), "");
                     }
-                    System.out.println("Column Value: " + rsmd.getColumnName(i+1) + "Value: " + resultSet.getString(i+1) );
+                    System.out.println("Column Value: " + rsmd.getColumnName(i + 1) + "Value: " + resultSet.getString(i + 1));
                 }
             }
         } catch (SQLException ex) {
@@ -705,97 +705,78 @@ public class MySQLDBClass {
 
         return temp;
     }
-    
-    HashMap<Integer, HashMap<String, String>> executeQueryForCache(String query)
-    {
-	System.out.println("Inside executeQueryForCache");
-	HashMap<Integer, HashMap<String, String>> temp = null;
-	HashMap<String, String> allvalues = new HashMap<>();
-	try
-	{
-	    createConnection();
-	    statement = myconnection.createStatement();
-	    resultSet = statement.executeQuery(query);
-	    ResultSetMetaData rsmd = resultSet.getMetaData();
-	    String columnname = "";
-	    String columnvalue = "";
-	    temp = new HashMap<>();
-            int keyno=1;
-            int count=0;
-	    while (resultSet.next())
-	    {
-		allvalues = new HashMap<>();
+
+    HashMap<Integer, HashMap<String, String>> executeQueryForCache(String query) {
+        System.out.println("Inside executeQueryForCache");
+        HashMap<Integer, HashMap<String, String>> temp = null;
+        HashMap<String, String> allvalues = new HashMap<>();
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            String columnname = "";
+            String columnvalue = "";
+            temp = new HashMap<>();
+            int keyno = 1;
+            int count = 0;
+            while (resultSet.next()) {
+                allvalues = new HashMap<>();
 //		    resultSet.next();
-		int colNum = rsmd.getColumnCount();
-		int id = -1;
-		for (int i = 1; i <= colNum; i++)
-		{
-		    columnname = rsmd.getColumnName(i);
-		    columnvalue = resultSet.getString(i);
+                int colNum = rsmd.getColumnCount();
+                int id = -1;
+                for (int i = 1; i <= colNum; i++) {
+                    columnname = rsmd.getColumnName(i);
+                    columnvalue = resultSet.getString(i);
 //		    System.out.println(columnname + " - " + columnvalue);
 
-		    if (columnname.equals("id"))
-		    {
-			id = keyno++;
-		    }
-		    else if (!allvalues.containsKey(columnname))
-		    {
+                    if (columnname.equals("id")) {
+                        id = keyno++;
+                    } else if (!allvalues.containsKey(columnname)) {
 //			System.out.println("Added to allvalues :" + columnname + " - " + columnvalue);
-			allvalues.put(columnname, columnvalue);
-		    }
-		}
-		if (id != -1)
-		{
-		    if (!temp.containsKey(id))
-		    {
-			System.out.println("Putting values in hash table for id : " + id + "-" + allvalues);
+                        allvalues.put(columnname, columnvalue);
+                    }
+                }
+                if (id != -1) {
+                    if (!temp.containsKey(id)) {
+                        System.out.println("Putting values in hash table for id : " + id + "-" + allvalues);
                         count++;
-			temp.put(id , allvalues);
-			id = -1;
-		    }
-		}
-	    }
+                        temp.put(id, allvalues);
+                        id = -1;
+                    }
+                }
+            }
             System.out.println("Populated hashtable with count : " + count);
 
-	}
-	catch (SQLException ex)
-	{
-	    System.out.println("Exception occured in executeQuery function in MySQLDBClass");
-	    ex.printStackTrace();
-	}
-	finally
-	{
-	    try
-	    {
-		if (resultSet != null && !resultSet.isClosed())
-		{
-		    resultSet.close();
-		}
+        } catch (SQLException ex) {
+            System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
 
-		if (statement != null && !statement.isClosed())
-		{
-		    statement.close();
-		}
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
 
-		closeConnection();
-	    }
-	    catch (SQLException ex)
-	    {
-		Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	}
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         return temp;
     }
-    
+
     ResultSet executeQueryReturnResultSet(String query) {
-        
+
         ResultSet temp = null;
         try {
             createConnection();
             statement = myconnection.createStatement();
             temp = statement.executeQuery(query);
-            
 
         } catch (SQLException ex) {
             System.out.println("Exception occured in executeQuery function in MySQLDBClass");
@@ -818,8 +799,7 @@ public class MySQLDBClass {
 
         return temp;
     }
-    
-    
+
     String executeQueryReturnString(String query) {
         String temp = null;
         try {
@@ -874,6 +854,54 @@ public class MySQLDBClass {
                     if (resultSet.wasNull()) {
                         temp.add("");
                     }
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Exception occured in executeQuery function in MySQLDBClass");
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
+
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return temp;
+    }
+
+    ArrayList<String> executeCountQuery2(String query) {
+        ArrayList<String> temp = null;
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (!resultSet.isBeforeFirst()) {
+                //no data
+            } else {
+                temp = new ArrayList<>();
+                while (resultSet.next()) {
+
+                    String iprangebegin = null;
+                    String iprangeend = null;
+                    iprangebegin = resultSet.getString("iprangebegin");
+                    iprangeend = resultSet.getString("iprangeend");
+                    
+                    temp.add(iprangebegin);
+                    temp.add(iprangeend);
+
+//                    temp.add(resultSet.getString(1));
+//                    if (resultSet.wasNull()) {
+//                        temp.add("");
+//                    }
                 }
             }
         } catch (SQLException ex) {
