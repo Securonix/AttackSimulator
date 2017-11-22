@@ -5,8 +5,8 @@
  */
 package com.attacksimulator;
 
+import static groovy.sql.Sql.resultSet;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -146,31 +146,48 @@ public class RandomExternalIPGenerator extends ValueGeneratorType {
             } else {
                 query += " where id=" + list.get(randomIndex);
             }
-            query += " and country='" + secuserid + "';";
+//            query += " and country='" + secuserid + "';";
             
-            System.out.println("Query:" + query);
-            ResultSet resultSet = mydb.executeQueryReturnResultSet(query);
+//            System.out.println("Query:" + query);
+//            ResultSet resultSet = mydb.executeQueryReturnResultSet(query);
+//            
+//            
+//            String iprangebegin = null;
+//            String iprangeend = null;
+////
+//            try {
+//                    temp = new HashMap<>();
+//                    resultSet.next();
+//                    iprangebegin = resultSet.getString("iprangebegin");
+//                    iprangeend = resultSet.getString("iprangeend");
+//                    Long iprangebeginLong = ipToLong(iprangebegin);
+//                    Long iprangeendLong = ipToLong(iprangeend);
+//                    int randomIndex2 = randomValueGenerate(iprangeendLong.intValue()-iprangebeginLong.intValue());
+//                    iprangebeginLong = iprangebeginLong+randomIndex2;
+//                    String FinalIP = longToIp(iprangebeginLong);
+//                    System.out.println("Final Ip selected for country "+ country+ ": "+ FinalIP);
+//                    temp.put(variableName, FinalIP);
+//                
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+
+
+            ArrayList<String> iplist =  mydb.executeCountQuery2(query);
+            System.out.println("iplistrange "+ iplist);
+            String iprangebegin = iplist.get(0);
+            String iprangeend = iplist.get(1);;
+
+            Long iprangebeginLong = ipToLong(iprangebegin);
+            Long iprangeendLong = ipToLong(iprangeend);
+            int randomIndex2 = randomValueGenerate(iprangeendLong.intValue()-iprangebeginLong.intValue());
+            iprangebeginLong = iprangebeginLong+randomIndex2;
+            String FinalIP = longToIp(iprangebeginLong);
+            System.out.println("Final Ip selected for country "+ country+ ": "+ FinalIP);
+            temp.put(variableName, FinalIP);
             
             
-            String iprangebegin = null;
-            String iprangeend = null;
-//
-            try {
-                    temp = new HashMap<>();
-                    resultSet.next();
-                    iprangebegin = resultSet.getString("iprangebegin");
-                    iprangeend = resultSet.getString("iprangeend");
-                    Long iprangebeginLong = ipToLong(iprangebegin);
-                    Long iprangeendLong = ipToLong(iprangeend);
-                    int randomIndex2 = randomValueGenerate(iprangeendLong.intValue()-iprangebeginLong.intValue());
-                    iprangebeginLong = iprangebeginLong+randomIndex2;
-                    String FinalIP = longToIp(iprangebeginLong);
-                    System.out.println("Final Ip selected for country "+ country+ ": "+ FinalIP);
-                    temp.put(variableName, FinalIP);
-                
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            
         }
         
         return temp;
