@@ -271,7 +271,13 @@ public final class TemplatingSystem {
 
     public void generateFeed(Integer userid, String destinationip, String destionationport, String frequency, String feedtype, Integer orderid, String factorString) {
         syslogUtility = new SyslogUtility(feedtype + orderid, destinationip, destionationport);
-        HashMap<String , HashMap<String, String>> varResultBuffer;
+        HashMap<String, HashMap<String, String>> varResultBuffer;
+        String[] forwardDataTableinfo = {};
+        try {
+            forwardDataTableinfo = (new MySQLDBClass()).getTablenametoforwarddata(feedtype); //forward data to this table, assumption that it already exists
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TemplatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
         while (running) {
             /*
              * Here we have to put in the intelligence to first look at the configuration of the feed and then generate only the feeds
@@ -327,12 +333,18 @@ public final class TemplatingSystem {
                     }
                 }
             }
-
+            
             //before outputting this transaction we will have to split it by the double pipe symbol and output each one in a different line.
             String[] splitTransactions = currentTransaction.split("\\|\\|");
             for (String transaction : splitTransactions) {
 //                System.out.println(transaction.trim());
                 syslogUtility.publishString(transaction.trim());
+                if(forwardDataTableinfo != null && forwardDataTableinfo.length>0 ){
+                    String temp= "'"+transaction.replaceAll("\\|"," ' , ' ")+" '";
+                    
+                    (new MySQLDBClass()).saveForwardedData(forwardDataTableinfo,temp); //save to table 
+                    
+                }
                 //fileWriterUtility.writeString(transaction.trim());
             }
             //Find the current day of the week.
