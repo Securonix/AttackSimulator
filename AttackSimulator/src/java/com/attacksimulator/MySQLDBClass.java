@@ -34,7 +34,6 @@ public class MySQLDBClass {
     /*
      * This class will handle all connections to the Database and querying.
      */
-
     private Connection myconnection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
@@ -894,7 +893,7 @@ public class MySQLDBClass {
                     String iprangeend = null;
                     iprangebegin = resultSet.getString("iprangebegin");
                     iprangeend = resultSet.getString("iprangeend");
-                    
+
                     temp.add(iprangebegin);
                     temp.add(iprangeend);
 
@@ -1048,6 +1047,43 @@ public class MySQLDBClass {
         return filepath;
     }
 
+    String[] getTablenametoforwarddata(String feedtype) throws FileNotFoundException {
+        String[] results = new String[2];
+        try {
+            String query = "select sendtotable,tableheadercsv from feedmaster where feedtype=\"" + feedtype + "\";";
+            createConnection();
+            statement = myconnection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (!resultSet.isBeforeFirst()) {
+                //no transactionfilepath entry for this feedtype
+                throw new FileNotFoundException();
+            } else {
+                resultSet.next();
+                results[0] = resultSet.getString(1);
+                results[1] = resultSet.getString(2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (statement != null && !statement.isClosed()) {
+                    statement.close();
+                }
+
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return results;
+    }
+
     HashMap<String, Object> getTemplateMasterValues(String variable) {
         HashMap<String, Object> rs = new HashMap<>();
         try {
@@ -1198,5 +1234,49 @@ public class MySQLDBClass {
         }
 
         return listofusers;
+    }
+
+    /**
+     *
+     * @param forwardDataTableinfo[0] contains table name [1] contains table header
+     * @param transaction contains csv of all values to be added to table
+     * @return
+     */
+    public boolean saveForwardedData(String[] forwardDataTableinfo,String transaction) {
+        try {
+            createConnection();
+            statement = myconnection.createStatement();
+            String query = "insert into " + forwardDataTableinfo[0] + " ";
+            String keys = "("+forwardDataTableinfo[1]+")";
+            String values = " values ("+transaction+");";
+            query+=keys+values;
+            
+//            System.out.println("query : "+query);
+            statement.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (statement != null && !statement.isClosed()) {
+                    try {
+                        statement.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                if (resultSet != null && !resultSet.isClosed()) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLDBClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
 }
