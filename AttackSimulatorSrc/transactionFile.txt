@@ -1,5 +1,0 @@
-Firstname: {{usermaster.firstname}} ------- Lastname: {{usermaster.lastname}} ------- and Department: {{usermaster.department}}
-Securonix User: {{sec_user.username}} -------- Email: {{sec_user.workemail}} ------- Company: {{sec_user.company}} ------ checking datetime: {{datetime}}
-This is a sample line: {{usermaster.firstname}} ---shows multiple table use: {{usermaster.lastname}} ------final table: {{sysipusermapping.ipaddress}}
-This line tests Random Value generator: {{randomvalue}}
-This line tests sequenctial value generator: {{sequence}}
