@@ -14,13 +14,13 @@ Use AttackSimulator to generate event data and attack data for simulating real w
 ##### Windows Template
 ### Troubleshoot AttackSimulator
 ### Version
-L### icense
+### License
 
 
-Getting Started
+## Getting Started
 
-Version
+## Version
 BETA 1
 
-License
+## License
 This project is licensed under the Apache 2.0 License - see the LICENSE.md file for details
