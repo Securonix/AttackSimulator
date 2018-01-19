@@ -21,8 +21,9 @@ AttackSimulator generates datasets for use in the testing of security products. 
 ## Introduction to AttackSimulator
 Unlike other log simulators, the AttackSimulator simulates controlled scenarios, such as sequence of events involving the same actor/IP address. Use AttackSimulator to generate event data and attack data for simulating real world datasets. At Securonix, we use AttackSimulator to mimic real world datasets for testing our content.
 
-## Prerequisites 
-You need to have Tomcat and MySQL. 
+## Prerequisites
+Operating System: Tested on CentOS 7.x
+You need to have JRE 1.7, Tomcat 7.x and MySQL 5.6. 
 
 ## Installing the AttackSimulator
 To deploy AttackSimulator, create the database schema and delpoy the war file on Tomcat. 
