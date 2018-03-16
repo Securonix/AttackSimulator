@@ -25,12 +25,15 @@ Unlike other log simulators, the AttackSimulator simulates controlled scenarios,
 Operating System: Tested on CentOS 7.x
 You need to have JRE 1.7, Tomcat 7.x and MySQL 5.6. 
 
-## Installing the AttackSimulator
-To deploy AttackSimulator, create the database schema and delpoy the war file on Tomcat. 
+## Installing the AttackSimulator 
+
+1. Create the database schema and delpoy the war file on Tomcat. 
+
 2. Update database details in config.groovy file and then compile your project.
 
 3. Update database details in following file located in below paths:
- /WEB-INF/classes/com/attacksimulator/jdbc.properties
+ 
+/WEB-INF/classes/com/attacksimulator/jdbc.properties
 /WEB-INF/classes/jdbc.properties
 
 username=xxx
