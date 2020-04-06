@@ -45,6 +45,7 @@ port=3306
 /Tomcat/conf/Catalina/localhost
 
 Below entries to be copied in xml file:
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
