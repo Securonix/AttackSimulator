@@ -45,7 +45,7 @@ port=3306
 /Tomcat/conf/Catalina/localhost
 
 Below entries to be copied in xml file:
-
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -90,7 +90,7 @@ Below entries to be copied in xml file:
            password="<your database password>"
                         />
             </Context>
-
+```
 ## Simulating an Organizational IT Environment
 When generating data feeds, AttackSimulator uses templates to set up a fictitious organizational environment. Each template uses 
 variables that get substituted at runtime. You provide values for your organization's environment, such as the number of employees,
